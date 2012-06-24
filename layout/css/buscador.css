@@ -1,0 +1,20 @@
+.busquedaPager a{    
+    margin:0px 0px 0px 10px;    
+}
+.busquedaPager span{
+    margin:0px 0px 0px 10px;    
+    font-size: 18px;
+}
+
+.keywords a{
+    font-size: 12px;
+    padding-right: 5px;
+}
+.keywords a:hover{
+    font-size: 12px;
+}
+
+.precio{
+   color: rgba(219,95,33,1);
+   font-size: 20px;
+}

@@ -1,0 +1,104 @@
+
+a{
+    text-decoration: none;
+    color:rgb(237, 0, 0);
+}
+
+header {    
+}
+
+#main-container {    
+    overflow: hidden;
+}
+
+#video-container {
+    width: 60%;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+#video {
+    width: 100%;
+    
+}
+
+#video-container video {
+    display: block;
+    width: 100%;
+    float: left;
+}
+.error{
+    color: red;
+    float: right;
+    display: none;
+}
+.infodiv{
+    display:none;
+    width:60%;    
+    position:absolute;    
+    left:20%;
+    right:20%;
+    top:5%;
+    z-index: 250;
+    background: white;
+    -moz-border-radius:4px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding:10px;
+
+    margin:5px 0;
+    font-size:20px;
+}
+.top{
+    display: block;
+    position: absolute;
+    top: 5%;    
+}
+.middle{
+    display: block;
+    position: absolute;
+    top: 35%;
+
+}
+.bottom{
+    display: block;
+    position: absolute;
+    bottom: 12%;
+}
+.left{
+    left:0%;
+}
+.center{
+    right:45%;
+}
+.right{
+    right:5%;
+}
+.btnCerrar{
+    display:block;
+    float: right;
+}
+.bloque{
+    display: block;
+    float: left;
+    border:1px outset #ccc;    
+
+    padding:5px;
+    margin:5px 0;
+    font-size:14px;
+    background-color:rgba(255, 255, 255, 0.738281);
+    /* 
+    Esto le da los bordes redondeados
+    */
+    -moz-border-radius:4px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+    /* */
+
+    z-index: 250;
+}

@@ -1,0 +1,15 @@
+.tipoClase{
+    override:hidden;
+}
+.imagenTipoClase{
+    float:left;
+}
+.nombreTipoClase{
+    padding-left: 50px;
+    
+    font-size: 18px;
+}
+.descripcionTipoClase{    
+    padding: 10px;
+    padding-left: 65px;
+}

@@ -1,0 +1,15 @@
+#uploadForm{    
+    width: 600px;
+    min-height: 300px;
+    margin: 0 auto;
+    text-align: center;
+}
+#uploadZone{
+    width: 295px;
+    height: 200px;
+    color: #038081;
+    background-color: white;
+    border:solid;
+    border-style: dashed; 
+    border-color: #038081;
+}

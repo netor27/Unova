@@ -1,0 +1,79 @@
+/* 
+    Document   : UsuarioPerfil
+    Created on : 3/03/2012, 11:23:53 PM
+    Author     : Neto
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#perfil_header{
+    width: 100%;
+    overflow: hidden;
+    padding-bottom: 20px;
+}
+#perfil_header img{
+    width: 150px;
+    border: 3px solid #DDD;
+}
+
+
+#perfil_panel{
+    display: block;
+    background-color: #E9E9E9;
+    padding: 2px;
+    padding-left: 6px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #CCC;
+    border-top: 1px solid #CCC;
+}
+
+#perfil_footer{
+    overflow: hidden;
+    padding-bottom: 20px;
+    width: 100%;
+}
+
+#perfil_datos{
+    padding-left: 20px;
+}
+
+#perfil_header_links{
+    text-align: center;   
+}
+
+#perfil_header_links a{
+    margin-bottom: 10px;
+}
+
+#bio{           
+    width: 99%;  
+    left: 0.5%;    
+    background: white;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    border-radius: 5px;
+    display: block;
+    overflow: hidden;
+
+}
+#bioContent{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: auto;
+    width: 90%;
+    word-wrap: break-word;
+}
+
+#bio ul li{
+    list-style-position:outside;
+    list-style-type:disc;
+    list-style-image:initial;
+}
+
+#bio ol li{
+    list-style-position:outside;
+    list-style-type:decimal;
+    list-style-image:initial;
+}

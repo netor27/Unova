@@ -1,0 +1,11 @@
+
+.input-table th{
+    color: #666;
+    font-weight: bold;
+    padding: 12px 5px 5px;
+    text-align: right;
+    vertical-align: top;
+}
+.input-table td{
+    padding: 5px;
+}

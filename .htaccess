@@ -1,0 +1,38 @@
+AddType video/ogg .ogv 
+AddType audio/ogg .ogg 
+AddType video/mp4 .mp4 
+AddType video/webm .webm 
+
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} ^www\.unova\.mx$ [NC]
+RewriteRule ^(.*)$ http://unova.co/$1 [L,R=301]
+
+RewriteCond %{HTTP_HOST} ^www\.unova\.co$ [NC]
+RewriteRule ^(.*)$ http://unova.co/$1 [L,R=301]
+
+RewriteCond %{HTTP_HOST} ^unova\.mx$ [NC]
+RewriteRule ^(.*)$ http://unova.co/$1 [L,R=301]
+
+RewriteBase /
+
+RewriteRule ^curso/([a-zA-Z0-9_.]+)/([0-9]+)$ clases.php?a=tomarClase&curso=$1&clase=$2 [L]
+RewriteRule ^curso/([a-zA-Z0-9_.]+)/([0-9]+)/$ clases.php?a=tomarClase&curso=$1&clase=$2 [L]
+
+RewriteRule ^curso/([a-zA-Z0-9_.]+)$ cursos.php?a=detalles&i=$1 [L]
+RewriteRule ^curso/([a-zA-Z0-9_.]+)/$ cursos.php?a=detalles&i=$1 [L]
+
+RewriteRule ^usuario/([a-zA-Z0-9_]+)$ usuarios.php?a=detalles&i=$1 [L]
+RewriteRule ^usuario/([a-zA-Z0-9_]+)/$ usuarios.php?a=detalles&i=$1 [L]
+
+RewriteRule ^categoria/([a-zA-Z0-9]+)/([0-9]+)/$ categorias.php?a=detalles&i=$1&pagina=$2 [L]
+RewriteRule ^categoria/([a-zA-Z0-9]+)/$ categorias.php?a=detalles&i=$1 [L]
+
+RewriteRule ^categoria/([a-zA-Z0-9]+)/([0-9]+)$ categorias.php?a=detalles&i=$1&pagina=$2 [L]
+RewriteRule ^categoria/([a-zA-Z0-9]+)$ categorias.php?a=detalles&i=$1 [L]
+
+RewriteRule ^([a-zA-Z]+)/([a-zA-Z]+)/([a-zA-Z]+)/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)$ $1.php?c=$2&a=$3&i=$4&j=$5 [L]
+RewriteRule ^([a-zA-Z]+)/([a-zA-Z]+)/([a-zA-Z]+)/([a-zA-Z0-9]+)$ $1.php?c=$2&a=$3&i=$4 [L]
+RewriteRule ^([a-zA-Z]+)/([a-zA-Z]+)/([a-zA-Z]+)$ $1.php?c=$2&a=$3 [L]
+RewriteRule ^([a-zA-Z]+)/([a-zA-Z]+)$ $1.php?c=$2 [L]
+RewriteRule ^([a-zA-Z]+)$ $1.php [L]

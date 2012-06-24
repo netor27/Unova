@@ -1,0 +1,92 @@
+.cursosContainer{
+    background: #F7F7F7;
+    padding: 10px;
+    position: relative;
+    overflow: hidden;
+    
+}
+
+.cursosContainer ul {
+    display: block;
+    list-style-type: disc;
+    margin: 0px;
+    
+    padding: 0px;
+    border: 0px none;
+
+}
+.cursosContainer li {
+    background: white; 
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    position: relative;
+    border-radius: 5px;
+    display: block;
+    overflow: hidden;
+}
+
+.thumb{
+    float: left;    
+    height: 100px;
+    width: 100px;
+    border-radius: 5px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+}
+
+.detalles{
+    float: left;
+    line-height: 1.5;
+    margin: -1px 0px 0px 10px;
+    width: 550px;
+    font-size: 15px;
+}
+
+.detalles a{    
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom:  50px;
+}
+
+.detalles a:hover{    
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.detalles span{
+    padding: 5px;
+    margin: 5px;
+}
+
+.numDetalles{
+    float:right;
+    font-size: 36px;
+    font-weight: bold;
+    margin-top: 5px;
+    text-align: center;
+    width: auto;    
+    position: relative;
+    margin-right: 15px;
+    margin-top: 15px;
+
+}
+.numDetalles span{
+    display: block;
+    font-size: 16px;
+    font-weight: normal;
+}
+.numClases{
+    padding-right: 10px; 
+}
+.numAlumnos{
+    padding-right: 10px;
+}
+
+.autor a{
+    font-size: 15px;
+}
+.autor a:hover{
+    font-size: 15px;
+}

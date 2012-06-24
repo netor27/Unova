@@ -1,0 +1,90 @@
+#formDiv{
+    text-align: left;    
+    margin: 0 auto;
+}
+
+#customForm label{  
+    display: block;  
+    color: #30377a;  
+    font-weight: 700;  
+    line-height: 1.4em;  
+}  
+#customForm input{  
+    width: 220px;  
+    padding: 6px;  
+    color: black;  
+    font-family: Arial,  Verdana, Helvetica, sans-serif;  
+    font-size: 11px;  
+    border: 1px solid #cecece;  
+}  
+#customForm input.error{  
+    background-color:rgb(255, 255, 255);
+    color:rgb(255, 0, 0);
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(255, 0, 0);
+}  
+#customForm textarea{  
+    width: 550px;  
+    height: 80px;  
+    padding: 6px;  
+    color: black;  
+    font-family: Arial,  Verdana, Helvetica, sans-serif;  
+    font-style: italic;  
+    font-size: 12px;  
+    border: 1px solid #cecece;  
+}  
+#customForm textarea.error{  
+    background-color:rgb(255, 255, 255);
+    color:rgb(255, 0, 0);
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(255, 0, 0);
+}  
+.divInput{  
+    margin-bottom: 25px; 
+    margin-top: 25px;
+    width: 100%;
+}  
+#customForm div span{      
+    color:#974e24;
+    font-size:13px;
+    font-style: italic;  
+}  
+#customForm div span.error{  
+
+    background-color:rgb(250, 22, 22);
+    color:rgb(255, 255, 255);
+}  
+#customForm #send{  
+    background: #30377a;  
+    color: #fff;  
+    font-weight: 700;  
+    font-style: normal;  
+    border: 0;  
+    cursor: pointer;  
+    display: block;
+    margin: 0 auto;
+}  
+#customForm #send:hover{  
+    background: #30277d;  
+}  
+
+.infoLabel{
+    padding-left: 20px;
+}
+
+.styled-select {
+    width: 240px;
+    height: 34px;
+    overflow: hidden;
+    background: url(images/down_arrow_select.jpg) no-repeat right white;
+}
+.styled-select select {
+   background: transparent;
+   width: 268px;
+   padding: 5px;
+   font-size: 12px;
+   border: 1px solid #ccc;
+   height: 34px;
+}

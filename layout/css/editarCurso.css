@@ -1,0 +1,148 @@
+#cursoHeader{
+    overflow: hidden;
+}
+#cursoHeader_left{
+    padding: 30px 0px 0px 0px;
+}
+#cursoHeader_img{
+    padding:0px 30px 30px 0px;
+}
+#cursoHeader_info{
+
+}
+#cursoHeader_info_titulo h1{    
+    padding-top: 0px;
+
+}
+
+#cursoHeader_right{
+
+}
+
+#cursoTabs{
+    margin-top: 20px;
+    overflow: hidden;
+}
+.temaHeader{
+    float:left;
+    display:block;
+    /*width:608px;*/
+    width:100%;
+}
+.temaNombre{    
+    font-size: 1.2em;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.temaContainer{
+    overflow: hidden;
+}
+.connectedSortable { 
+    margin: 0px 0px 15px 0px; 
+    padding: 0px; 
+    float: left; 
+    margin-right: 10px; 
+    background: #eee; 
+    padding: 5px; 
+    width: 100%;
+}
+
+.connectedSortable li{ 
+    margin: 5px; 
+    padding: 5px; 
+    font-size: 1.2em; 
+    width: 96%; 
+}
+.connectedSortable li span { 
+    position: absolute;
+    margin-left: -1.3em; 
+}
+
+.temaNombreLinks {
+    padding:20px 0px 0px 0px;
+}
+.temaNombreLinks a{
+    padding:20px 20px 0px 0px;
+    font-size: 11px;
+}
+.temaNombreLinks a:hover{
+    text-decoration: underline;
+}
+
+.temaContainerMessage{
+    float: right;
+    width: 250px;      
+}
+
+.claseSortableContainer{
+    overflow: hidden;
+}
+
+.claseLinks{
+    padding:0px 15px 0px 0px;
+}
+
+.claseLinks a{
+    padding:0px 20px 0px 0px;
+    font-size: 11px;
+}
+.claseLinks a:hover{
+    text-decoration: underline;
+}
+
+#descripcion{           
+    width: 99%;  
+    left: 0.5%;    
+    background: white;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    border-radius: 5px;
+    display: block;
+    overflow: hidden;
+
+}
+#descripcionContent{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: auto;
+    width: 90%;
+    word-wrap: break-word;
+}
+
+#descripcion ul li{
+    list-style-position:outside;
+    list-style-type:disc;
+    list-style-image:initial;
+}
+
+#descripcion ol li{
+    list-style-position:outside;
+    list-style-type:decimal;
+    list-style-image:initial;
+}
+
+#agregarContenido{
+    font-size: 25px;
+    margin-top: 75px;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+.claseNombre{
+    padding:10px;
+}
+
+#preguntaForm{
+padding:0px 0px 0px 77px;
+}
+
+#preguntaForm textArea{
+    height: 30px;
+    width: 90%;
+}
