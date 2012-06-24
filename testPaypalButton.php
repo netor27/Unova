@@ -2,7 +2,7 @@
     <?php
     $form = array('cmd' => '_xclick',
         'business' => 'neto.r27@gmail.com',
-        'cert_id' => 'ELXHA9WDH3E28',
+        'cert_id' => '6Z8ETPUX39V7N',
         'lc' => 'MX',
         'custom' => 'test',
         'invoice' => '',
