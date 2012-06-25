@@ -42,7 +42,7 @@ require_once('layout/headers/headCierre.php');
                     </div>                
                     <?php
                     require_once('lib/php/recaptcha/recaptchalib.php');
-                    $publickey = "6LdUV9ESAAAAAMpavAD6sqfhg8MOk1LJ_pkJiYwq";
+                    $publickey = "6LdXP9MSAAAAAJPsmT5t8j3GNmwa1WoVbR_z7tvG";
                     if(isset($captchaError))
                         echo recaptcha_get_html($publickey,$captchaError);
                     else
