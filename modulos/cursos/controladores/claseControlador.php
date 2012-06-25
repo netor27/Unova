@@ -230,6 +230,16 @@ function guardarEdicionVideo() {
 }
 
 //Funciones para la funcionalidad de la caja
+
+function agregarTarjetas(){
+    $usuario = getUsuarioActual();
+    if ($usuario->tipoUsuario == 1) {
+        require_once 'modulos/cursos/vistas/agregarTarjetas.php';
+    }else{
+        goToIndex();
+    }
+}
+
 function agregarTarjetasSubmit() {
     //recibe un csv con el formato:
     // ladoA, ladoB, tiempo
@@ -244,14 +254,21 @@ function agregarTarjetasSubmit() {
             $archivoCsv = $_FILES["archivoCsv"]["tmp_name"];
             require_once 'modulos/cursos/modelos/CajaModelo.php';
             $res = agregarTarjetasDesdeCSV($idCaja, $archivoCsv);
-            if($res > 0){
+            if($res['resultado'] == 1){
                 //todo bien
+                echo 'Se insertaron ' . $res['insertados'] . ' filas.';
             }else{
                 //Ocurrió un error al importar las tarjetas
+                foreach($res['errores'] as $error){
+                    echo $error . '<br>';
+                }
             }
         } else {
             //No hay archivo
+            echo 'No hay archivo';
         }
+    }else{
+        goToIndex();
     }
 }
 
