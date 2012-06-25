@@ -240,7 +240,9 @@ function detalles() {
                         $tituloPagina = substr($curso->titulo, 0, 50);
                         require_once 'modulos/cursos/vistas/detallesCurso.php';
                     }
-                } else {
+                } if (tipoUsuario() == "administrador"){
+                    tomarCurso();
+                }else {
                     //si no ha sido publicado lo mandamos a index
                     setSessionMessage("<h4 class='error'>El curso que intentas ver no existe</h4>");
                     redirect("/");
