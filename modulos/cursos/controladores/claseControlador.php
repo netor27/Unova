@@ -125,7 +125,8 @@ function tomarClase() {
     if (clasePerteneceACurso($curso->idCurso, $idClase)) {
         //Validar que el usuario este suscrito al curso
         if (esUsuarioUnAlumnoDelCurso($usuario->idUsuario, $curso->idCurso) ||
-                $curso->idUsuario == $usuario->idUsuario) {
+                $curso->idUsuario == $usuario->idUsuario || 
+                tipoUsuario() == "administrador") {
             $clase = getClase($idClase);
             if ($curso->idUsuario != $usuario->idUsuario) {
                 //si no es el dueño, contar las views

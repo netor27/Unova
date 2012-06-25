@@ -206,20 +206,16 @@ function detalles() {
                 //redirect($url);
                 editarCurso();
             } else {
-                if ($curso->publicado == 0) {
-                    //si no ha sido publicado lo mandamos a index
-                    setSessionMessage("<h4 class='error'>El curso que intentas ver no existe</h4>");
-                    redirect("/");
-                } else {
-
+                if ($curso->publicado == 1) {
                     //revisamos que ya haya sido publicado
                     //si no es el dueño
                     require_once 'modulos/usuarios/modelos/UsuarioCursosModelo.php';
                     //Revisamos si el usuario ya esta tomando este curso          
 
-                    if (esUsuarioUnAlumnoDelCurso($usuario->idUsuario, $curso->idCurso)) {
+                    if (esUsuarioUnAlumnoDelCurso($usuario->idUsuario, $curso->idCurso) ||
+                            tipoUsuario() == "administrador") {
                         //Si ya es un alumno, mostramos la página donde toma las clases
-                        //echo 'aqui se mostrara la pagina donde tomaras las clases';
+                        // o si es un administrador
                         tomarCurso();
                     } else {
                         //Si no, mostramos la página donde se suscribe
@@ -244,6 +240,10 @@ function detalles() {
                         $tituloPagina = substr($curso->titulo, 0, 50);
                         require_once 'modulos/cursos/vistas/detallesCurso.php';
                     }
+                } else {
+                    //si no ha sido publicado lo mandamos a index
+                    setSessionMessage("<h4 class='error'>El curso que intentas ver no existe</h4>");
+                    redirect("/");
                 }
             }
         } else {
@@ -293,7 +293,8 @@ function tomarCurso() {
     if (is_null($usuario)) {
         detalles();
     } else {
-        if (esUsuarioUnAlumnoDelCurso($usuario->idUsuario, $curso->idCurso)) {
+        if (esUsuarioUnAlumnoDelCurso($usuario->idUsuario, $curso->idCurso) ||
+                tipoUsuario() == "administrador") {
             require_once 'modulos/categorias/modelos/categoriaModelo.php';
             require_once 'modulos/categorias/modelos/subcategoriaModelo.php';
             require_once 'modulos/cursos/modelos/ClaseModelo.php';
