@@ -1,6 +1,6 @@
 <?php
 
-function agregarTarjetas($idCaja, $tarjetas) {
+function agregarTarjetasDesdeCSV($idCaja, $archivoCsv) {
     $res = 1;
     require_once 'bd/conexWrite.php';
     global $conex;

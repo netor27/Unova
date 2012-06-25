@@ -197,10 +197,10 @@ function guardarEdicionVideo() {
                     && $usuario->idUsuario == $idUsuario
                     && $usuario->uuid == $uuid
                     && clasePerteneceACurso($idCurso, $idClase)) {
-                
+
                 $json = json_encode($_POST);
                 $json = str_replace("'", "", $json);
-                
+
                 if (actualizaCodigoClase($idClase, $json)) {
                     $resultado = "ok";
                     $mensaje = "Los cambios han sido guardados correctamente";
@@ -227,6 +227,32 @@ function guardarEdicionVideo() {
         "resultado" => $resultado,
         "mensaje" => $mensaje);
     echo json_encode($res);
+}
+
+//Funciones para la funcionalidad de la caja
+function agregarTarjetasSubmit() {
+    //recibe un csv con el formato:
+    // ladoA, ladoB, tiempo
+
+    $usuario = getUsuarioActual();
+    $idCaja = $_POST['idCaja'];
+    
+    if ($usuario->tipoUsuario == 1) {
+        //Por ahora solo agregar este tipo de contenido si es un administrador
+        if (isset($_FILES['archivoCsv'])) {
+            //Validar que haya un archivo csv
+            $archivoCsv = $_FILES["archivoCsv"]["tmp_name"];
+            require_once 'modulos/cursos/modelos/CajaModelo.php';
+            $res = agregarTarjetasDesdeCSV($idCaja, $archivoCsv);
+            if($res > 0){
+                //todo bien
+            }else{
+                //Ocurrió un error al importar las tarjetas
+            }
+        } else {
+            //No hay archivo
+        }
+    }
 }
 
 ?>
