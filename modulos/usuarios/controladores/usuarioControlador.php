@@ -11,6 +11,10 @@ function detalles() {
 
     if (!is_null($usuarioPerfil)) {
         $tituloPagina = $usuarioPerfil->nombreUsuario;
+        $titulo  = $usuarioPerfil->nombreUsuario;
+        $imageThumbnail  = $usuarioPerfil->avatar;
+        $descripcion = $usuarioPerfil->tituloPersonal;
+
         $miPerfil = false;
         if (validarUsuarioLoggeadoParaSubmits()) {
             if (getUsuarioActual()->idUsuario == $usuarioPerfil->idUsuario) {
@@ -262,17 +266,18 @@ function confirmarCuenta() {
     goToIndex();
 }
 
-function enviarCorreoConfirmacion(){
+function enviarCorreoConfirmacion() {
     $usuario = getUsuarioActual();
-    if(isset($usuario)){
+    if (isset($usuario)) {
         require_once 'modulos/email/modelos/envioEmailModelo.php';
         $urlConfirmacion = "www.unova.mx/usuarios/usuario/confirmarCuenta/" . $usuario->uuid;
         enviarMailConfirmacion($usuario->email, $urlConfirmacion);
         setSessionMessage("<h4 class='success'>Te hemos enviado un correo de confirmación</h4>");
         redirect("/usuario/" . $usuario->uniqueUrl);
-    }else{
+    } else {
         setSessionMessage("<h4 class='error'>Ocurrió un error, intentalo más tarde</h4>");
         goToIndex();
     }
 }
+
 ?>
