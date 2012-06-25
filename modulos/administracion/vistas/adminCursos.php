@@ -10,30 +10,35 @@ require_once('layout/headers/headCierre.php');
             <thead>
                 <tr>
                     <td class="tableHeader">
-                        Usuarios
+                        Cursos
                     </td>
-                    <td colspan="5" class="filter">
+                    <td colspan="6" class="filter">
                         Filtrar: <input id="filterBoxOne" value="" maxlength="30" size="30" type="text" />
                         <img id="filterClearOne" src="/lib/js/jqueryTableSorter/img/cross.png" title="Click to clear filter." alt="Clear Filter Image" />
                     </td>
                 </tr> 	
                 <tr>
-                    <th><a href='#' title="Click Header to Sort">Nombre Usuario</a></th>
-                    <th><a href='#' title="Click Header to Sort">Email</a></th>
-                    <th><a href='#' title="Click Header to Sort">Fecha Registro</a></th>
-                    <th><a href='#' title="Click Header to Sort">Cursos de este usuario</a></th>
-                    <th><a href='#' title="Click Header to Sort">Cursos que toma</a></th>
+                    <th><a href='#' title="Click Header to Sort">Título</a></th>
+                    <th><a href='#' title="Click Header to Sort">Fecha Creación</a></th>
+                    <th><a href='#' title="Click Header to Sort">Fecha Publicación</a></th>
+                    <th><a href='#' title="Click Header to Sort">Precio</a></th>
+                    <th><a href='#' title="Click Header to Sort">Rating</a></th>
+                    <th><a href='#' title="Click Header to Sort">Total Views</a></th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                foreach ($usuarios as $usuario) {
+                foreach ($cursos as $curso) {
                     echo '<tr>';
-                    echo '<td><a href="/usuario/' . $usuario->uniqueUrl . '" >'.$usuario->nombreUsuario.'</a></td>';
-                    echo '<td>'.$usuario->email.'</td>';
-                    echo '<td>'. transformaMysqlDateDDMMAAAA($usuario->fechaRegistro).'</td>';
-                    echo '<td style="text-align:center;"><a href="/administracion/usuarios/cursosInstructor/' . $usuario->idUsuario .'">Ver</a></td>';
-                    echo '<td style="text-align:center;"><a href="/administracion/usuarios/cursosAlumno/' . $usuario->idUsuario .'">Ver</a></td>';
+                    echo '<td><a href="/curso/' . $curso->uniqueUrl . '" >'.$curso->titulo.'</a></td>';
+                    echo '<td>'. transformaMysqlDateDDMMAAAA($curso->fechaCreacion) . '</td>';
+                    if($curso->publicado == 1)
+                        echo '<td>'. transformaMysqlDateDDMMAAAA($curso->fechaPublicacion) . '</td>';
+                    else
+                        echo '<td>No publicado</td>';
+                    echo '<td>'. $curso->precio . '</td>';
+                    echo '<td>'. $curso->rating . '</td>';
+                    echo '<td>'. $curso->totalViews . '</td>';
                     echo '</tr>';
                 }
                 ?>
@@ -41,7 +46,7 @@ require_once('layout/headers/headCierre.php');
             </tbody>
             <tfoot>
                 <tr id="pagerOne">
-                    <td colspan="5">
+                    <td colspan="6">
                         <img src="/lib/js/jqueryTableSorter/img/first.png" class="first"/>
                         <img src="/lib/js/jqueryTableSorter/img/prev.png" class="prev"/>
                         <input type="text" class="pagedisplay"/>

@@ -226,6 +226,38 @@ function getCursos($offset, $numRows) {
     return $cursos;
 }
 
+function getAllCursos(){
+     require_once 'bd/conexRead.php';
+    global $conex;
+    $stmt = $conex->prepare("SELECT * FROM curso");
+    $stmt->execute();
+    $rows = $stmt->fetchAll();
+    $cursos = null;
+    $curso = null;
+    $i = 0;
+    foreach ($rows as $row) {
+        $curso = new Curso();
+        $curso->idCurso = $row['idCurso'];
+        $curso->idUsuario = $row['idUsuario'];
+        $curso->idSubcategoria = $row['idSubcategoria'];
+        $curso->titulo = $row['titulo'];
+        $curso->uniqueUrl = $row['uniqueUrl'];
+        $curso->precio = $row['precio'];
+        $curso->descripcionCorta = $row['descripcionCorta'];
+        $curso->descripcion = $row['descripcion'];
+        $curso->keywords = $row['keywords'];
+        $curso->totalViews = $row['totalViews'];
+        $curso->fechaCreacion = $row['fechaCreacion'];
+        $curso->fechaPublicacion = $row['fechaPublicacion'];
+        $curso->publicado = $row['publicado'];
+        $curso->rating = $row['rating'];
+
+        $cursos[$i] = $curso;
+        $i++;
+    }
+    return $cursos;
+}
+
 function getCursosFuncion() {
     require_once 'bd/conexRead.php';
     global $conex;

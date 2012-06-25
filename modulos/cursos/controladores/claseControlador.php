@@ -232,9 +232,8 @@ function guardarEdicionVideo() {
 
 //Funciones para la funcionalidad de la caja
 
-function agregarTarjetas(){
-    $usuario = getUsuarioActual();
-    if ($usuario->tipoUsuario == 1) {
+function agregarTarjetas(){    
+    if (tipoUsuario() == "administrador") {
         require_once 'modulos/cursos/vistas/agregarTarjetas.php';
     }else{
         goToIndex();
@@ -244,11 +243,9 @@ function agregarTarjetas(){
 function agregarTarjetasSubmit() {
     //recibe un csv con el formato:
     // ladoA, ladoB, tiempo
-
-    $usuario = getUsuarioActual();
     $idCaja = $_POST['idCaja'];
     
-    if ($usuario->tipoUsuario == 1) {
+    if (tipoUsuario() == "administrador") {
         //Por ahora solo agregar este tipo de contenido si es un administrador
         if (isset($_FILES['archivoCsv'])) {
             //Validar que haya un archivo csv

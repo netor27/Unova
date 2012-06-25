@@ -93,6 +93,11 @@ function transformaDateDDMMAAAA($date) {
     return date("d-m-Y", $date);
 }
 
+function transformaMysqlDateDDMMAAAA($date){
+    $fecha = DateTime::createFromFormat('Y-m-d', $date);
+    return $fecha->format('d/M/Y');
+}
+
 function getUniqueCode($length) {
     $code = md5(uniqid(rand(), true));
     if ($length != "")
