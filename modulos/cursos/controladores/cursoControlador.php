@@ -63,13 +63,13 @@ function editarCurso() {
 
     $cursoUrl = $_GET['i'];
     $cursoParaModificar = getCursoFromUniqueUrl($cursoUrl);
-    
+
     //Para el socialmedia container
     $titulo = $cursoParaModificar->titulo;
     $imageThumbnail = $cursoParaModificar->imagen;
     $descripcion = $cursoParaModificar->descripcionCorta;
-    
-    
+
+
     if ($cursoParaModificar->idUsuario == getUsuarioActual()->idUsuario) {
         require_once 'modulos/categorias/modelos/categoriaModelo.php';
         require_once 'modulos/categorias/modelos/subcategoriaModelo.php';
@@ -185,13 +185,13 @@ function detalles() {
     $cursoUrl = $_GET['i'];
 
     $curso = getCursoFromUniqueUrl($cursoUrl);
-    
+
     //Para socialmedia container
     $titulo = $curso->titulo;
     $imageThumbnail = $curso->imagen;
     $descripcion = $curso->descripcionCorta;
-    
-    
+
+
     if (is_null($curso)) {
         //si el curso no existe mandarlo a index
         setSessionMessage("<h4 class='error'>El curso que intentas ver no existe</h4>");
@@ -283,12 +283,12 @@ function tomarCurso() {
     require_once 'modulos/usuarios/modelos/UsuarioCursosModelo.php';
     $cursoUrl = $_GET['i'];
     $curso = getCursoFromUniqueUrl($cursoUrl);
-    
+
     //Para socialmedia container
     $titulo = $curso->titulo;
     $imageThumbnail = $curso->imagen;
     $descripcion = $curso->descripcionCorta;
-    
+
     $usuario = getUsuarioActual();
     if (is_null($usuario)) {
         detalles();
@@ -525,44 +525,50 @@ function cambiarImagenSubmit() {
 function suscribirUsuario() {
     if (isset($_GET['i'])) {
         if (validarUsuarioLoggeado()) {
-            $idCurso = removeBadHtmlTags($_GET['i']);
             $usuario = getUsuarioActual();
+            $idCurso = removeBadHtmlTags($_GET['i']);
             require_once 'modulos/cursos/modelos/CursoModelo.php';
             $curso = getCurso($idCurso);
-            if (isset($curso)) {
-                if ($curso->idUsuario != $usuario->idUsuario) {
-                    require_once 'modulos/usuarios/modelos/UsuarioCursosModelo.php';
-                    if (!esUsuarioUnAlumnoDelCurso($usuario->idUsuario, $idCurso)) {
-                        if (suscribirUsuarioCurso($usuario->idUsuario, $idCurso)) {
-                            require_once('funcionesPHP/CargarInformacionSession.php');
-                            cargarCursosSession();
-                            setSessionMessage("<h4 class='success'>Haz quedado inscrito a este curso</h4>");
+            if ($usuario->activado == 1) {
+                if (isset($curso)) {
+                    if ($curso->idUsuario != $usuario->idUsuario) {
+                        require_once 'modulos/usuarios/modelos/UsuarioCursosModelo.php';
+                        if (!esUsuarioUnAlumnoDelCurso($usuario->idUsuario, $idCurso)) {
+                            if (suscribirUsuarioCurso($usuario->idUsuario, $idCurso)) {
+                                require_once('funcionesPHP/CargarInformacionSession.php');
+                                cargarCursosSession();
+                                setSessionMessage("<h4 class='success'>Haz quedado inscrito a este curso</h4>");
 
 
-                            require_once 'modulos/email/modelos/envioEmailModelo.php';
-                            //enviar email al usuario que se suscribió
-                            enviarMailSuscripcionCurso($usuario->email, $curso->titulo, 'www.unova.mx/curso/' . $curso->uniqueUrl);
-                            //enviar email al dueño del curso que alguien se suscribió
-                            $duenioCurso = getUsuarioDeCurso($curso->idCurso);
-                            enviarMailAlumnoSuscrito($duenioCurso->email, $curso->titulo, 'www.unova.mx/curso/' . $curso->uniqueUrl);
+                                require_once 'modulos/email/modelos/envioEmailModelo.php';
+                                //enviar email al usuario que se suscribió
+                                enviarMailSuscripcionCurso($usuario->email, $curso->titulo, 'www.unova.mx/curso/' . $curso->uniqueUrl);
+                                //enviar email al dueño del curso que alguien se suscribió
+                                $duenioCurso = getUsuarioDeCurso($curso->idCurso);
+                                enviarMailAlumnoSuscrito($duenioCurso->email, $curso->titulo, 'www.unova.mx/curso/' . $curso->uniqueUrl);
+                            } else {
+                                setSessionMessage("<h4 class='error'>Ocurrió un error al inscribirte al curso</h4>");
+                            }
+                            redirect("/curso/" . $curso->uniqueUrl);
                         } else {
-                            setSessionMessage("<h4 class='error'>Ocurrió un error al inscribirte al curso</h4>");
+                            //el usuario ya está inscrito
+                            setSessionMessage("<h4 class='error'>Ya estas suscrito a este curso</h4>");
+                            redirect("/curso/" . $curso->uniqueUrl);
                         }
-                        redirect("/curso/" . $curso->uniqueUrl);
                     } else {
-                        //el usuario ya está inscrito
-                        setSessionMessage("<h4 class='error'>Ya estas suscrito a este curso</h4>");
-                        redirect("/curso/" . $curso->uniqueUrl);
+                        //el curso pertenece al usuario
+                        setSessionMessage("<h4 class='error'>No puedes inscribirte a tu propio curso</h4>");
+                        goToIndex();
                     }
                 } else {
-                    //el curso pertenece al usuario
-                    setSessionMessage("<h4 class='error'>No puedes inscribirte a tu propio curso</h4>");
+                    //el curso no existe
+                    setSessionMessage("<h4 class='error'>Curso no válido</h4>");
                     goToIndex();
                 }
             } else {
-                //el curso no existe
-                setSessionMessage("<h4 class='error'>Curso no válido</h4>");
-                goToIndex();
+                //El usuario no ha confirmado su cuenta
+                setSessionMessage("<h4 class='error'>Debes confirmar tu cuenta para poder suscribirte a este curso</h4><h4 class='notice'><a href='/usuarios/usuario/enviarCorreoConfirmacion'>Click aquí para confirmar cuenta</a></h4>");
+                redirect("/curso/" . $curso->uniqueUrl);
             }
         } else {
             ////no hay usuario loggeado            
@@ -637,16 +643,21 @@ function publicar() {
     $idCurso = $_GET['ic'];
     $usuario = getUsuarioActual();
     if (isset($usuario)) {
-        require_once 'modulos/cursos/modelos/CursoModelo.php';
-        if (getIdUsuarioDeCurso($idCurso) == $usuario->idUsuario) {
-            //Si el usuario loggeado es del curso, publicar
-            if (setPublicarCurso($idCurso, 1)) {
-                echo ' ok';
+        if ($usuario->activado == 1) {
+            require_once 'modulos/cursos/modelos/CursoModelo.php';
+            if (getIdUsuarioDeCurso($idCurso) == $usuario->idUsuario) {
+                //Si el usuario loggeado es del curso, publicar
+                if (setPublicarCurso($idCurso, 1)) {
+                    echo ' ok';
+                } else {
+                    echo 'ERROR BD';
+                }
             } else {
-                echo 'ERROR BD';
+                echo 'ERROR. Usuario no dueño';
             }
         } else {
-            echo 'ERROR. Usuario no dueño';
+            //El usuario no ha confirmado su cuenta
+            echo 'ERROR. Usuario no activado.';
         }
     } else {
         echo 'ERROR. Usuario no loggeado';

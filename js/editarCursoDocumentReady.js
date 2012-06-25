@@ -169,7 +169,7 @@ function publicarCurso(ic){
         
     $( "#modalDialog" ).html("<p>¿Seguro que deseas publicar tu curso?</p>");
     $( "#modalDialog" ).dialog({
-        height: 140,
+        height: 160,
         modal: true,
         buttons: {
             Si: function() {        
@@ -177,19 +177,36 @@ function publicarCurso(ic){
                     type: 'get',
                     url: url,             
                     success: function(data) {
+                        $("#modalDialog").dialog( "close" );
                         var str = data.toString();
+                        var mensaje;
                         if(str.indexOf("ok") != -1){                    
-                            $('#publicadoContainer').html('<h4 class="success" style="text-align: center;">Curso publicado</h4>');
+                            mensaje = '<h4 class="success" style="text-align: center;">Curso publicado</h4>';
+                        }else if(str.indexOf("activado")){
+                            mensaje = '<p>Confirma tu cuenta antes de poder publicar tu curso.</p>';
                         }else{    
-                            $("#modalDialog").html('<p>Ocurrió un error al publicar tu curso. Intenta de nuevo más tarde.</p>');
-                            $("#modalDialog").dialog("open");
-                        }                
+                            mensaje = '<p>Ocurrió un error al publicar tu curso. Intenta de nuevo más tarde.</p>';                            
+                        }
+                        mostrarMensaje(mensaje);
                     }
-                }); 
-                $( this ).dialog( "close" );
+                });                 
             },
             Cancelar: function() {
                 $( this ).dialog( "close" );
+            }
+        }
+    });
+    $( "#modalDialog" ).dialog("open");
+}
+
+function mostrarMensaje(mensaje){
+    $("#modalDialog").html(mensaje);
+    $( "#modalDialog" ).dialog({
+        height: 160,
+        modal: true,
+        buttons: {
+            Aceptar: function() {        
+                $( this ).dialog( "close" );                
             }
         }
     });
