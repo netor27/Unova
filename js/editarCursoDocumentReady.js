@@ -12,7 +12,7 @@ $(function(){
     
     //Inicializar los dialogs
     $( "#modalDialog" ).dialog({
-        height: 140,
+        height: 160,
         modal: true,
         autoOpen: false
     });
@@ -30,7 +30,7 @@ $(function(){
         
         $( "#modalDialog" ).html("<p>¿Seguro que deseas eliminar el tema?</p>");
         $( "#modalDialog" ).dialog({
-            height: 140,
+            height: 160,
             modal: true,
             buttons: {
                 Si: function() {
@@ -70,7 +70,7 @@ $(function(){
         
         $( "#modalDialog" ).html("<p>¿Seguro que deseas eliminar la clase?</p>");
         $( "#modalDialog" ).dialog({
-            height: 140,
+            height: 160,
             modal: true,
             buttons: {
                 Si: function() {        

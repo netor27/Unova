@@ -3,7 +3,7 @@ $(function(){
     
     //Inicializar los dialogs
     $( "#modalDialog" ).dialog({
-        height: 140,
+        height: 160,
         modal: true,
         autoOpen: false,
         buttons: {

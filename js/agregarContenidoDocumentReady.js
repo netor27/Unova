@@ -3,12 +3,12 @@ $(document).ready(function() {
     
     //Inicializar los dialogs
     $( "#videoSubidoDialog" ).dialog({
-        height: 140,
+        height: 160,
         modal: true,
         autoOpen: false
     });
     $( "#dialog" ).dialog({
-        height: 140,
+        height: 160,
         modal: true,
         autoOpen: false
     });
