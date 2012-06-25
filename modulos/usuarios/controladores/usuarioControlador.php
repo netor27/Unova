@@ -7,8 +7,6 @@ function detalles() {
     //$usuarioPerfil = getUsuario($idUsuario);
     $usuarioPerfil = getUsuarioFromUniqueUrl($uniqueUrl);
 
-
-
     if (!is_null($usuarioPerfil)) {
         $tituloPagina = $usuarioPerfil->nombreUsuario;
         $titulo  = $usuarioPerfil->nombreUsuario;
