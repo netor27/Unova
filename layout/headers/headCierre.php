@@ -32,7 +32,7 @@
         </div>
     </div>
     <?php
-    if (tipoUsuario() == 'usuario') {
+    if (tipoUsuario() == 'usuario' || tipoUsuario() == 'administrador') {
         ?>
         <div class="dropdownContainer">
             <div id="perfil_menu">   

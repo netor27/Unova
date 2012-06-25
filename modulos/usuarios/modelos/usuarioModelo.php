@@ -114,6 +114,7 @@ function getUsuarios() {
         $usuario->uniqueUrl = $row['uniqueUrl'];
 
         $usuarios[$i] = $usuario;
+        $i++;
     }
     return $usuarios;
 }

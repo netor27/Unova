@@ -71,15 +71,27 @@ function validarUsuarioLoggeadoMandarIndex() {
     }
 }
 
+function validarUsuarioAdministrador() {
+    $usuario = getUsuarioActual();
+    if (isset($usuario)) {
+        if ($usuario->tipoUsuario == 1) {
+            return true;
+        } else {
+            //no tiene los permisos
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
 function comprobar_email($email) {
     return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 
 function transformaDateDDMMAAAA($date) {
-    return date("d-m-Y",$date);
+    return date("d-m-Y", $date);
 }
-
-
 
 function getUniqueCode($length) {
     $code = md5(uniqid(rand(), true));
