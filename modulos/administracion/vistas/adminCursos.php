@@ -31,9 +31,9 @@ require_once('layout/headers/headCierre.php');
                 foreach ($cursos as $curso) {
                     echo '<tr>';
                     echo '<td><a href="/curso/' . $curso->uniqueUrl . '" >'.$curso->titulo.'</a></td>';
-                    echo '<td>'. transformaMysqlDateDDMMAAAA($curso->fechaCreacion) . '</td>';
+                    echo '<td>'. $curso->fechaCreacion . '</td>';
                     if($curso->publicado == 1)
-                        echo '<td>'. transformaMysqlDateDDMMAAAA($curso->fechaPublicacion) . '</td>';
+                        echo '<td>'. $curso->fechaPublicacion . '</td>';
                     else
                         echo '<td>No publicado</td>';
                     echo '<td>'. $curso->precio . '</td>';

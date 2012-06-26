@@ -31,7 +31,7 @@ require_once('layout/headers/headCierre.php');
                     echo '<tr>';
                     echo '<td><a href="/usuario/' . $usuario->uniqueUrl . '" >'.$usuario->nombreUsuario.'</a></td>';
                     echo '<td>'.$usuario->email.'</td>';
-                    echo '<td>'. transformaMysqlDateDDMMAAAA($usuario->fechaRegistro).'</td>';
+                    echo '<td>'. $usuario->fechaRegistro.'</td>';
                     echo '<td style="text-align:center;"><a href="/administracion/usuarios/cursosInstructor/' . $usuario->idUsuario .'">Ver</a></td>';
                     echo '<td style="text-align:center;"><a href="/administracion/usuarios/cursosAlumno/' . $usuario->idUsuario .'">Ver</a></td>';
                     echo '</tr>';
