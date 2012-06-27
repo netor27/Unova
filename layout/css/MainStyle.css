@@ -106,7 +106,7 @@ h6{ margin:0;   padding:0px 0px  0px 0px;;  color:#30377a;  font-weight:100;    
     position: relative;  
 }
 #e_search-box [type=text]:focus{    
-    width: 250px;   
+    
     background-color: #FFFFFF; 
     color: #333;   
 }

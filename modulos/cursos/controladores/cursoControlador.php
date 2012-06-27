@@ -240,9 +240,9 @@ function detalles() {
                         $tituloPagina = substr($curso->titulo, 0, 50);
                         require_once 'modulos/cursos/vistas/detallesCurso.php';
                     }
-                } else if (tipoUsuario() == "administrador"){
+                } else if (tipoUsuario() == "administrador") {
                     tomarCurso();
-                }else {
+                } else {
                     //si no ha sido publicado lo mandamos a index
                     setSessionMessage("<h4 class='error'>El curso que intentas ver no existe</h4>");
                     redirect("/");
@@ -596,15 +596,21 @@ function agregarContenido() {
                 if (isset($_GET['j'])) {
                     $idTema = $_GET['j'];
                 } else {
-                    //no hay get['idTema']
+                    //no hay get['idTema'],
+                    //buscamos un tema y si no hay
                     //creamos un tema con el mismo nombre que el curso
 
                     require_once 'modulos/cursos/modelos/TemaModelo.php';
                     require_once 'modulos/cursos/clases/Tema.php';
-                    $tema = new Tema();
-                    $tema->nombre = $curso->titulo;
-                    $tema->idCurso = $curso->idCurso;
-                    $idTema = altaTema($tema);
+                    $temas = getTemas($idCurso);
+                    if (isset($temas)) {
+                        $idTema = $temas[0]->idTema;
+                    } else {
+                        $tema = new Tema();
+                        $tema->nombre = $curso->titulo;
+                        $tema->idCurso = $curso->idCurso;
+                        $idTema = altaTema($tema);
+                    }
                 }
                 if ($idTema >= 0) {
                     //Tenemos un idTema correcto
