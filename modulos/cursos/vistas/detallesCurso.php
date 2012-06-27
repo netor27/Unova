@@ -105,6 +105,9 @@ require_once('layout/SocialMediaContainer.php');
                                         echo '<img src="/layout/imagenes/presentation.png">';
                                         break;
                                     default:
+                                        echo '<li class="single-class type-document">';
+                                        echo '<a href="#" class="thumb">';
+                                        echo '<img src="/layout/imagenes/document.png">';
                                         break;
                                 }
 
