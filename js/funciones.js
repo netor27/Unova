@@ -7,3 +7,12 @@ function ltrim(stringToTrim) {
 function rtrim(stringToTrim) {
 	return stringToTrim.replace(/\s+$/,"");
 }
+function encode_utf8( s )
+{
+  return unescape( encodeURIComponent( s ) );
+}
+
+function decode_utf8( s )
+{
+  return decodeURIComponent( escape( s ) );
+}

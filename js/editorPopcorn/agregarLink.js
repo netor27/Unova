@@ -68,7 +68,7 @@ function mostrarDialogoInsertarLink(){
     $("#dialog-form-link").dialog("open");
 }
 
-function cargarLinkEnArreglo(texto, url, inicio, fin, color, top, left, width, height){
+function cargarLinkEnArreglo(texto, url, inicio, fin, color, top, left, width, height){    
     links.push({
         texto : texto, 
         url : url,
@@ -89,8 +89,8 @@ function agregarLink(){
     var fin = $("#tiempoFinLink").val();
     var color = $("#colorHiddenLink").val();
     
-    agregarLinkDiv(links.length, texto, url, inicio, fin, color, 0, 0, 'auto', 'auto');
-    cargarLinkEnArreglo(texto, url, inicio, fin, color, 0, 0, 'auto', 'auto'); 
+    agregarLinkDiv(links.length, texto, url, inicio, fin, color, 50, 50, 'auto', 'auto');
+    cargarLinkEnArreglo(texto, url, inicio, fin, color, 50, 50, 'auto', 'auto'); 
 }
 
 function mostrarDialogoEditarLink(idLink){
@@ -235,7 +235,7 @@ function cargarLinks(){
     //console.log("Se cargaran "+ textos.length +" textos");
     //logTextosAgregados();
     for(i=0;i<links.length;i++){
-        agregarLinkDiv(i, links[i].texto, links[i].url, links[i].inicio, links[i].fin, links[i].color, links[i].top, links[i].left, links[i].width, links[i].height);
+        agregarLinkDiv(i, decode_utf8(links[i].texto), links[i].url, links[i].inicio, links[i].fin, links[i].color, links[i].top, links[i].left, links[i].width, links[i].height);
     }
 }
 

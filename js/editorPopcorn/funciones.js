@@ -82,6 +82,7 @@ function guardar(u, uuid, cu, cl){
         height: $("#videoContainer").height()
     }
     
+    logLinksAgregados();
     
     var data = {
         u: u,

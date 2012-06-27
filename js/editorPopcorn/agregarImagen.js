@@ -88,8 +88,8 @@ function agregarImagen(){
     var fin = $("#tiempoFinImagen").val();
     var color = $("#colorHiddenImagen").val();
     
-    agregarImagenDiv(imagenes.length, urlImagen, inicio, fin, color, 0, 0, 300, 200);
-    cargarImagenEnArreglo(urlImagen, inicio, fin, color, 0, 0, 300, 200);
+    agregarImagenDiv(imagenes.length, urlImagen, inicio, fin, color, 50, 50, 300, 200);
+    cargarImagenEnArreglo(urlImagen, inicio, fin, color, 50, 50, 300, 200);
 }
 
 function mostrarDialogoEditarImagen(idImagen){

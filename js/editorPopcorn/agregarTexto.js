@@ -106,8 +106,8 @@ function agregarTexto(){
     var color = $("#colorHiddenTexto").val();
     
     
-    agregarTextoDiv(textos.length, texto, inicio, fin, color, 0, 0, 'auto', 'auto');
-    cargarTextoEnArreglo(texto, inicio, fin, color, 0, 0, 'auto', 'auto');
+    agregarTextoDiv(textos.length, texto, inicio, fin, color, 50, 50, 'auto', 'auto');
+    cargarTextoEnArreglo(texto, inicio, fin, color, 50, 50, 'auto', 'auto');
     
 }
 

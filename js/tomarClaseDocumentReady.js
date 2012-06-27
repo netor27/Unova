@@ -63,7 +63,7 @@ function agregarLinkDiv(texto, url, inicio, fin, color, top, left, width, height
     var textoDiv = '<div  class="ui-corner-all linkAgregado" style="background-color: '+color+'; position: fixed; top: '+getUnidadPx(top)+'; left: '+getUnidadPx(left)+'; width: '+getUnidadPx(width)+'; height: '+getUnidadPx(height)+';">' +
     '<a href="'+url+'" target="_blank" onclick="pauseVideo()" class="textoLink">'+
     '<div>' +
-    texto +
+    decode_utf8(texto) +
     '</div>' +
     '</a>'+
     '</div>';

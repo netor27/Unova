@@ -87,8 +87,8 @@ function agregarVideo(){
     var fin = $("#tiempoFinVideo").val();
     var color = $("#colorHiddenVideo").val();
     
-    agregarVideoDiv(videos.length, urlVideo, inicio, fin, color, 0, 0, 350, 300);
-    cargarVideoEnArreglo(urlVideo, inicio, fin, color, 0, 0, 350, 300);
+    agregarVideoDiv(videos.length, urlVideo, inicio, fin, color, 50, 50, 350, 300);
+    cargarVideoEnArreglo(urlVideo, inicio, fin, color, 50, 50, 350, 300);
     
 }
 

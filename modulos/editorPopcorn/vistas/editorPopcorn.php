@@ -38,6 +38,7 @@ if (isset($var['videoData']))
         <script src="/js/editorPopcorn/agregarLink.js"></script>
 
         <script src="/js/editorPopcorn/cargarPopcorn.js"></script>
+        <script src="/js/funciones.js"></script>
 
         <link type="text/css" href="/layout/css/redmond/jquery-ui-1.8.17.custom.css" rel="stylesheet" />	
         <link type="text/css" href="/layout/css/editorPopcorn.css" rel="stylesheet" />	
