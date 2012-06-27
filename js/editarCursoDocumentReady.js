@@ -13,6 +13,7 @@ $(function(){
     //Inicializar los dialogs
     $( "#modalDialog" ).dialog({
         height: 160,
+        width: 400,
         modal: true,
         autoOpen: false
     });
@@ -30,12 +31,13 @@ $(function(){
         
         $( "#modalDialog" ).html("<p>¿Seguro que deseas eliminar el tema?</p>");
         $( "#modalDialog" ).dialog({
-            height: 160,
+            height: 200,
+            width: 400,
             modal: true,
             buttons: {
                 Si: function() {
                     me.hide().delay(2500).fadeIn();
-                    
+                    parent.hide(300);
                     $.ajax({
                         type: 'get',
                         url: url, 
@@ -43,14 +45,22 @@ $(function(){
                             var str = data.toString();
                 
                             if(str.indexOf("ok") != -1){                    
-                                parent.fadeOut(300,function() {
-                                    parent.remove();
+                                parent.remove();
+                            }else{      
+                                console.log("error");                                
+                                $( "#modalDialog" ).html(data);
+                                $( "#modalDialog" ).dialog({
+                                    height: 230,
+                                    width: 400,
+                                    modal: true,
+                                    buttons: {
+                                        Aceptar: function(){                                            
+                                            parent.show();
+                                            $( this ).dialog( "close" );
+                                        }
+                                    }
                                 });
-                            }else{                     
-                                parent.append("<div class='temaContainerMessage'>"+data+"</div>");                                        
-                                parent.children(".temaContainerMessage").delay(3000).fadeOut(300, function(){
-                                    $(this).remove();
-                                });    
+                                $( "#modalDialog" ).dialog("open");
                             }                
                         }
                     }); 
@@ -73,6 +83,7 @@ $(function(){
         $( "#modalDialog" ).html("<p>¿Seguro que deseas eliminar la clase?</p>");
         $( "#modalDialog" ).dialog({
             height: 160,
+            width: 400,
             modal: true,
             buttons: {
                 Si: function() {        
@@ -90,9 +101,10 @@ $(function(){
                                 $("#modalDialog").html("<p class='error'>Ocurrió un error al borrar la clase. Intenta de nuevo más tarde</p>");
                                 $("#modalDialog").dialog({
                                     height: 180,
+                                    width: 400,
                                     modal: true,
                                     buttons: {
-                                        Si: function(){
+                                        Aceptar: function(){
                                             $( "#modalDialog" ).dialog("close");
                                         }
                                     }
@@ -183,6 +195,7 @@ function publicarCurso(ic){
     $( "#modalDialog" ).html("<p>¿Seguro que deseas publicar tu curso?</p>");
     $( "#modalDialog" ).dialog({
         height: 160,
+        width: 400,
         modal: true,
         buttons: {
             Si: function() {        
@@ -216,6 +229,7 @@ function mostrarMensaje(mensaje){
     $("#modalDialog").html(mensaje);
     $( "#modalDialog" ).dialog({
         height: 160,
+        width: 400,
         modal: true,
         buttons: {
             Aceptar: function() {        

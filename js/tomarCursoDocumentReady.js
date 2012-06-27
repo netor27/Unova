@@ -4,6 +4,7 @@ $(function(){
     //Inicializar los dialogs
     $( "#modalDialog" ).dialog({
         height: 160,
+        width: 400,
         modal: true,
         autoOpen: false,
         buttons: {

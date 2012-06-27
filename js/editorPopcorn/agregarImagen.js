@@ -197,6 +197,7 @@ function dialogoBorrarImagen(indice){
     $("#modalDialog").html("<p>&iquest;Seguro que deseas eliminar este elemento?</p>");
     $( "#modalDialog" ).dialog({
         height: 160,
+        width: 400,
         modal: true,
         buttons: {
             Si: function() {

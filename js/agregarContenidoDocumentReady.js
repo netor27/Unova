@@ -4,11 +4,13 @@ $(document).ready(function() {
     //Inicializar los dialogs
     $( "#videoSubidoDialog" ).dialog({
         height: 160,
+        width: 400,
         modal: true,
         autoOpen: false
     });
     $( "#dialog" ).dialog({
         height: 160,
+        width: 400,
         modal: true,
         autoOpen: false
     });
