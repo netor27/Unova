@@ -146,6 +146,9 @@ function tomarClase() {
                 case 2:
                     require_once 'modulos/cursos/vistas/tomarClase.php';
                     break;
+                case 3:
+                    require_once 'modulos/cursos/vistas/tomarClaseTarjetas.php';
+                    break;
             }
         } else {
             setSessionMessage("<h4 class='error'>No puedes tomar esa clase, no tienens suscripción en ese curso</h4>");
