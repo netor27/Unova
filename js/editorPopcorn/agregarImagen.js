@@ -171,7 +171,7 @@ function agregarImagenDiv(indice, urlImagen, inicio, fin, color, top, left, widt
     });
     
     $("#imagen_"+indice).draggable({
-        containment: "document",
+        containment: "#editorContainment",
         stop: function(event, ui){
             //ui.position - {top, left} current position
             var id = ui.helper.attr("id");

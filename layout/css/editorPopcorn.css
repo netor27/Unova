@@ -29,7 +29,7 @@ div{
     color: white;
     background: #333 url('images/headerbg.png') 50% 50% repeat-x;
     position: fixed;
-    width: 400px;
+    width: 100%;
     top:0%;
     right:0%;
     z-index: 10;
@@ -39,13 +39,13 @@ div{
 }
 #top-bar{
     margin: auto;
-    width: 400px;
+    width: 800px;
     color: #333;
 }
 
 #top-bar a:hover{
     text-decoration: underline;
-    
+
 }
 #top-bar .logo {
     width: 135px;
@@ -53,10 +53,11 @@ div{
 }
 #top-bar .element {
     line-height: 47px;
-    padding: 0 20px;
+    padding: 0 40px;
     color: white;
     font-size: 14px;
-    font-weight: normal;
+    font-weight: bold;
+
 }
 
 .littleBox{
@@ -201,11 +202,11 @@ div{
     margin: 15px;
 }
 .textoLink{
-    
+
 }
 .textoLink:hover{
     text-decoration: underline;
-    
+
 }
 
 .videoPopcorn object{
@@ -221,3 +222,11 @@ div{
 
 .error {color: #8a1f11;  }
 .success       { color: #264409; }
+
+#editorContainment{
+    width: 100%;
+    display: block;
+    position: fixed;
+    top: 50px;
+    bottom: 0%;
+}

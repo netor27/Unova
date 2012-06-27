@@ -3,11 +3,16 @@ $json = $clase->codigo;
 
 $var = json_decode($json, true);
 
-$textos = $var['textos'];
-$imagenes = $var['imagenes'];
-$videos = $var['videos'];
-$links = $var['links'];
-$videoData = $var['videoData'];
+if (isset($var['textos']))
+    $textos = $var['textos'];
+if (isset($var['imagenes']))
+    $imagenes = $var['imagenes'];
+if (isset($var['videos']))
+    $videos = $var['videos'];
+if (isset($var['links']))
+    $links = $var['links'];
+if (isset($var['videoData']))
+    $videoData = $var['videoData'];
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +74,7 @@ if (isset($videos))
 if (isset($links))
     foreach ($links as $link) {
         ?>
-                    cargarLinkEnArreglo('<?php echo $link['texto']; ?>','<?php echo $link['url']; ?>','<?php echo $link['inicio']; ?>','<?php echo $link['fin']; ?>','<?php echo $link['color']; ?>','<?php echo $link['top']; ?>','<?php echo $link['left']; ?>','<?php echo $link['width']; ?>','<?php echo $link['height']; ?>');
+                        cargarLinkEnArreglo('<?php echo $link['texto']; ?>','<?php echo $link['url']; ?>','<?php echo $link['inicio']; ?>','<?php echo $link['fin']; ?>','<?php echo $link['color']; ?>','<?php echo $link['top']; ?>','<?php echo $link['left']; ?>','<?php echo $link['width']; ?>','<?php echo $link['height']; ?>');
         <?php
     }
 ?>
@@ -89,81 +94,86 @@ if (isset($links))
 
             </div>
         </div>
-
-
-        <div id="videoContainer" class="draggable resizable ui-widget-content" style="position: absolute; top: <?php echo $videoData['top'] . 'px'; ?>; left: <?php echo $videoData['left'] . 'px'; ?>; width: <?php echo $videoData['width'] . 'px'; ?>; height: <?php echo $videoData['height'] . 'px'; ?>;">				
-            <video id="videoPrincipal" class="videoClass">
-                <source src="<?php echo $clase->archivo; ?>" type="video/mp4">
-                <source src="<?php echo $clase->archivo2; ?>" type="video/ogg">
-            </video>
-        </div>
-        <div id="footnotediv">
-        </div>
-
-        <?php
-        require_once 'modulos/editorPopcorn/vistas/formaAgregarTexto.php';
-        require_once 'modulos/editorPopcorn/vistas/formaAgregarImagen.php';
-        require_once 'modulos/editorPopcorn/vistas/formaAgregarVideo.php';
-        require_once 'modulos/editorPopcorn/vistas/formaAgregarLink.php';
-        ?>
-        <div id="toolboxContainer">
-            <div id="ShowHideToolbox" class="ui-state-hover ui-corner-all">
-                <img class="showHideToolboxButton" src="/layout/imagenes/Agregar.png" >
-                <img class="showHideToolboxButton" src="/layout/imagenes/AgregarMenos.png" style="display:none;">
+        <div id="editorContainment">
+            <div id="videoContainer" class="draggable resizable ui-widget-content" style="position: absolute; top: <?php echo $videoData['top'] . 'px'; ?>; left: <?php echo $videoData['left'] . 'px'; ?>; width: <?php echo $videoData['width'] . 'px'; ?>; height: <?php echo $videoData['height'] . 'px'; ?>;">				
+                <video id="videoPrincipal" class="videoClass">
+                    <source src="<?php echo $clase->archivo; ?>" type="video/mp4">
+                    <source src="<?php echo $clase->archivo2; ?>" type="video/ogg">
+                </video>
             </div>
-            <div id="toolbox" class="ui-state-highlight ui-corner-all" style="display:none;">                
-                <a href="#" onClick="mostrarDialogoInsertarTexto()" title="Agregar texto" class="ui-corner-all">
-                    <img src="/layout/imagenes/agregarTexto.png">
-                </a><br>
-                <a href="#"  onClick="mostrarDialogoInsertarImagen()" title="Agregar imagen" class="ui-corner-all">
-                    <img src="/layout/imagenes/agregarImagen.png">
-                </a><br>
-                <a href="#" onClick="mostrarDialogoInsertarVideo()" title="Agregar video" class="ui-corner-all">
-                    <img src="/layout/imagenes/agregarVideo.png">
-                </a><br>
-                <a href="#" onClick="mostrarDialogoInsertarLink()" title="Agregar página web" class="ui-corner-all">
-                    <img src="/layout/imagenes/agregarPagina.png">
-                </a>
+            <div id="footnotediv">
             </div>
-        </div>
 
-        <div id="footer">
-            <div id="ShowHideControles">
-                <a  href="#" onclick="showHideControles()">
-                    <div title="Mostrar controles" class="ui-state-default ui-corner-all littleBox toggleControles" style="display:none;">
-                        >>
-                    </div>
-                    <div title="Ocultar controles"  class="ui-state-default ui-corner-all littleBox toggleControles" style="" >
-                        <<
-                    </div>
-                </a>
 
-            </div>
-            <div id="controlesContainer" class="ui-widget-header ui-corner-all">	
 
-                <div id="controles">
-                    <a href="#" onclick="playVideo()" title="Play"  >
-                        <div class="ui-state-default ui-corner-all littleBox" >
-                            <span class="ui-icon ui-icon-play" style="float:left;margin: 0 4px;">
-                                Play
-                            </span>
-                        </div>
-                    </a>
-                    <a href="#" onclick="pauseVideo()" title="Pause">
-                        <div class="ui-state-default ui-corner-all littleBox">
-                            <span class="ui-icon ui-icon-pause" style="float:left;margin: 0 4px;">
-                                Pause
-                            </span>
-                        </div>
+
+            <?php
+            require_once 'modulos/editorPopcorn/vistas/formaAgregarTexto.php';
+            require_once 'modulos/editorPopcorn/vistas/formaAgregarImagen.php';
+            require_once 'modulos/editorPopcorn/vistas/formaAgregarVideo.php';
+            require_once 'modulos/editorPopcorn/vistas/formaAgregarLink.php';
+            ?>
+            <div id="toolboxContainer">
+                <div id="ShowHideToolbox" class="ui-state-hover ui-corner-all">
+                    <img class="showHideToolboxButton" src="/layout/imagenes/Agregar.png" >
+                    <img class="showHideToolboxButton" src="/layout/imagenes/AgregarMenos.png" style="display:none;">
+                </div>
+                <div id="toolbox" class="ui-state-highlight ui-corner-all" style="display:none;">                
+                    <a href="#" onClick="mostrarDialogoInsertarTexto()" title="Agregar texto" class="ui-corner-all">
+                        <img src="/layout/imagenes/agregarTexto.png">
+                    </a><br>
+                    <a href="#"  onClick="mostrarDialogoInsertarImagen()" title="Agregar imagen" class="ui-corner-all">
+                        <img src="/layout/imagenes/agregarImagen.png">
+                    </a><br>
+                    <a href="#" onClick="mostrarDialogoInsertarVideo()" title="Agregar video" class="ui-corner-all">
+                        <img src="/layout/imagenes/agregarVideo.png">
+                    </a><br>
+                    <a href="#" onClick="mostrarDialogoInsertarLink()" title="Agregar página web" class="ui-corner-all">
+                        <img src="/layout/imagenes/agregarPagina.png">
                     </a>
                 </div>
-                <div id="sliderContainer">
+            </div>
 
-                    <div id="controlTiempo"></div>
-                    <div id="slider"></div>
+            <div id="footer">
+                <div id="ShowHideControles">
+                    <a  href="#" onclick="showHideControles()">
+                        <div title="Mostrar controles" class="ui-state-default ui-corner-all littleBox toggleControles" style="display:none;">
+                            >>
+                        </div>
+                        <div title="Ocultar controles"  class="ui-state-default ui-corner-all littleBox toggleControles" style="" >
+                            <<
+                        </div>
+                    </a>
+
+                </div>
+                <div id="controlesContainer" class="ui-widget-header ui-corner-all">	
+
+                    <div id="controles">
+                        <a href="#" onclick="playVideo()" title="Play"  >
+                            <div class="ui-state-default ui-corner-all littleBox" >
+                                <span class="ui-icon ui-icon-play" style="float:left;margin: 0 4px;">
+                                    Play
+                                </span>
+                            </div>
+                        </a>
+                        <a href="#" onclick="pauseVideo()" title="Pause">
+                            <div class="ui-state-default ui-corner-all littleBox">
+                                <span class="ui-icon ui-icon-pause" style="float:left;margin: 0 4px;">
+                                    Pause
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                    <div id="sliderContainer">
+
+                        <div id="controlTiempo"></div>
+                        <div id="slider"></div>
+                    </div>
                 </div>
             </div>
         </div>
+
+
     </body>
 </html>
 

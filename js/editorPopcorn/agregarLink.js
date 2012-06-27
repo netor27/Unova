@@ -176,7 +176,7 @@ function agregarLinkDiv(indice, texto, url, inicio, fin, color, top, left, width
     });
     
     $("#link_"+indice).draggable({
-        containment: "document",
+        containment: "#editorContainment",
         stop: function(event, ui){
             //ui.position - {top, left} current position
             var id = ui.helper.attr("id");
