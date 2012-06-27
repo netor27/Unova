@@ -141,7 +141,7 @@ function editarVideo(){
 }
 
 function agregarVideoDiv(indice, urlVideo, inicio, fin, color, top, left, width, height){
-    var textoDiv = '<div id="videoContainer_'+indice+'" class="ui-corner-all videoAgregado" style="background-color: '+color+'; position: absolute; top: '+top+'px; left: '+left+'px; width: '+width+'px; height: '+height+'px;">' +
+    var textoDiv = '<div id="videoContainer_'+indice+'" class="ui-corner-all videoAgregado" style="background-color: '+color+'; position: fixed; top: '+top+'px; left: '+left+'px; width: '+width+'px; height: '+height+'px;">' +
     '<p class="ui-widget-header dragHandle">Arr&aacute;strame de aqu&iacute;<br></p>'+
     '<div class="elementButtons">' +
     '<a href="#" onclick=mostrarDialogoEditarVideo('+indice+')>'+
@@ -177,8 +177,8 @@ function agregarVideoDiv(indice, urlVideo, inicio, fin, color, top, left, width,
             //ui.position - {top, left} current position
             var id = ui.helper.attr("id");
             var indice = id.split("_")[1];
-            videos[indice].top = ui.position.top;
-            videos[indice].left = ui.position.left;
+            videos[indice].top = ui.offset.top;
+            videos[indice].left = ui.offset.left;
         }
     });
     $("#videoContainer_"+indice).resizable({

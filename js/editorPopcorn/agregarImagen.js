@@ -141,7 +141,7 @@ function editarImagen(){
 }
 
 function agregarImagenDiv(indice, urlImagen, inicio, fin, color, top, left, width, height){
-    var textoDiv = '<div id="imagen_'+indice+'" class="ui-corner-all imagenAgregada" style="background-color: '+color+'; position: absolute; top: '+top+'px; left: '+left+'px; width: '+width+'px; height: '+height+'px;">' +
+    var textoDiv = '<div id="imagen_'+indice+'" class="ui-corner-all imagenAgregada" style="background-color: '+color+'; position: fixed; top: '+top+'px; left: '+left+'px; width: '+width+'px; height: '+height+'px;">' +
     '<div class="elementButtons">' +
     '<a href="#" onclick=mostrarDialogoEditarImagen('+indice+')>'+
     '<div class="ui-state-default ui-corner-all littleBox">' +
@@ -176,8 +176,8 @@ function agregarImagenDiv(indice, urlImagen, inicio, fin, color, top, left, widt
             //ui.position - {top, left} current position
             var id = ui.helper.attr("id");
             var indice = id.split("_")[1];
-            imagenes[indice].top = ui.position.top;
-            imagenes[indice].left = ui.position.left;
+            imagenes[indice].top = ui.offset.top;
+            imagenes[indice].left = ui.offset.left;
         }
     });
     $("#imagen_"+indice).resizable({
