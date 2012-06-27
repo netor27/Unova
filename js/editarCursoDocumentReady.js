@@ -181,7 +181,7 @@ function publicarCurso(ic){
                         var str = data.toString();
                         var mensaje;
                         if(str.indexOf("ok") != -1){                    
-                            mensaje = '<h4 class="success" style="text-align: center;">Curso publicado</h4>';
+                            $( '#publicadoContainer' ).html('<h4 class="success" style="text-align: center;">Curso publicado</h4>');
                         }else if(str.indexOf("activado")){
                             mensaje = '<p>Confirma tu cuenta antes de poder publicar tu curso.</p>';
                         }else{    
