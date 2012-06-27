@@ -261,7 +261,7 @@ function getNumeroCursosTomados($idUsuario) {
     return $n;
 }
 
-function suscribirUsuarioCurso($idUsuario, $idCurso) {
+function inscribirUsuarioCurso($idUsuario, $idCurso) {
     require_once 'bd/conexWrite.php';
     global $conex;
     $stmt = $conex->prepare("INSERT INTO usuariocurso (idUsuario, idCurso, fechaInscripcion)

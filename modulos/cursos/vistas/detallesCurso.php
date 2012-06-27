@@ -44,8 +44,8 @@ require_once('layout/headers/headCierre.php');
 
         <div id="slp-botonComprar">
             <div id="botonComprar-wrapper">
-                <a class="botonComprar-link" href="/cursos/curso/suscribirUsuario/<?php echo $curso->idCurso; ?>">
-                    Suscribirme a este curso
+                <a class="botonComprar-link" href="/cursos/curso/inscribirUsuario/<?php echo $curso->idCurso; ?>">
+                    Inscribirme a este curso
                     <span>
                         <?php
                         if ($curso->precio > 0)

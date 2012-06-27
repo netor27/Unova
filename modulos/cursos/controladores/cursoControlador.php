@@ -525,7 +525,7 @@ function cambiarImagenSubmit() {
     }
 }
 
-function suscribirUsuario() {
+function inscribirUsuario() {
     if (isset($_GET['i'])) {
         if (validarUsuarioLoggeado()) {
             $usuario = getUsuarioActual();
@@ -537,7 +537,7 @@ function suscribirUsuario() {
                     if ($curso->idUsuario != $usuario->idUsuario) {
                         require_once 'modulos/usuarios/modelos/UsuarioCursosModelo.php';
                         if (!esUsuarioUnAlumnoDelCurso($usuario->idUsuario, $idCurso)) {
-                            if (suscribirUsuarioCurso($usuario->idUsuario, $idCurso)) {
+                            if (inscribirUsuarioCurso($usuario->idUsuario, $idCurso)) {
                                 require_once('funcionesPHP/CargarInformacionSession.php');
                                 cargarCursosSession();
                                 setSessionMessage("<h4 class='success'>Haz quedado inscrito a este curso</h4>");
@@ -570,7 +570,7 @@ function suscribirUsuario() {
                 }
             } else {
                 //El usuario no ha confirmado su cuenta
-                setSessionMessage("<h4 class='error'>Debes confirmar tu cuenta para poder suscribirte a este curso</h4><h4 class='notice'><a href='/usuarios/usuario/enviarCorreoConfirmacion'>Click aquí para confirmar cuenta</a></h4>");
+                setSessionMessage("<h4 class='error'>Debes confirmar tu cuenta para poder inscribirte a este curso</h4><h4 class='notice'><a href='/usuarios/usuario/enviarCorreoConfirmacion'>Click aquí para confirmar cuenta</a></h4>");
                 redirect("/curso/" . $curso->uniqueUrl);
             }
         } else {

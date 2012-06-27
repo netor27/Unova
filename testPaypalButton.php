@@ -22,7 +22,7 @@
     <BODY bgcolor=white>
         <TABLE border=0>
             <TR><TD align=center>
-                    <h1>Suscribirse a un curso</h1>
+                    <h1>Inscribirse a un curso</h1>
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target=_blank>
                         <input type="hidden" name="cmd" value="_s-xclick">
                         <input type="hidden" name="encrypted" value="
