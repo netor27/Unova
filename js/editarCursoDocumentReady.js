@@ -35,6 +35,7 @@ $(function(){
             buttons: {
                 Si: function() {
                     me.hide().delay(2500).fadeIn();
+                    
                     $.ajax({
                         type: 'get',
                         url: url, 
@@ -65,6 +66,7 @@ $(function(){
     
     $('.deleteClase').click(function() {
         var parent = $(this).closest('.claseContainer');
+        
         var url = '/clases/clase/borrarClase/' + $(this).attr('curso') + "/" + $(this).attr('id');
         var me = $(this);
         
@@ -74,17 +76,28 @@ $(function(){
             modal: true,
             buttons: {
                 Si: function() {        
+                    parent.fadeOut(300);
                     me.hide().delay(3500).fadeIn();
                     $.ajax({
                         type: 'get',
                         url: url, 
                         success: function(data) {
-                            var str = data.toString();
-                
+                            var str = data.toString();                
                             if(str.indexOf("success") != -1){                    
-                                parent.fadeOut(300,function() {
-                                    parent.remove();
+                                parent.remove();
+                            }else{
+                                parent.show();
+                                $("#modalDialog").html("<p class='error'>Ocurrió un error al borrar la clase. Intenta de nuevo más tarde</p>");
+                                $("#modalDialog").dialog({
+                                    height: 180,
+                                    modal: true,
+                                    buttons: {
+                                        Si: function(){
+                                            $( "#modalDialog" ).dialog("close");
+                                        }
+                                    }
                                 });
+                                $( "#modalDialog" ).dialog("open");
                             }
                         }
                     });        

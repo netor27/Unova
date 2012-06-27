@@ -29,6 +29,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         } else {
             if (isset($_POST['uuid']) && isset($_POST['idUsuario']) && isset($_POST['idCurso']) && isset($_POST['idTema'])) {
                 $info = $upload_handler->post();
+
                 $file = $info[0];
                 $uuid = $_POST['uuid'];
                 $idUsuario = $_POST['idUsuario'];
@@ -37,13 +38,17 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
                 $clase = crearClase($idUsuario, $idCurso, $uuid, $idTema, $file->name, $file->type);
                 if (!is_null($clase)) {
-                    $file->url = urlencode($clase->archivo);
+                    //$file->url = $clase->archivo;
+                    $file->url = "#";
                     $file->delete_url = "#";
-                    $info[0] = $file;
-                    writeJSON($info);                    
+                    $file->error = "";
+                    $file->errorDetalle = "";
                 } else {
-                    echo 'error';
+                    $file->error = " ";
+                    $file->errorDetalle = "Ocurri&oacute; un error al agregar el contenido. Intenta de nuevo más tarde";
                 }
+                $info[0] = $file;
+                writeJSON($info);
             }
         }
         break;
@@ -86,8 +91,8 @@ function crearClase($idUsuario, $idCurso, $uuid, $idTema, $fileName, $fileType) 
             $url = "http://localhost/videos.php";
             $file = $filePath . $fileName;
             $params = array(
-                "idClase"  => $idClase,
-                "file"     => $file,
+                "idClase" => $idClase,
+                "file" => $file,
                 "fileType" => $fileType
             );
             curl_post_async($url, $params);
@@ -100,13 +105,13 @@ function crearClase($idUsuario, $idCurso, $uuid, $idTema, $fileName, $fileType) 
 
             //Le agregamos al nombre del archivo un codigo aleatorio de 5 caracteres
             $fileName = getUniqueCode(15) . "_" . $fileName;
-            
+
             $uri = crearArchivoCDN($file, $fileName, $clase->idTipoClase);
 
             if ($uri != NULL) {
                 //Si se creo correctamene el archivo CDN, creamos la clase y borramos el archivo local
                 $clase->archivo = $uri;
-                altaClase($clase);                
+                altaClase($clase);
                 return $clase;
             } else {
                 //Si ocurrió un error, se borra y regresamos false

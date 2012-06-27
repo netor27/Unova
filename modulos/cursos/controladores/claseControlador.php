@@ -28,14 +28,14 @@ function borrarClase() {
                 }
             } else {
                 //Error, el usuario no es dueño de este curso, no puede borrar
-                echo "<div><h3>Error. No puedes modificar este curso</h3></div>";
+                echo "<div><h3 class='error'>Error. No puedes modificar este curso</h3></div>";
             }
         } else {
             //Error, no hay get['i']
-            echo "<div><h3>Error. I</h3></div>";
+            echo "<div><h3 class='error'>Error. I</h3></div>";
         }
     } else {
-        echo "<div><h3>Error. U</h3></div>";
+        echo "<div><h3 class='error'>Error. U</h3></div>";
 //Error, no hay usuario loggeado para ejecutar acción Ajax, no hacer nada
     }
 }

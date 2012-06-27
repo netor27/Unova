@@ -26,6 +26,9 @@ require_once('layout/headers/headCierre.php');
         <h2>
             Sube tus archivos y se creará automáticamente una clase por cada uno de ellos
         </h2>
+        <h5 class="notice" style="font-weight: bold">
+            Recuerda que si cambias o cierras esta página, tu descarga se cancelará
+        </h5>
         <br>
         <br>
         <div class="left">
