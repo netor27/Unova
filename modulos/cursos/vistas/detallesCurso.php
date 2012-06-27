@@ -4,7 +4,6 @@ require_once('layout/headers/headDetallesCurso.php');
 require_once('layout/headers/headStarRating.php');
 require_once('layout/headers/headSocialMedia.php');
 require_once('layout/headers/headCierre.php');
-require_once('layout/SocialMediaContainer.php');
 ?>
 
 
@@ -75,6 +74,7 @@ require_once('layout/SocialMediaContainer.php');
                     ?>
                 </div>
             </div>
+
             <div id="temasContainer" class="whiteBox" style="width: 99%;">
 
                 <?php
@@ -167,7 +167,11 @@ require_once('layout/SocialMediaContainer.php');
                     ?>
                 </div>
             </div>
-
+            <div id="SocialMediaContainer" style="width:97%">
+                <?php
+                require_once('layout/SocialMediaContainer.php');
+                ?>
+            </div>
             <div id="instructor" class="whiteBox" style="width: 95%;">
                 <div id="instructorHeader">
                     Instructor
@@ -185,6 +189,9 @@ require_once('layout/SocialMediaContainer.php');
                     ?>
                 </div>
             </div>
+
+
+
             <div id="comentariosContainer" class="whiteBox" style="width: 95%;">
                 <div id="instructorHeader">
                     Comentarios

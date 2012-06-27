@@ -4,7 +4,6 @@ require_once('layout/headers/headTomarCurso.php');
 require_once('layout/headers/headStarRating.php');
 require_once('layout/headers/headSocialMedia.php');
 require_once('layout/headers/headCierre.php');
-require_once('layout/SocialMediaContainer.php');
 ?>
 
 
@@ -23,7 +22,7 @@ require_once('layout/SocialMediaContainer.php');
             <div id="cursoTitulo" itemprop="name"><?php echo $curso->titulo; ?></div>                
             <div id="cursoDescripcionCorta">      
                 <p itemprop="description">
-                <?php echo $curso->descripcionCorta; ?>
+                    <?php echo $curso->descripcionCorta; ?>
                 </p>
             </div>
             <br><br>
@@ -160,7 +159,11 @@ require_once('layout/SocialMediaContainer.php');
                     ?>
                 </div>
             </div>
-
+            <div id="SocialMediaContainer" style="width:97%">
+                <?php
+                require_once('layout/SocialMediaContainer.php');
+                ?>
+            </div><br>
             <div id="cursoTabs">
 
                 <ul>

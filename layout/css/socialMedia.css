@@ -1,50 +1,104 @@
+/* Desktops and laptops ----------- */
+@media only screen 
+and (min-width : 500px)
+and (max-width : 1149px) {
+    /* Styles */
+    .SocialMediaContainer{
+        text-align: center;    
+        background: white;
+        border: 1px solid rgba(0, 0, 0, .2);
+        line-height: 1.4;
+        padding: 5px;
+        background-color: #F9FBF4;
+        height:100px;
+    }
 
+    .SocialMediaContainer .twitter{
+        float:left;
+        padding: 5px;
+        height: 80px;
+    }
 
-.SocialMediaContainer{
-    left: 0;    
-    position: fixed;
-    top: 20%;
-    width: 64px;
-    text-align: center;    
-    margin-bottom: 25px;
-    background: white;
-    z-index: 9000;
-    border: 1px solid rgba(0, 0, 0, .2);
-    min-height: 50px;
-    line-height: 1.4;
-    padding: 10px;
+    .SocialMediaContainer .facebook{
+        float:left;
+        padding: 5px;        
+        height: 100%;
+        border-left: 1px dotted #CCC;
+        border-right: 1px dotted #CCC;      
+        height: 80px;
+    }
 
-    background-color: #F9FBF4;
+    .SocialMediaContainer .gplus{
+        float:left;        
+        padding: 5px;      
+        height: 80px;
+    }
+
+    .SocialMediaContainer .linkedin{
+        float:left;
+        border-left: 1px dotted #CCC;
+        padding: 5px;      
+        height: 80px;
+    }
+
+    .SocialMediaContainer .stumbleupon{
+        float:left;
+        border-left: 1px dotted #CCC;
+        padding: 5px;      
+        height: 80px;
+    }
 }
 
-.SocialMediaContainer .twitter{
-    min-height: 66px;
-}
+/* Large screens ----------- */
+@media only screen 
+and (min-width : 1150px) {
+    /* Styles */
 
-.SocialMediaContainer .facebook{
-    min-height: 100px;
-    margin: 10px 0;
-    border-top: 1px dotted #CCC;
-    border-bottom: 1px dotted #CCC;
-    padding: 10px 0;
-}
+    .SocialMediaContainer{
+        left: 0;    
+        position: fixed;
+        top: 20%;
+        text-align: center;    
+        margin-bottom: 25px;
+        background: white;
+        z-index: 9000;
+        border: 1px solid rgba(0, 0, 0, .2);
+        min-height: 50px;
+        line-height: 1.4;
+        padding: 10px;
+        background-color: #F9FBF4;
+        height:auto;
+    }
 
-.SocialMediaContainer .gplus{
-    min-height: 60px;
-}
+    .SocialMediaContainer .twitter{
+        min-height: 66px;
+    }
 
-.SocialMediaContainer .linkedin{
-    min-height: 77px;
-    margin-top: 10px;
-    border-top: 1px dotted #CCC;
-    padding-top: 10px;
-    margin-left: -3px;
-}
+    .SocialMediaContainer .facebook{
+        min-height: 100px;
+        margin: 10px 0;
+        border-top: 1px dotted #CCC;
+        border-bottom: 1px dotted #CCC;
+        padding: 10px 0;
+    }
 
-.SocialMediaContainer .stumbleupon{
-    min-height: 77px;
-    margin-top: 10px;
-    border-top: 1px dotted #CCC;
-    padding-top: 10px;
-    margin-left: -3px;
+    .SocialMediaContainer .gplus{
+        min-height: 60px;
+    }
+
+    .SocialMediaContainer .linkedin{
+        min-height: 77px;
+        margin-top: 10px;
+        border-top: 1px dotted #CCC;
+        padding-top: 10px;
+        margin-left: -3px;
+    }
+
+    .SocialMediaContainer .stumbleupon{
+        min-height: 77px;
+        margin-top: 10px;
+        border-top: 1px dotted #CCC;
+        padding-top: 10px;
+        margin-left: -3px;
+    }
 }

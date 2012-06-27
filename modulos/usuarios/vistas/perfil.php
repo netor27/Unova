@@ -3,7 +3,6 @@ require_once('layout/headers/headInicio.php');
 require_once('layout/headers/headPerfil.php');
 require_once('layout/headers/headCierre.php');
 require_once('layout/headers/headSocialMedia.php');
-require_once('layout/SocialMediaContainer.php');
 ?>
 
 <div class="contenido">    
@@ -73,6 +72,11 @@ require_once('layout/SocialMediaContainer.php');
                 </div>
             </div>
         <?php } ?>
+        <div class="right">
+            <?php
+            require_once('layout/SocialMediaContainer.php');
+            ?>
+        </div>
     </div>
     <div id="perfil_panel">
         <h3>Biografía</h3>
