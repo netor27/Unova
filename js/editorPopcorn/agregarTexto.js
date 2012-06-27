@@ -191,7 +191,7 @@ function agregarTextoDiv(indice, texto, inicio, fin, color, top, left, width, he
     });
     
     $("#texto_"+indice).draggable({
-        containment: "body",
+        containment: "document",
         stop: function(event, ui){
             //ui.position - {top, left} current position
             var id = ui.helper.attr("id");

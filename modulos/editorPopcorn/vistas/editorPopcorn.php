@@ -47,41 +47,31 @@ $videoData = $var['videoData'];
 
         <script languague="javascript">
             function cargarElementosGuardados(){
-<?php foreach ($textos as $texto) { ?>
-            try{
-                cargarTextoEnArreglo( '<?php echo $texto['texto']; ?>','<?php echo $texto['inicio']; ?>','<?php echo $texto['fin']; ?>','<?php echo $texto['color']; ?>','<?php echo $texto['top']; ?>','<?php echo $texto['left']; ?>','<?php echo $texto['width']; ?>','<?php echo $texto['height']; ?>');
-            }catch(err){
-                console.log("ERROR -- "+err);
-            }
-    <?php
-}
-foreach ($imagenes as $imagen) {
-    ?>
-                try{
-                    cargarImagenEnArreglo('<?php echo $imagen['urlImagen']; ?>','<?php echo $imagen['inicio']; ?>','<?php echo $imagen['fin']; ?>','<?php echo $imagen['color']; ?>','<?php echo $imagen['top']; ?>','<?php echo $imagen['left']; ?>','<?php echo $imagen['width']; ?>','<?php echo $imagen['height']; ?>');
-                }catch(err){
-                    console.log("ERROR -- "+err);
-                }
-    <?php
-}
-foreach ($videos as $video) {
-    ?>
-                try{
-                    cargarVideoEnArreglo('<?php echo $video['urlVideo']; ?>','<?php echo $video['inicio']; ?>','<?php echo $video['fin']; ?>','<?php echo $video['color']; ?>','<?php echo $video['top']; ?>','<?php echo $video['left']; ?>','<?php echo $video['width']; ?>','<?php echo $video['height']; ?>');
-                }catch(err){
-                    console.log("ERROR -- "+err);
-                }
-    <?php
-}
-foreach ($links as $link) {
-    ?>
-                try{
+<?php
+if (isset($textos))
+    foreach ($textos as $texto) {
+        ?>
+                        cargarTextoEnArreglo( '<?php echo $texto['texto']; ?>','<?php echo $texto['inicio']; ?>','<?php echo $texto['fin']; ?>','<?php echo $texto['color']; ?>','<?php echo $texto['top']; ?>','<?php echo $texto['left']; ?>','<?php echo $texto['width']; ?>','<?php echo $texto['height']; ?>');
+        <?php
+    }
+if (isset($imagenes))
+    foreach ($imagenes as $imagen) {
+        ?>
+                        cargarImagenEnArreglo('<?php echo $imagen['urlImagen']; ?>','<?php echo $imagen['inicio']; ?>','<?php echo $imagen['fin']; ?>','<?php echo $imagen['color']; ?>','<?php echo $imagen['top']; ?>','<?php echo $imagen['left']; ?>','<?php echo $imagen['width']; ?>','<?php echo $imagen['height']; ?>');
+        <?php
+    }
+if (isset($videos))
+    foreach ($videos as $video) {
+        ?>
+                        cargarVideoEnArreglo('<?php echo $video['urlVideo']; ?>','<?php echo $video['inicio']; ?>','<?php echo $video['fin']; ?>','<?php echo $video['color']; ?>','<?php echo $video['top']; ?>','<?php echo $video['left']; ?>','<?php echo $video['width']; ?>','<?php echo $video['height']; ?>');
+        <?php
+    }
+if (isset($links))
+    foreach ($links as $link) {
+        ?>
                     cargarLinkEnArreglo('<?php echo $link['texto']; ?>','<?php echo $link['url']; ?>','<?php echo $link['inicio']; ?>','<?php echo $link['fin']; ?>','<?php echo $link['color']; ?>','<?php echo $link['top']; ?>','<?php echo $link['left']; ?>','<?php echo $link['width']; ?>','<?php echo $link['height']; ?>');
-                }catch(err){
-                    console.log("ERROR -- "+err);
-                }
-    <?php
-}
+        <?php
+    }
 ?>
     }
         </script>

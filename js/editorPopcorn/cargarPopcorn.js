@@ -5,7 +5,7 @@ var $videoDuration;
 $(function(){
     //Configuración inicial    
     $("#videoContainer").draggable({
-        containment: "body"
+        containment: "document"
     });
     $("#videoContainer").resizable({
         resize: function(event, ui) {

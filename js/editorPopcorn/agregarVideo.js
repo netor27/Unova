@@ -172,7 +172,7 @@ function agregarVideoDiv(indice, urlVideo, inicio, fin, color, top, left, width,
     
     $("#videoContainer_"+indice).draggable({
         handle: "p", 
-        containment: "body",
+        containment: "document",
         stop: function(event, ui){
             //ui.position - {top, left} current position
             var id = ui.helper.attr("id");

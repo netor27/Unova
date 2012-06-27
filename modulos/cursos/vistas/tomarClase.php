@@ -1,6 +1,5 @@
 <?php
 require_once('layout/headers/headInicio.php');
-require_once('layout/headers/headTomarClase.php');
 require_once('layout/headers/headCierre.php');
 ?>
 
