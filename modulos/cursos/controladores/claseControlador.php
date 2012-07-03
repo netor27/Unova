@@ -1,7 +1,7 @@
 <?php
 
 function borrarClase() {
-    if (validarUsuarioLoggeadoParaAjax()) {
+    if (validarUsuarioLoggeadoParaSubmits()) {
         if (isset($_GET['i']) && isset($_GET['j'])) {
             $idCurso = $_GET['i'];
             $idClase = $_GET['j'];
@@ -63,50 +63,53 @@ function editarClase() {
 }
 
 function editarClaseSubmit() {
-    validarUsuarioLoggeadoMandarIndex();
-    if (isset($_POST['titulo']) && isset($_POST['descripcion']) &&
-            isset($_POST['idCurso']) && isset($_POST['idClase'])) {
+    if (validarUsuarioLoggeadoParaSubmits()) {
+        if (isset($_POST['titulo']) && isset($_POST['descripcion']) &&
+                isset($_POST['idCurso']) && isset($_POST['idClase'])) {
 
-        require_once 'modulos/cursos/modelos/CursoModelo.php';
-        require_once 'modulos/cursos/modelos/ClaseModelo.php';
+            require_once 'modulos/cursos/modelos/CursoModelo.php';
+            require_once 'modulos/cursos/modelos/ClaseModelo.php';
 
-        $idCurso = removeBadHtmlTags($_POST['idCurso']);
-        $curso = getCurso($idCurso);
-        $idClase = removeBadHtmlTags($_POST['idClase']);
+            $idCurso = removeBadHtmlTags($_POST['idCurso']);
+            $curso = getCurso($idCurso);
+            $idClase = removeBadHtmlTags($_POST['idClase']);
 
-        if (getUsuarioActual()->idUsuario == getIdUsuarioDeCurso($idCurso) && clasePerteneceACurso($idCurso, $idClase)) {
+            if (getUsuarioActual()->idUsuario == getIdUsuarioDeCurso($idCurso) && clasePerteneceACurso($idCurso, $idClase)) {
 
-            $titulo = removeBadHtmlTags(trim($_POST['titulo']));
-            $descripcion = removeBadHtmlTags(trim($_POST['descripcion']));
+                $titulo = removeBadHtmlTags(trim($_POST['titulo']));
+                $descripcion = removeBadHtmlTags(trim($_POST['descripcion']));
 
-            if (strlen($titulo) >= 5 && strlen($titulo) <= 100 && strlen($descripcion) > 10) {
-                require_once 'modulos/cursos/clases/Clase.php';
-                require_once 'modulos/cursos/modelos/ClaseModelo.php';
+                if (strlen($titulo) >= 5 && strlen($titulo) <= 100 && strlen($descripcion) > 10) {
+                    require_once 'modulos/cursos/clases/Clase.php';
+                    require_once 'modulos/cursos/modelos/ClaseModelo.php';
 
-                $clase = new Clase();
-                $clase->descripcion = $descripcion;
-                $clase->titulo = $titulo;
-                $clase->idClase = $idClase;
+                    $clase = new Clase();
+                    $clase->descripcion = $descripcion;
+                    $clase->titulo = $titulo;
+                    $clase->idClase = $idClase;
 
-                if (actualizaInformacionClase($clase)) {
-                    setSessionMessage("<h4 class='success'>Se modificó correctamente la clase </h4>");
-                    redirect("/curso/" . $curso->uniqueUrl);
+                    if (actualizaInformacionClase($clase)) {
+                        setSessionMessage("<h4 class='success'>Se modificó correctamente la clase </h4>");
+                        redirect("/curso/" . $curso->uniqueUrl);
+                    } else {
+                        //Error al insertar                    
+                        setSessionMessage('<h4 class="error">Ocurrió un error al editar la clase. Intenta de nuevo más tarde</h4>');
+                        redirect("/clases/clase/editarClase/" . $idCurso . "/" . $idClase);
+                    }
                 } else {
-                    //Error al insertar                    
-                    setSessionMessage('<h4 class="error">Ocurrió un error al editar la clase. Intenta de nuevo más tarde</h4>');
+                    setSessionMessage('<h4 class="error">Los valores que introduciste no son válidos</h4>');
                     redirect("/clases/clase/editarClase/" . $idCurso . "/" . $idClase);
                 }
             } else {
-                setSessionMessage('<h4 class="error">Los valores que introduciste no son válidos</h4>');
-                redirect("/clases/clase/editarClase/" . $idCurso . "/" . $idClase);
+                setSessionMessage('<h4 class="error">No puedes modificar esta clase</h4>');
+                redirect("/");
             }
         } else {
-            setSessionMessage('<h4 class="error">No puedes modificar esta clase</h4>');
-            redirect("/");
+            setSessionMessage('<h4 class="error">Los valores que introduciste no son válidos</h4>');
+            redirect("/clases/clase/editarClase/" . $idCurso . "/" . $idClase);
         }
     } else {
-        setSessionMessage('<h4 class="error">Los valores que introduciste no son válidos</h4>');
-        redirect("/clases/clase/editarClase/" . $idCurso . "/" . $idClase);
+        goToIndex();
     }
 }
 
@@ -125,7 +128,7 @@ function tomarClase() {
     if (clasePerteneceACurso($curso->idCurso, $idClase)) {
         //Validar que el usuario este suscrito al curso
         if (esUsuarioUnAlumnoDelCurso($usuario->idUsuario, $curso->idCurso) ||
-                $curso->idUsuario == $usuario->idUsuario || 
+                $curso->idUsuario == $usuario->idUsuario ||
                 tipoUsuario() == "administrador") {
             $clase = getClase($idClase);
             if ($curso->idUsuario != $usuario->idUsuario) {
@@ -235,10 +238,10 @@ function guardarEdicionVideo() {
 
 //Funciones para la funcionalidad de la caja
 
-function agregarTarjetas(){    
+function agregarTarjetas() {
     if (tipoUsuario() == "administrador") {
         require_once 'modulos/cursos/vistas/agregarTarjetas.php';
-    }else{
+    } else {
         goToIndex();
     }
 }
@@ -247,7 +250,7 @@ function agregarTarjetasSubmit() {
     //recibe un csv con el formato:
     // ladoA, ladoB, tiempo
     $idCaja = $_POST['idCaja'];
-    
+
     if (tipoUsuario() == "administrador") {
         //Por ahora solo agregar este tipo de contenido si es un administrador
         if (isset($_FILES['archivoCsv'])) {
@@ -255,12 +258,12 @@ function agregarTarjetasSubmit() {
             $archivoCsv = $_FILES["archivoCsv"]["tmp_name"];
             require_once 'modulos/cursos/modelos/CajaModelo.php';
             $res = agregarTarjetasDesdeCSV($idCaja, $archivoCsv);
-            if($res['resultado'] == 1){
+            if ($res['resultado'] == 1) {
                 //todo bien
                 echo 'Se insertaron ' . $res['insertados'] . ' filas.';
-            }else{
+            } else {
                 //Ocurrió un error al importar las tarjetas
-                foreach($res['errores'] as $error){
+                foreach ($res['errores'] as $error) {
                     echo $error . '<br>';
                 }
             }
@@ -268,7 +271,7 @@ function agregarTarjetasSubmit() {
             //No hay archivo
             echo 'No hay archivo';
         }
-    }else{
+    } else {
         goToIndex();
     }
 }

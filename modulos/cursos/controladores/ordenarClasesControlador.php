@@ -1,7 +1,7 @@
 <?php
 
 function ordenar() {    
-    if (validarUsuarioLoggeadoParaAjax()) {
+    if (validarUsuarioLoggeadoParaSubmits()) {
         if (isset($_POST['clase']) && isset($_GET['idTema'])) {
             require_once 'modulos/cursos/modelos/ClaseModelo.php';
             $clases = $_POST['clase'];

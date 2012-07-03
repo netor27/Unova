@@ -20,42 +20,45 @@ function agregarTema() {
 }
 
 function agregarTemaSubmit() {
-    validarUsuarioLoggeadoMandarIndex();
+    if (validarUsuarioLoggeadoParaSubmits()) {
 
-    if (isset($_POST['titulo']) && isset($_POST['idCurso'])) {
-        $titulo = removeBadHtmlTags(trim($_POST['titulo']));
-        if (strlen($titulo) >= 5 && strlen($titulo) <= 50) {
-            require_once 'modulos/cursos/clases/Tema.php';
-            require_once 'modulos/cursos/modelos/TemaModelo.php';
-            require_once 'modulos/cursos/modelos/CursoModelo.php';
-            $tema = new Tema();
-            $idCurso = $_POST['idCurso'];            
-            $curso = getCurso($idCurso);
-            if (getUsuarioActual()->idUsuario == getIdUsuarioDeCurso($idCurso)) {
-                //El curso pertenece al usuario
-                $tema->idCurso = $idCurso;
-                $tema->nombre = $titulo;
-                $tema->idTema = altaTema($tema);
-                if ($tema->idTema >= 0) {
-                    setSessionMessage("<h4 class='success'>¡Se agregó un tema!</h4>");
-                    redirect("/curso/" . $curso->uniqueUrl);
+        if (isset($_POST['titulo']) && isset($_POST['idCurso'])) {
+            $titulo = removeBadHtmlTags(trim($_POST['titulo']));
+            if (strlen($titulo) >= 5 && strlen($titulo) <= 50) {
+                require_once 'modulos/cursos/clases/Tema.php';
+                require_once 'modulos/cursos/modelos/TemaModelo.php';
+                require_once 'modulos/cursos/modelos/CursoModelo.php';
+                $tema = new Tema();
+                $idCurso = $_POST['idCurso'];
+                $curso = getCurso($idCurso);
+                if (getUsuarioActual()->idUsuario == getIdUsuarioDeCurso($idCurso)) {
+                    //El curso pertenece al usuario
+                    $tema->idCurso = $idCurso;
+                    $tema->nombre = $titulo;
+                    $tema->idTema = altaTema($tema);
+                    if ($tema->idTema >= 0) {
+                        setSessionMessage("<h4 class='success'>¡Se agregó un tema!</h4>");
+                        redirect("/curso/" . $curso->uniqueUrl);
+                    } else {
+                        //Error al insertar
+                        $error = "Ocurrió un error al agregar el tema. Intenta de nuevo más tarde.";
+                        require_once 'modulos/cursos/vistas/agregarTema.php';
+                    }
                 } else {
-                    //Error al insertar
-                    $error = "Ocurrió un error al agregar el tema. Intenta de nuevo más tarde.";
-                    require_once 'modulos/cursos/vistas/agregarTema.php';
+                    //El curso no pertenece al usuario
+                    setSessionMessage("<h4 class'error'>No puedes modificar este curso</h4>");
+                    goToIndex();
                 }
             } else {
-                //El curso no pertenece al usuario
-                setSessionMessage("<h4 class'error'>No puedes modificar este curso</h4>");
-                goToIndex();
+                $error = "Los datos introducidos no son válidos";
+                require_once 'modulos/cursos/vistas/agregarTema.php';
             }
         } else {
-            $error = "Los datos introducidos no son válidos";
+            $error = "No especificaste un título para el tema";
             require_once 'modulos/cursos/vistas/agregarTema.php';
         }
     } else {
-        $error = "No especificaste un título para el tema";
-        require_once 'modulos/cursos/vistas/agregarTema.php';
+        goToIndex();
     }
 }
 
@@ -82,45 +85,48 @@ function editarTema() {
 }
 
 function editarTemaSubmit() {
-    validarUsuarioLoggeadoMandarIndex();
-    if (isset($_POST['titulo']) && isset($_POST['idCurso']) && isset($_POST['idTema'])) {
-        $titulo = removeBadHtmlTags(trim($_POST['titulo']));
-        $idCurso = $_POST['idCurso'];
-        $idTema = $_POST['idTema'];
-        require_once 'modulos/cursos/modelos/CursoModelo.php';
-        if (getUsuarioActual()->idUsuario == getIdUsuarioDeCurso($idCurso)) {
+    if (validarUsuarioLoggeadoParaSubmits()) {
+        if (isset($_POST['titulo']) && isset($_POST['idCurso']) && isset($_POST['idTema'])) {
+            $titulo = removeBadHtmlTags(trim($_POST['titulo']));
+            $idCurso = $_POST['idCurso'];
+            $idTema = $_POST['idTema'];
+            require_once 'modulos/cursos/modelos/CursoModelo.php';
+            if (getUsuarioActual()->idUsuario == getIdUsuarioDeCurso($idCurso)) {
 
-            if (strlen($titulo) >= 5 && strlen($titulo) <= 50) {
-                $curso = getCurso($idCurso);
-                require_once 'modulos/cursos/clases/Tema.php';
-                require_once 'modulos/cursos/modelos/TemaModelo.php';
-                $tema = new Tema();
-                $tema->idCurso = $idCurso;
-                $tema->nombre = $titulo;
-                $tema->idTema = $idTema;
-                if (actualizaTema($tema)) {
-                    setSessionMessage("<h4 class='success'>Se modificó el nombre del tema correctamente</h4>");
-                    redirect("/curso/" . $curso->uniqueUrl);
+                if (strlen($titulo) >= 5 && strlen($titulo) <= 50) {
+                    $curso = getCurso($idCurso);
+                    require_once 'modulos/cursos/clases/Tema.php';
+                    require_once 'modulos/cursos/modelos/TemaModelo.php';
+                    $tema = new Tema();
+                    $tema->idCurso = $idCurso;
+                    $tema->nombre = $titulo;
+                    $tema->idTema = $idTema;
+                    if (actualizaTema($tema)) {
+                        setSessionMessage("<h4 class='success'>Se modificó el nombre del tema correctamente</h4>");
+                        redirect("/curso/" . $curso->uniqueUrl);
+                    } else {
+                        setSessionMessage("<h4 class='error'>Ocurrió un error al modificar el tema. Intenta de nuevo más tarde.</h4>");
+                        redirect("/curso/" . $curso->uniqueUrl);
+                    }
                 } else {
-                    setSessionMessage("<h4 class='error'>Ocurrió un error al modificar el tema. Intenta de nuevo más tarde.</h4>");
-                    redirect("/curso/" . $curso->uniqueUrl);
+                    $error = "Los datos introducidos no son válidos";
+                    require_once 'modulos/cursos/vistas/agregarTema.php';
                 }
             } else {
-                $error = "Los datos introducidos no son válidos";
-                require_once 'modulos/cursos/vistas/agregarTema.php';
+                setSessionMessage("<h4 class='error'>No puedes modificar este curso</h4>");
+                goToIndex();
             }
         } else {
-            setSessionMessage("<h4 class='error'>No puedes modificar este curso</h4>");
+            setSessionMessage("<h4 class='error'>Los datos enviados no son válidos</h4>");
             goToIndex();
         }
     } else {
-        setSessionMessage("<h4 class='error'>Los datos enviados no son válidos</h4>");
         goToIndex();
     }
 }
 
 function borrarTema() {
-    if (validarUsuarioLoggeadoParaAjax()) {
+    if (validarUsuarioLoggeadoParaSubmits()) {
         if (isset($_GET['i'])) {
             $idCurso = $_GET['i'];
             $idTema = $_GET['j'];

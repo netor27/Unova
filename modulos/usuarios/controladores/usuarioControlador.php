@@ -9,8 +9,8 @@ function detalles() {
 
     if (!is_null($usuarioPerfil)) {
         $tituloPagina = $usuarioPerfil->nombreUsuario;
-        $titulo  = $usuarioPerfil->nombreUsuario;
-        $imageThumbnail  = $usuarioPerfil->avatar;
+        $titulo = $usuarioPerfil->nombreUsuario;
+        $imageThumbnail = $usuarioPerfil->avatar;
         $descripcion = $usuarioPerfil->tituloPersonal;
 
         $miPerfil = false;
@@ -47,29 +47,32 @@ function editarInformacion() {
 }
 
 function editarInformacionSubmit() {
-    validarUsuarioLoggeadoMandarIndex();
-    $usuarioParaEditar = getUsuarioActual();
-    $nombreAnterior = $usuarioParaEditar->nombreUsuario;
-    if (isset($_POST['nombre']))
-        $usuarioParaEditar->nombreUsuario = strip_tags(trim($_POST['nombre']));
-    if (isset($_POST['tituloPersonal']))
-        $usuarioParaEditar->tituloPersonal = str_replace('"', '', strip_tags(trim($_POST['tituloPersonal'])));
-    if (isset($_POST['bio']))
-        $usuarioParaEditar->bio = trim($_POST['bio']);
+    if (validarUsuarioLoggeadoParaSubmits()) {
+        $usuarioParaEditar = getUsuarioActual();
+        $nombreAnterior = $usuarioParaEditar->nombreUsuario;
+        if (isset($_POST['nombre']))
+            $usuarioParaEditar->nombreUsuario = strip_tags(trim($_POST['nombre']));
+        if (isset($_POST['tituloPersonal']))
+            $usuarioParaEditar->tituloPersonal = str_replace('"', '', strip_tags(trim($_POST['tituloPersonal'])));
+        if (isset($_POST['bio']))
+            $usuarioParaEditar->bio = trim($_POST['bio']);
 
-    require_once 'modulos/usuarios/modelos/usuarioModelo.php';
-    if ($nombreAnterior != $usuarioParaEditar->nombreUsuario) {
-        require_once 'funcionesPHP/uniqueUrlGenerator.php';
-        $usuarioParaEditar->uniqueUrl = getUsuarioUniqueUrl($usuarioParaEditar->nombreUsuario);
-    }
-    if (actualizaInformacionUsuario($usuarioParaEditar)) {
+        require_once 'modulos/usuarios/modelos/usuarioModelo.php';
+        if ($nombreAnterior != $usuarioParaEditar->nombreUsuario) {
+            require_once 'funcionesPHP/uniqueUrlGenerator.php';
+            $usuarioParaEditar->uniqueUrl = getUsuarioUniqueUrl($usuarioParaEditar->nombreUsuario);
+        }
+        if (actualizaInformacionUsuario($usuarioParaEditar)) {
 
-        setSessionMessage("<h4 class='success'>Se actualizó tu información de perfil</h4>");
-        redirect("/usuario/" . $usuarioParaEditar->uniqueUrl);
+            setSessionMessage("<h4 class='success'>Se actualizó tu información de perfil</h4>");
+            redirect("/usuario/" . $usuarioParaEditar->uniqueUrl);
+        } else {
+            $error = "Ocurrió un error al actualizar tu información. <br>Intenta de nuevo más tarde";
+            $usuario = getUsuario($usuarioParaEditar->idUsuario);
+            require_once 'modulos/usuarios/vistas/editarPerfil.php';
+        }
     } else {
-        $error = "Ocurrió un error al actualizar tu información. <br>Intenta de nuevo más tarde";
-        $usuario = getUsuario($usuarioParaEditar->idUsuario);
-        require_once 'modulos/usuarios/vistas/editarPerfil.php';
+        goToIndex();
     }
 }
 
@@ -83,7 +86,7 @@ function cambiarImagen() {
 }
 
 function cambiarImagenSubmit() {
-    validarUsuarioLoggeadoMandarIndex();
+    if(validarUsuarioLoggeadoParaSubmits()){
     if (isset($_FILES['imagen'])) {
         $anchoImagen = 200;
         $altoImagen = 200;
@@ -138,6 +141,9 @@ function cambiarImagenSubmit() {
             redirect("/usuarios/usuario/cambiarImagen");
         }
     }
+}else{
+    goToIndex();
+}
 }
 
 function cambiarPassword() {

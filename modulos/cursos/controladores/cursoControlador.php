@@ -15,37 +15,41 @@ function crearCurso() {
 }
 
 function crearCursoSubmit() {
-    validarUsuarioLoggeadoMandarIndex();
-    if (isset($_POST['titulo']) && isset($_POST['descripcionCorta']) && isset($_POST['subcategoria']) && isset($_POST['palabrasClave'])) {
-        $descripcionCorta = removeBadHtmlTags(trim($_POST['descripcionCorta']));
-        $titulo = removeBadHtmlTags(trim($_POST['titulo']));
-        $subcategoria = removeBadHtmlTags($_POST['subcategoria']);
-        $keywords = removeBadHtmlTags(trim($_POST['palabrasClave']));
+    if (validarUsuarioLoggeadoParaSubmits()) {
+        if (isset($_POST['titulo']) && isset($_POST['descripcionCorta']) && isset($_POST['subcategoria']) && isset($_POST['palabrasClave'])) {
+            $descripcionCorta = removeBadHtmlTags(trim($_POST['descripcionCorta']));
+            $titulo = removeBadHtmlTags(trim($_POST['titulo']));
+            $subcategoria = removeBadHtmlTags($_POST['subcategoria']);
+            $keywords = removeBadHtmlTags(trim($_POST['palabrasClave']));
 
-        if (strlen($titulo) >= 10 && strlen($titulo) <= 100 && strlen($descripcionCorta) >= 10 && strlen($descripcionCorta) <= 140 && strlen($keywords) <= 140) {
+            if (strlen($titulo) >= 10 && strlen($titulo) <= 100 && strlen($descripcionCorta) >= 10 && strlen($descripcionCorta) <= 140 && strlen($keywords) <= 140) {
 
-            require_once 'modulos/cursos/clases/Curso.php';
+                require_once 'modulos/cursos/clases/Curso.php';
 
-            $curso = new Curso();
-            $curso->titulo = $titulo;
-            $curso->descripcionCorta = $descripcionCorta;
-            $curso->idSubcategoria = $subcategoria;
-            $curso->idUsuario = getUsuarioActual()->idUsuario;
-            if (strlen($keywords) > 0)
-                $curso->keywords = $keywords;
+                $curso = new Curso();
+                $curso->titulo = $titulo;
+                $curso->descripcionCorta = $descripcionCorta;
+                $curso->idSubcategoria = $subcategoria;
+                $curso->idUsuario = getUsuarioActual()->idUsuario;
+                if (strlen($keywords) > 0)
+                    $curso->keywords = $keywords;
 
-            require_once 'funcionesPHP/uniqueUrlGenerator.php';
-            $curso->uniqueUrl = getCursoUniqueUrl($titulo);
+                require_once 'funcionesPHP/uniqueUrlGenerator.php';
+                $curso->uniqueUrl = getCursoUniqueUrl($titulo);
 
-            require_once 'modulos/cursos/modelos/CursoModelo.php';
-            $id = altaCurso($curso);
-            if ($id >= 0) {
-                $curso->idCurso = $id;
-                $url = "/curso/" . $curso->uniqueUrl;
-                setSessionMessage("<h4 class='success'>¡Haz creado un curso!</h4>");
-                redirect($url);
+                require_once 'modulos/cursos/modelos/CursoModelo.php';
+                $id = altaCurso($curso);
+                if ($id >= 0) {
+                    $curso->idCurso = $id;
+                    $url = "/curso/" . $curso->uniqueUrl;
+                    setSessionMessage("<h4 class='success'>¡Haz creado un curso!</h4>");
+                    redirect($url);
+                } else {
+                    setSessionMessage("<h4 class='error'>Ocurrió un error al dar de alta el curso. Intenta de nuevo más tarde</h4>");
+                    redirect("/cursos/curso/crearCurso");
+                }
             } else {
-                setSessionMessage("<h4 class='error'>Ocurrió un error al dar de alta el curso. Intenta de nuevo más tarde</h4>");
+                setSessionMessage("<h4 class='error'>Los datos que introduciste no son válidos</h4>");
                 redirect("/cursos/curso/crearCurso");
             }
         } else {
@@ -53,8 +57,7 @@ function crearCursoSubmit() {
             redirect("/cursos/curso/crearCurso");
         }
     } else {
-        setSessionMessage("<h4 class='error'>Los datos que introduciste no son válidos</h4>");
-        redirect("/cursos/curso/crearCurso");
+        goToIndex();
     }
 }
 
@@ -124,56 +127,59 @@ function editarInformacionCurso() {
 }
 
 function editarInformacionCursoSubmit() {
-    validarUsuarioLoggeadoMandarIndex();
-    if (isset($_GET['i']) && isset($_POST['titulo']) && isset($_POST['descripcionCorta']) && isset($_POST['descripcion']) && isset($_POST['subcategoria']) && isset($_POST['palabrasClave'])) {
-        $idCurso = removeBadHtmlTags($_GET['i']);
-        $titulo = removeBadHtmlTags(trim($_POST['titulo']));
-        $descripcionCorta = removeBadHtmlTags(trim($_POST['descripcionCorta']));
-        $idSubcategoria = removeBadHtmlTags($_POST['subcategoria']);
-        $keywords = removeBadHtmlTags(trim($_POST['palabrasClave']));
-        $descripcion = removeBadHtmlTags(trim($_POST['descripcion']));
+    if (validarUsuarioLoggeadoParaSubmits()) {
+        if (isset($_GET['i']) && isset($_POST['titulo']) && isset($_POST['descripcionCorta']) && isset($_POST['descripcion']) && isset($_POST['subcategoria']) && isset($_POST['palabrasClave'])) {
+            $idCurso = removeBadHtmlTags($_GET['i']);
+            $titulo = removeBadHtmlTags(trim($_POST['titulo']));
+            $descripcionCorta = removeBadHtmlTags(trim($_POST['descripcionCorta']));
+            $idSubcategoria = removeBadHtmlTags($_POST['subcategoria']);
+            $keywords = removeBadHtmlTags(trim($_POST['palabrasClave']));
+            $descripcion = removeBadHtmlTags(trim($_POST['descripcion']));
 
-        if (strlen($titulo) >= 10 && strlen($titulo) <= 100 && strlen($descripcionCorta) >= 10 && strlen($descripcionCorta) <= 140 && strlen($keywords) <= 140) {
-            //Todo bien
-            require_once 'modulos/cursos/modelos/CursoModelo.php';
-            $curso = getCurso($idCurso);
-            $tituloAnterior = $curso->titulo;
-            if ($curso->idUsuario == getUsuarioActual()->idUsuario) {
-                //El curso le pertenece al usuario loggeado. Modificamos el contenido
-                $curso->titulo = $titulo;
-                require_once 'funcionesPHP/uniqueUrlGenerator.php';
-                if ($tituloAnterior != $curso->titulo) {
-                    $curso->uniqueUrl = getCursoUniqueUrl($titulo);
-                }
+            if (strlen($titulo) >= 10 && strlen($titulo) <= 100 && strlen($descripcionCorta) >= 10 && strlen($descripcionCorta) <= 140 && strlen($keywords) <= 140) {
+                //Todo bien
+                require_once 'modulos/cursos/modelos/CursoModelo.php';
+                $curso = getCurso($idCurso);
+                $tituloAnterior = $curso->titulo;
+                if ($curso->idUsuario == getUsuarioActual()->idUsuario) {
+                    //El curso le pertenece al usuario loggeado. Modificamos el contenido
+                    $curso->titulo = $titulo;
+                    require_once 'funcionesPHP/uniqueUrlGenerator.php';
+                    if ($tituloAnterior != $curso->titulo) {
+                        $curso->uniqueUrl = getCursoUniqueUrl($titulo);
+                    }
 
-                $curso->descripcionCorta = $descripcionCorta;
-                $curso->idSubcategoria = $idSubcategoria;
-                $curso->keywords = $keywords;
-                $curso->descripcion = $descripcion;
+                    $curso->descripcionCorta = $descripcionCorta;
+                    $curso->idSubcategoria = $idSubcategoria;
+                    $curso->keywords = $keywords;
+                    $curso->descripcion = $descripcion;
 
-                if (actualizaInformacionCurso($curso)) {
-                    require_once 'funcionesPHP/CargarInformacionSession.php';
-                    cargarCursosSession();
-                    setSessionMessage("<h4 class='success'>Se modificó correctamente la información del curso.</h4>");
+                    if (actualizaInformacionCurso($curso)) {
+                        require_once 'funcionesPHP/CargarInformacionSession.php';
+                        cargarCursosSession();
+                        setSessionMessage("<h4 class='success'>Se modificó correctamente la información del curso.</h4>");
+                    } else {
+                        setSessionMessage("<h4 class='error'>Currió un error al modificar el curso. Intenta de nuevo más tarde.</h4>");
+                    }
+                    redirect("/curso/" . $curso->uniqueUrl);
                 } else {
-                    setSessionMessage("<h4 class='error'>Currió un error al modificar el curso. Intenta de nuevo más tarde.</h4>");
+                    //Este curso no le pertenece a esta persona, no lo puede modificar.
+                    //Reenviar a index.                
+                    setSessionMessage("<h4 class='error'>No puedes modificar este curso</h4>");
+                    goToIndex();
                 }
-                redirect("/curso/" . $curso->uniqueUrl);
             } else {
-                //Este curso no le pertenece a esta persona, no lo puede modificar.
-                //Reenviar a index.                
-                setSessionMessage("<h4 class='error'>No puedes modificar este curso</h4>");
-                goToIndex();
+                //Datos no validos
+                setSessionMessage("<h4 class='error'>Los datos enviados no son correctos</h4>");
+                redirect("/cursos/curso/editarInformacionCurso/" . $idCurso);
             }
         } else {
-            //Datos no validos
+            //no hay datos en post
             setSessionMessage("<h4 class='error'>Los datos enviados no son correctos</h4>");
-            redirect("/cursos/curso/editarInformacionCurso/" . $idCurso);
+            redirect("/");
         }
     } else {
-        //no hay datos en post
-        setSessionMessage("<h4 class='error'>Los datos enviados no son correctos</h4>");
-        redirect("/");
+        goToIndex();
     }
 }
 
@@ -447,81 +453,84 @@ function cambiarImagen() {
 }
 
 function cambiarImagenSubmit() {
-    validarUsuarioLoggeadoMandarIndex();
-    if (isset($_FILES['imagen']) && isset($_GET['i'])) {
-        $anchoImagen = 100;
-        $altoImagen = 100;
+    if (validarUsuarioLoggeadoParaSubmits()) {
+        if (isset($_FILES['imagen']) && isset($_GET['i'])) {
+            $anchoImagen = 100;
+            $altoImagen = 100;
 
-        require_once 'modulos/cursos/modelos/CursoModelo.php';
-        $idCurso = $_GET['i'];
-        $cursoParaModificar = getCurso($idCurso);
-        if ($cursoParaModificar->idUsuario == getUsuarioActual()->idUsuario) {
-            if ((($_FILES["imagen"]["type"] == "image/jpeg")
-                    || ($_FILES["imagen"]["type"] == "image/pjpeg")
-                    || ($_FILES["imagen"]["type"] == "image/png"))
-                    && ($_FILES["imagen"]["size"] < 500000)) {
-                require_once 'funcionesPHP/CropImage.php';
-                //guardamos la imagen en el formato original
-                $file = "archivos/temporal/" . $_FILES["imagen"]["name"];
+            require_once 'modulos/cursos/modelos/CursoModelo.php';
+            $idCurso = $_GET['i'];
+            $cursoParaModificar = getCurso($idCurso);
+            if ($cursoParaModificar->idUsuario == getUsuarioActual()->idUsuario) {
+                if ((($_FILES["imagen"]["type"] == "image/jpeg")
+                        || ($_FILES["imagen"]["type"] == "image/pjpeg")
+                        || ($_FILES["imagen"]["type"] == "image/png"))
+                        && ($_FILES["imagen"]["size"] < 500000)) {
+                    require_once 'funcionesPHP/CropImage.php';
+                    //guardamos la imagen en el formato original
+                    $file = "archivos/temporal/" . $_FILES["imagen"]["name"];
 
-                move_uploaded_file($_FILES["imagen"]["tmp_name"], $file);
+                    move_uploaded_file($_FILES["imagen"]["tmp_name"], $file);
 
-                $path = pathinfo($file);
-                $uniqueCode = getUniqueCode(5);
-                $destName = $uniqueCode . "_curso_" . $cursoParaModificar->idCurso . "." . $path['extension'];
-                $dest = $path['dirname'] . "/" . $destName;
+                    $path = pathinfo($file);
+                    $uniqueCode = getUniqueCode(5);
+                    $destName = $uniqueCode . "_curso_" . $cursoParaModificar->idCurso . "." . $path['extension'];
+                    $dest = $path['dirname'] . "/" . $destName;
 
-                if (cropImage($file, $dest, $altoImagen, $anchoImagen)) {
-                    //Se hizo el crop correctamente                    
-                    //borramos la imagen temporal
-                    unlink($file);
-                    require_once 'modulos/cdn/modelos/cdnModelo.php';
-                    $uri = crearArchivoCDN($dest, $destName, -1);
-                    $oldUri = $cursoParaModificar->imagen;
-                    if ($uri != NULL) {
-                        $cursoParaModificar->imagen = $uri;
-                        if (actualizaImagenCurso($cursoParaModificar)) {
-                            //Se actualizó correctamente la bd, borramos el archivo anterior del cdn
-                            if (strpos($oldUri, "http") !== false) {
-                                //Si el oldUri contiene http, significa que esta en cloud files, lo borramos. 
-                                $splitted = explode("/", $oldUri);
-                                $fileName = $splitted[sizeof($splitted) - 1];
-                                deleteArchivoCdn($fileName, -1);
+                    if (cropImage($file, $dest, $altoImagen, $anchoImagen)) {
+                        //Se hizo el crop correctamente                    
+                        //borramos la imagen temporal
+                        unlink($file);
+                        require_once 'modulos/cdn/modelos/cdnModelo.php';
+                        $uri = crearArchivoCDN($dest, $destName, -1);
+                        $oldUri = $cursoParaModificar->imagen;
+                        if ($uri != NULL) {
+                            $cursoParaModificar->imagen = $uri;
+                            if (actualizaImagenCurso($cursoParaModificar)) {
+                                //Se actualizó correctamente la bd, borramos el archivo anterior del cdn
+                                if (strpos($oldUri, "http") !== false) {
+                                    //Si el oldUri contiene http, significa que esta en cloud files, lo borramos. 
+                                    $splitted = explode("/", $oldUri);
+                                    $fileName = $splitted[sizeof($splitted) - 1];
+                                    deleteArchivoCdn($fileName, -1);
+                                }
+                                require_once 'funcionesPHP/CargarInformacionSession.php';
+                                cargarCursosSession();
+                                setSessionMessage("<h4 class='success'>Cambiaste correctamente tu imagen</h4>");
+                                redirect("/curso/" . $cursoParaModificar->uniqueUrl);
+                            } else {
+                                //error en bd
+                                setSessionMessage("<h4 class='error'>Error bd</h4>");
+                                redirect("/cursos/curso/cambiarImagen/" . $cursoParaModificar->idCurso);
                             }
-                            require_once 'funcionesPHP/CargarInformacionSession.php';
-                            cargarCursosSession();
-                            setSessionMessage("<h4 class='success'>Cambiaste correctamente tu imagen</h4>");
-                            redirect("/curso/" . $cursoParaModificar->uniqueUrl);
                         } else {
-                            //error en bd
-                            setSessionMessage("<h4 class='error'>Error bd</h4>");
+                            //Ocurrió un error al subir al cdn
+                            setSessionMessage("<h4 class='error'>Error cdn</h4>");
                             redirect("/cursos/curso/cambiarImagen/" . $cursoParaModificar->idCurso);
                         }
                     } else {
-                        //Ocurrió un error al subir al cdn
-                        setSessionMessage("<h4 class='error'>Error cdn</h4>");
+                        //borramos la imagen temporal
+                        unlink($file);
+                        //No se pudo hacer el "crop" de la imagen
+                        //echo "no se pudo hacer el crop de la imagen";
+                        setSessionMessage("<h4 class='error'>Ocurrió un error al procesar tu imagen. Intenta de nuevo más tarde</h4>");
                         redirect("/cursos/curso/cambiarImagen/" . $cursoParaModificar->idCurso);
                     }
                 } else {
-                    //borramos la imagen temporal
-                    unlink($file);
-                    //No se pudo hacer el "crop" de la imagen
-                    //echo "no se pudo hacer el crop de la imagen";
-                    setSessionMessage("<h4 class='error'>Ocurrió un error al procesar tu imagen. Intenta de nuevo más tarde</h4>");
+                    //No es una imagen válida
+                    setSessionMessage("<h4 class='error'>No es una imagen válida</h4>");
                     redirect("/cursos/curso/cambiarImagen/" . $cursoParaModificar->idCurso);
                 }
             } else {
-                //No es una imagen válida
-                setSessionMessage("<h4 class='error'>No es una imagen válida</h4>");
-                redirect("/cursos/curso/cambiarImagen/" . $cursoParaModificar->idCurso);
+                setSessionMessage("<h4 class='error'>No puedes modificar este curso</h4>");
+                goToIndex();
             }
         } else {
-            setSessionMessage("<h4 class='error'>No puedes modificar este curso</h4>");
-            goToIndex();
+            setSessionMessage("<h4 class='error'>No es una imagen válida</h4>");
+            redirect("/cursos/curso/cambiarImagen/" . $cursoParaModificar->idCurso);
         }
     } else {
-        setSessionMessage("<h4 class='error'>No es una imagen válida</h4>");
-        redirect("/cursos/curso/cambiarImagen/" . $cursoParaModificar->idCurso);
+        goToIndex();
     }
 }
 

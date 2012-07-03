@@ -40,7 +40,14 @@ function tipoUsuario() {
 
 function getUsuarioActual() {
     if (isset($_SESSION['usuario'])) {
-        return $_SESSION['usuario'];
+        require_once 'modulos/principal/modelos/loginModelo.php';
+        $sessionId = session_id();
+        $idUsuario = $_SESSION['usuario']->idUsuario;
+        if (validateSessionIdUsuario($idUsuario, $sessionId)) {
+            return $_SESSION['usuario'];
+        } else {
+            return NULL;
+        }
     } else {
         return NULL;
     }
@@ -57,18 +64,9 @@ function validarUsuarioLoggeado() {
     }
 }
 
-function validarUsuarioLoggeadoParaAjax() {
-    return isset($_SESSION['usuario']);
-}
 
 function validarUsuarioLoggeadoParaSubmits() {
     return isset($_SESSION['usuario']);
-}
-
-function validarUsuarioLoggeadoMandarIndex() {
-    if (!isset($_SESSION['usuario'])) {
-        goToIndex();
-    }
 }
 
 function validarUsuarioAdministrador() {
@@ -93,7 +91,7 @@ function transformaDateDDMMAAAA($date) {
     return date("d-m-Y", $date);
 }
 
-function transformaMysqlDateDDMMAAAA($date){
+function transformaMysqlDateDDMMAAAA($date) {
     $fecha = DateTime::createFromFormat('Y-m-d', $date);
     return $fecha->format('d/m/Y');
 }
@@ -141,25 +139,26 @@ function removeBadHtmlTags($badHtml) {
     return $pureHtml;
 }
 
-function bytesToString($bytes){
-    if($bytes < 1000){
+function bytesToString($bytes) {
+    if ($bytes < 1000) {
         //mostramos en bytes
         return $bytes . " bytes";
-    }else if($bytes < 1000000){
+    } else if ($bytes < 1000000) {
         //mostramos en KB
-        return round($bytes/1000,4) . " KB";
-    }else if($bytes < 1000000000){
+        return round($bytes / 1000, 4) . " KB";
+    } else if ($bytes < 1000000000) {
         //mostramos en MB
-        return round($bytes/1000000,4) . " MB";
-    }else{
+        return round($bytes / 1000000, 4) . " MB";
+    } else {
         //mostramos en GB
-        return round($bytes/1000000000,4) . " GB";
+        return round($bytes / 1000000000, 4) . " GB";
     }
 }
 
-function bytesToDollars($bytes){
+function bytesToDollars($bytes) {
     //Convertir primero a GB y luego multiplicar por 0.15 que es lo que cuesta el gb al mes
     $dollars = round($bytes / 1000000000 * 0.15, 4);
     return $dollars;
 }
+
 ?>
