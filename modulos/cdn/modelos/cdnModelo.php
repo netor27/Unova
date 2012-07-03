@@ -42,6 +42,12 @@ function getConnection() {
     return $conn;
 }
 
+function listContainers(){
+    $conn = getConnection();
+    $containers = $conn->list_containers_info();
+    return $containers;
+}
+
 function getContainerName($tipoArchivo) {
     switch ($tipoArchivo) {
         case -1:
@@ -63,6 +69,12 @@ function getContainerName($tipoArchivo) {
             return NULL;
             break;
     }
+}
+
+function getContainer($nombre){
+    $conn = getConnection();
+    $container = $conn->get_container($nombre);
+    return $container;
 }
 
 ?>

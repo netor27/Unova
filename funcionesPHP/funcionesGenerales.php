@@ -141,4 +141,25 @@ function removeBadHtmlTags($badHtml) {
     return $pureHtml;
 }
 
+function bytesToString($bytes){
+    if($bytes < 1000){
+        //mostramos en bytes
+        return $bytes . " bytes";
+    }else if($bytes < 1000000){
+        //mostramos en KB
+        return round($bytes/1000,4) . " KB";
+    }else if($bytes < 1000000000){
+        //mostramos en MB
+        return round($bytes/1000000,4) . " MB";
+    }else{
+        //mostramos en GB
+        return round($bytes/1000000000,4) . " GB";
+    }
+}
+
+function bytesToDollars($bytes){
+    //Convertir primero a GB y luego multiplicar por 0.15 que es lo que cuesta el gb al mes
+    $dollars = round($bytes / 1000000000 * 0.15, 4);
+    return $dollars;
+}
 ?>
