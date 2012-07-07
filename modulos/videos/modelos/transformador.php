@@ -28,7 +28,7 @@ function transformarArchivo($file) {
     $uniqueCode = getUniqueCode(15);
     $outputFile = $pathInfo['dirname'] . "/" . $uniqueCode . "_" . $pathInfo['filename'] . ".mp4";
     $outputFileOgv = $pathInfo['dirname'] . "/" . $uniqueCode . "_" . $pathInfo['filename'] . "OGV.ogv";
-    $cmd = 'ffmpeg -i "' . $file . '" -s 640x360 "' . $outputFile . '";';
+    $cmd = 'ffmpeg -i "' . $file . '" "' . $outputFile . '";';
     $cmd = $cmd . 'ffmpeg2theora -o "' . $outputFileOgv . '" "' . $outputFile . '"';
     //putLog($cmd);
     system($cmd, $return_var);
