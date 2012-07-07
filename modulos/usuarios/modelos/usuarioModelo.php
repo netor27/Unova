@@ -185,6 +185,32 @@ function getIdUsuarioFromUuid($uuid) {
         return -1;
 }
 
+function getUsuarioFromEmail($email) {
+    require_once 'bd/conexRead.php';
+    global $conex;
+    $stmt = $conex->prepare("SELECT * FROM usuario WHERE email = :email");
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+    $usuario = NULL;
+    if ($stmt->rowCount() > 0) {
+        $row = $stmt->fetch();
+        $usuario = new Usuario();
+        $usuario->idUsuario = $row['idUsuario'];
+        $usuario->email = $row['email'];
+        $usuario->password = $row['password'];
+        $usuario->nombreUsuario = $row['nombreUsuario'];
+        $usuario->tipoUsuario = $row['tipoUsuario'];
+        $usuario->avatar = $row['avatar'];
+        $usuario->bio = $row['bio'];
+        $usuario->activado = $row['activado'];
+        $usuario->fechaRegistro = $row['fechaRegistro'];
+        $usuario->tituloPersonal = $row['tituloPersonal'];
+        $usuario->uuid = $row['uuid'];
+        $usuario->uniqueUrl = $row['uniqueUrl'];
+    }
+    return $usuario;
+}
+
 function validarPassAnterior($idUsuario, $passAnterior) {
     require_once 'bd/conexRead.php';
     global $conex;

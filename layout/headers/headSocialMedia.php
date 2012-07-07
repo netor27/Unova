@@ -1,6 +1,14 @@
-<meta property="og:title" content="<?php echo $titulo; ?>"/>
-<meta property="og:image" content="<?php echo $imageThumbnail; ?>"/>
-<meta property="og:description" content="<?php echo $descripcion; ?>"/>
+<?php 
+    if(isset($titulo)){
+        echo '<meta property="og:title" content="' . $titulo .'"/>';
+    }
+    if(isset($imageThumbnail)){
+        echo '<meta property="og:image" content="' . $imageThumbnail . '"/>';
+    }
+    if(isset($descripcion)){
+        echo '<meta property="og:description" content="' . $descripcion . '"/>';
+    }
+?>
 
 <!-- StumbleUpon --> 
 <script type="text/javascript"> 

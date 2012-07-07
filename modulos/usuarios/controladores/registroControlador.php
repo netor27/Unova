@@ -54,4 +54,8 @@ function alta() {
     }
 }
 
+function altaDesdeFacebook(){
+    
+}
+
 ?>

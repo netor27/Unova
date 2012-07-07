@@ -1,8 +1,8 @@
 <?php
 require_once('layout/headers/headInicio.php');
 require_once('layout/headers/headIndex.php');
-require_once('layout/headers/headCierre.php');
 require_once('layout/headers/headSocialMedia.php');
+require_once('layout/headers/headCierre.php');
 ?>
 <div class="contenido">    
     <div class="left" style="width: 700px">      

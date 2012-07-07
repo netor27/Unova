@@ -3,7 +3,6 @@
 function loginUsuario($email, $password) {
     require_once ('bd/conexRead.php');
     $numeroTuplas = 0;
-    $password = md5($password);
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM usuario WHERE email = :email and password = :pass");
     $stmt->bindParam(':email', $email);

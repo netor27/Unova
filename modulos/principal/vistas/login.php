@@ -35,6 +35,19 @@ require_once('layout/headers/headCierre.php');
                     </div>
                     </p>
                 </fieldset>
+                <?php if (!$user) { ?>
+                    <div class="login-box olvidePass">
+
+                        <div class="special-btn-wrap">
+                            <a class="special-btn facebook badge-facebook-connect" href="<?= $loginUrl ?>">
+                                Iniciar sesión con Facebook
+                            </a>
+                        </div>
+                    </div>
+
+                <?php } ?>
+
+
                 <div class="info centerText olvidePass">
                     <a href="/usuarios/usuario/recuperarPassword">¿Olvidaste tu contraseña? Da click aquí</a>
                 </div>
