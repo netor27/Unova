@@ -1,9 +1,9 @@
 <?php
 
 //Application Configurations
-$app_id = "282132941893714";
-$app_secret = "fd58c9732b64743a9053a2d16275c6f6";
-$site_url = "http://localhost/login/login/loginFacebook";
+$app_id = "294007460696661";
+$app_secret = "beb28525091b61b76f36d2a76c875ca3";
+$site_url = "http://unova.co/login";
 
 try {
     include_once "lib/php/facebook/src/facebook.php";
