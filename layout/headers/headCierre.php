@@ -44,11 +44,17 @@
                     <div id="perfil_image">
                         <img src="<?php echo $usuarioHead->avatar; ?>">
                         <span><?php echo substr($usuarioHead->nombreUsuario, 0, 14); ?></span>
+                        <br><br>
+                        <span style="font-size: smaller">Editar perfil</span>
                     </div>
                 </a>
                 <div id="perfil_links">
-                    <a href="/usuario/<?php echo $usuarioHead->uniqueUrl; ?>"><span>Mi Perfil</span></a><br>
-                    <a href="#"><span>Cuenta</span></a><br>
+                    <a href="/usuarios/saldo">
+                        <span>Cuenta</span>
+                        <br>
+                        <span id="perfil_saldo">Saldo: $<?php echo $usuarioHead->saldo; ?></span>
+                    </a>
+                    <br>
                     <a href="/login/login/logout"><span>Cerrar Sesión</span></a><br>
                 </div>
 

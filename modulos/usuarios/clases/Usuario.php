@@ -12,5 +12,6 @@ class Usuario{
     public $tituloPersonal;
     public $uuid;
     public $uniqueUrl;
+    public $saldo;
 }
 ?>

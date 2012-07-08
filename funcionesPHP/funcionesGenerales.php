@@ -57,6 +57,7 @@ function validarUsuarioLoggeado() {
     if (!isset($_SESSION['usuario'])) {
         $pagina = getUrl();
         $msgLogin = "Debes iniciar sesión para ver este contenido.";
+        require_once 'lib/php/facebook/loginFacebook.php';
         require_once 'modulos/principal/vistas/login.php';
         return false;
     } else {
