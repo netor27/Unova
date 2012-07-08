@@ -44,19 +44,32 @@ $(function(){
     });
     
     var options = {
-        beforeSubmit: validate,
-        success: function(data) {            
+        beforeSubmit: validarComentario,
+        success: function(data) {        
+            $("#loadingComment").hide();
             if(data.indexOf("error") == -1){
                 $( "#modalDialog" ).html("Gracias por tu comentario");
                 $( "#modalDialog" ).dialog("open");
                 $("#pageMeComments").prepend(data);
+                $("#noComments").html("");
             }else{
                 alert("Ocurrió un error al guardar tu comentario. Intenta de nuevo más tarde");
             }
+            $("#comentarButton").show();
             $("#comentario").val("");
         }
     }; 
     $('#comentarioForm').ajaxForm(options);
+    
+    function validarComentario(formData, jqForm, options){
+        $("#comentarButton").hide();
+        $("#loadingComment").show();
+        if(validate(formData, jqForm, options)){
+            return true;
+        }else{
+            return false;
+        }
+    }
     
     function validate(formData, jqForm, options) { 
         for (var i=0; i < formData.length; i++) { 
@@ -68,18 +81,30 @@ $(function(){
     }
     
     var preguntaOptions = { 
-        beforeSubmit: validate,
+        beforeSubmit: validarPregunta,
         success: function(data) { 
+            $("#loadingPregunta").hide();
             if(data.indexOf("error") == -1){
                 $( "#modalDialog" ).html("Tu pregunta ha sido enviada al profesor");
                 $( "#modalDialog" ).dialog("open");
                 $("#pageMePreguntas").prepend(data);
-                $("#pregunta").val("");
+                $("#noPreguntas").html("");                
             }else{
                 alert("Ocurrió un error al guardar tu pregunta. Intenta de nuevo más tarde");
             }
-            
+            $("#preguntarButton").show();
+            $("#pregunta").val("");
         }
     }; 
     $('#preguntarForm').ajaxForm(preguntaOptions);
+    
+    function validarPregunta(formData, jqForm, options){
+        $("#preguntarButton").hide();
+        $("#loadingPregunta").show();
+        if(validate(formData, jqForm, options)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 });

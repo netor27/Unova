@@ -359,3 +359,12 @@
     width: 95%;
     height: 100px;
 }
+
+#loadingComment{
+    display: none;
+    width: 50px;
+}
+#loadingPregunta{
+    display: none;
+    width: 50px;
+}

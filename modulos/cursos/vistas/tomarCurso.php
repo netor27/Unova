@@ -163,7 +163,8 @@ require_once('layout/headers/headCierre.php');
                 <?php
                 require_once('layout/SocialMediaContainer.php');
                 ?>
-            </div><br>
+            </div>
+            <br>
             <div id="cursoTabs">
 
                 <ul>
@@ -212,17 +213,25 @@ require_once('layout/headers/headCierre.php');
                             echo '</ul>';
                         }else {
                             ?>
-                            <h3>No hay comentarios</h3>
+                            <div id="pageMeComments">
+
+                            </div>
+                            <div id="noComments">
+                                <h3>No hay comentarios</h3>
+                            </div>
                             <?php
                         }
                         ?>
-                    </div><br><br>
+                    </div>
+                    <br><br>
                     <div id="comentar">
                         <form id="comentarioForm" action="/cursos/curso/comentarCurso/<?php echo $curso->idCurso; ?>" method="POST" class="comentarioForm">
                             <h3>Deja tu comentario</h3>
                             <textarea id="comentario" name="comentario"></textarea><br>
-                            <input type="submit" value=" Comentar ">
+                            <input id="comentarButton" type="submit" value=" Comentar ">                            
+                            <img id="loadingComment" src="/layout/imagenes/loading.gif">
                         </form>
+                        
                     </div>
                 </div>
                 <div id="tabs-3">
@@ -251,7 +260,12 @@ require_once('layout/headers/headCierre.php');
                             echo '</ul>';
                         } else {
                             ?>
-                            <h3>No hay preguntas</h3>
+                            <div id="pageMePreguntas">
+
+                            </div>
+                            <div id="noPreguntas">
+                                <h3>No hay preguntas</h3>
+                            </div>
                             <?php
                         }
                         ?>
@@ -261,7 +275,8 @@ require_once('layout/headers/headCierre.php');
                         <form id="preguntarForm" action="/cursos/curso/preguntarCurso/<?php echo $curso->idCurso; ?>" method="POST" class="preguntarForm">
                             <h3>Haz una pregunta al profesor</h3>
                             <textarea id="pregunta" name="pregunta"></textarea><br>
-                            <input type="submit" value=" Preguntar ">
+                            <input id="preguntarButton" type="submit" value=" Preguntar ">
+                            <img id="loadingPregunta" src="/layout/imagenes/loading.gif">
                         </form>
                     </div>
                 </div>
