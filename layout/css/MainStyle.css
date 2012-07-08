@@ -183,8 +183,8 @@ h6{ margin:0;   padding:0px 0px  0px 0px;;  color:#30377a;  font-weight:100;    
     font-weight: bolder;
     text-decoration: none;
 }
-#perfil_links a span{
-    padding-left: 10px;    
+#perfil_links a:hover span{
+    color: white;
 }
 #perfil_saldo{
     float:right;
@@ -192,6 +192,16 @@ h6{ margin:0;   padding:0px 0px  0px 0px;;  color:#30377a;  font-weight:100;    
     padding: 0px;
     padding-right: 20px;
     color: rgb(72,148,74);
+}
+#perfil_saldo_cero{
+    float:right;
+    font-size: smaller;
+    padding: 0px;
+    padding-right: 20px;
+    color: rgb(187,31,14);
+}
+#perfil_links a span{
+    padding-left: 10px;    
 }
 
 
