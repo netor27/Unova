@@ -127,4 +127,29 @@ function enviarMailPreguntaEnCurso($email, $tituloCurso, $urlCurso, $pregunta) {
     return sendMail($text, $html, "Te han hecho una nueva pregunta", EMAIL_FROM, $email);
 }
 
+function enviarMailRespuestaPregunta($email, $tituloCurso, $urlCurso, $pregunta, $respuesta){
+    $text = 'Tu pregunta ha sido respondida: \n\n
+        ' . $pregunta . '\n\n
+        Respuesta:\n\n
+        ' . $respuesta . '\n\n\n\n
+        Equipo Unova.';
+    $html = HEADER . '
+        <h1>Curso: '.$tituloCurso.'</h1>
+        <h2>Tu pregunta ha sido respondida:</h2>
+        <h3>'. $pregunta.'</h3>
+        <br><br>
+        <p>Respuesta:</p>
+        <h2>'.$respuesta.'</h2>
+        <br><br>
+        <p>Para ver el curso sigue este enlace:</p>
+        <p><a href="' . $urlCurso . '">' . $urlCurso . '</a></p>
+        <p>Gracias. </p><p>Equipo Unova.</p>
+        </body></html>    
+        ';
+    return sendMail($text, $html, "Tu pregunta ha sido respondida", EMAIL_FROM, $email);
+}
+
+function enviarMailResumenSemanal($email, $text, $html){
+    return sendMail($text, $html, "Tu resumen semanal en Unova", EMAIL_FROM, $email);
+}
 ?>

@@ -399,10 +399,12 @@ function preguntarCurso() {
                 echo '</li>';
 
                 //enviar email de notificación al dueño del curso de la pregunta
-                require_once 'modulos/email/modelos/envioEmailModelo.php';
-                $duenioCurso = getUsuarioDeCurso($curso->idCurso);
-                if (!enviarMailPreguntaEnCurso($duenioCurso->email, $curso->titulo, 'www.unova.mx/curso/' . $curso->uniqueUrl, $pregunta->pregunta))
-                    echo 'ERROR AL ENVIAR EMAIL A ' . $duenioCurso->email;
+                //require_once 'modulos/email/modelos/envioEmailModelo.php';
+                //$duenioCurso = getUsuarioDeCurso($curso->idCurso);
+                //if (!enviarMailPreguntaEnCurso($duenioCurso->email, $curso->titulo, 'www.unova.mx/curso/' . $curso->uniqueUrl, $pregunta->pregunta))
+                //    echo 'ERROR AL ENVIAR EMAIL A ' . $duenioCurso->email;
+                //Se quitó esta parte para que no se envíe un mail al profesor cada vez que alguien pregunta algo
+                //ahora se envía un mail semanal con un resumen
             } else {
                 echo 'error';
             }
@@ -564,8 +566,11 @@ function inscribirUsuario() {
                                         //enviar email al usuario que se suscribió
                                         enviarMailSuscripcionCurso($usuario->email, $curso->titulo, 'www.unova.mx/curso/' . $curso->uniqueUrl);
                                         //enviar email al dueño del curso que alguien se suscribió
-                                        $duenioCurso = getUsuarioDeCurso($curso->idCurso);
-                                        enviarMailAlumnoSuscrito($duenioCurso->email, $curso->titulo, 'www.unova.mx/curso/' . $curso->uniqueUrl);
+                                        //$duenioCurso = getUsuarioDeCurso($curso->idCurso);
+                                        //enviarMailAlumnoSuscrito($duenioCurso->email, $curso->titulo, 'www.unova.mx/curso/' . $curso->uniqueUrl);
+                                        //Se quitó el envio al profesor al momento de que un alumno se suscribe para evitar enviar muchos
+                                        //mails y que lleguen a spam
+                                        //Ahora, se envía un correeo semanal con el resumen de los nuevos alumnos
                                     } else {
                                         //Ocurrió un error al inscribir al usuario, pero ya se actualizó el saldo,
                                         //debemos regresar al saldo a la cantidad correcta
