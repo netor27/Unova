@@ -133,6 +133,10 @@ div{
     z-index: 9;
 }
 
+.draggable{
+    cursor:move;
+}
+
 .dragHandle{
     cursor:move;
     font-size: 1.5em;

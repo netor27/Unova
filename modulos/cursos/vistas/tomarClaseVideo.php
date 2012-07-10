@@ -57,7 +57,8 @@ require_once('layout/headers/headCierre.php');
 ?>
 
 </div>
-<div style="z-index: 6;" >
+
+<div id="editorContainment">
     <video id="videoPrincipal" class="videoClass" style="position: relative; top: <?php echo $videoData['top'] . 'px'; ?>; left: <?php echo $videoData['left'] . 'px'; ?>; width: <?php echo $videoData['width'] . 'px'; ?>; height: <?php echo $videoData['height'] . 'px'; ?>;">
         <source src="<?php echo $clase->archivo; ?>" type="video/mp4"></source>      
         <source src="<?php echo $clase->archivo2; ?>" type="video/ogg"></source>      
@@ -66,7 +67,3 @@ require_once('layout/headers/headCierre.php');
 
     </div>
 </div>
-
-<?php
-require_once('layout/foot.php');
-?>
