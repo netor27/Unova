@@ -60,10 +60,8 @@ function validarUsuarioLoggeado() {
         require_once 'lib/php/facebook/loginFacebook.php';
         if($user){
             //si user existe entonces ya hay un inicio de sesión por facebook
-            echo 'true';
             return true;
         }else{
-            echo 'false';
             //si no hay user, no hay usuario en facebook
             require_once 'modulos/principal/vistas/login.php';
             return false;
