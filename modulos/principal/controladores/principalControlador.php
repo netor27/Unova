@@ -9,11 +9,11 @@ function principal() {
     $numCursos = $array['n'];
     $cursos = $array['cursos'];
 
+    $numPreguntas = 0;
     //checamos que no tenga preguntas sin responder
     $usuario = getUsuarioActual();
     if (isset($usuario)) {
         $aleatorio = rand(0, 100);
-        $numPreguntas = 0;
         if ($aleatorio > 80) {
             require_once 'modulos/usuarios/modelos/UsuarioCursosModelo.php';
             $numPreguntas = getNumeroDePreguntasSinResponder($usuario->idUsuario);
