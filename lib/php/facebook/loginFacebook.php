@@ -47,12 +47,13 @@ if ($user) {
     $email = $user_info['email'];
     $nombre = $user_info['name'];
     $avatar = 'http://graph.facebook.com/' . $user . '/picture?type=normal';
-
+    require_once 'modulos/principal/modelos/loginModelo.php';
+    require_once 'modulos/usuarios/modelos/usuarioModelo.php';
     //validamos si este usuario ya tiene su email registrado, sino creamos un usuario nuevo
     $usuario = getUsuarioFromEmail($email);
     if (isset($usuario)) {
         //el usuario ya existe en la bd, loggearlo!
-        if (loginUsuario($usuario->email, $usuario->password) == 1){
+        if (loginUsuario($usuario->email, $usuario->password) == 1) {
             setSessionMessage("<h4 class='success'>¡Bienvenido " . getUsuarioActual()->nombreUsuario . "!</h4>");
         }
     } else {
@@ -76,7 +77,7 @@ if ($user) {
             $usuario->avatar = $avatar;
             actualizaAvatar($usuario);
             setActivado($id, 1);
-            if (loginUsuario($email, md5($password)) == 1){
+            if (loginUsuario($email, md5($password)) == 1) {
                 setSessionMessage("<h4 class='success'>¡Bienvenido " . getUsuarioActual()->nombreUsuario . "!</h4>");
             }
         }

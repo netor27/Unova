@@ -2,9 +2,7 @@
 
 function principal() {
     require_once 'lib/php/facebook/loginFacebook.php';
-    require_once 'modulos/principal/modelos/loginModelo.php';
-    require_once 'modulos/usuarios/modelos/usuarioModelo.php';
-
+    
     if (!$user) {
         $pagina = "/";
         require_once 'modulos/principal/vistas/login.php';
