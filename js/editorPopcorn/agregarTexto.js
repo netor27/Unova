@@ -161,7 +161,7 @@ function editarTexto(){
 }
 
 function agregarTextoDiv(indice, texto, inicio, fin, color, top, left, width, height){
-    var textoDiv = '<div id="texto_'+indice+'" class="ui-corner-all textoAgregado" style="background-color: '+color+'; position: fixed; top: '+top+'px; left: '+left+'px; width: '+width+'px; height: '+height+'px;">' +
+    var textoDiv = '<div id="texto_'+indice+'" class="ui-corner-all textoAgregado stack" style="background-color: '+color+'; position: fixed; top: '+top+'px; left: '+left+'px; width: '+width+'px; height: '+height+'px;">' +
     '<div class="elementButtons">' +
     '<a href="#" onclick=mostrarDialogoEditarTexto('+indice+')>'+
     '<div class="ui-state-default ui-corner-all littleBox">' +
@@ -192,6 +192,7 @@ function agregarTextoDiv(indice, texto, inicio, fin, color, top, left, width, he
     
     $("#texto_"+indice).draggable({
         containment: "#editorContainment",
+        stack: ".stack",
         stop: function(event, ui){
             //ui.position - {top, left} current position
             var id = ui.helper.attr("id");

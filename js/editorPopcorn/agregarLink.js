@@ -144,7 +144,7 @@ function editarLink(){
 }
 
 function agregarLinkDiv(indice, texto, url, inicio, fin, color, top, left, width, height){
-    var textoDiv = '<div id="link_'+indice+'" class="ui-corner-all linkAgregado" style="background-color: '+color+'; position: fixed; top: '+top+'px; left: '+left+'px; width: '+width+'px; height: '+height+'px;">' +
+    var textoDiv = '<div id="link_'+indice+'" class="ui-corner-all linkAgregado  stack" style="background-color: '+color+'; position: fixed; top: '+top+'px; left: '+left+'px; width: '+width+'px; height: '+height+'px;">' +
     '<div class="elementButtons">' +
     '<a href="#" onclick=mostrarDialogoEditarLink('+indice+')>'+
     '<div class="ui-state-default ui-corner-all littleBox">' +
@@ -177,6 +177,7 @@ function agregarLinkDiv(indice, texto, url, inicio, fin, color, top, left, width
     
     $("#link_"+indice).draggable({
         containment: "#editorContainment",
+        stack: ".stack",
         stop: function(event, ui){
             //ui.position - {top, left} current position
             var id = ui.helper.attr("id");

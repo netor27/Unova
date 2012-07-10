@@ -141,7 +141,7 @@ function editarVideo(){
 }
 
 function agregarVideoDiv(indice, urlVideo, inicio, fin, color, top, left, width, height){
-    var textoDiv = '<div id="videoContainer_'+indice+'" class="ui-corner-all videoAgregado" style="background-color: '+color+'; position: fixed; top: '+top+'px; left: '+left+'px; width: '+width+'px; height: '+height+'px;">' +
+    var textoDiv = '<div id="videoContainer_'+indice+'" class="ui-corner-all videoAgregado stack" style="background-color: '+color+'; position: fixed; top: '+top+'px; left: '+left+'px; width: '+width+'px; height: '+height+'px;">' +
     '<p class="ui-widget-header dragHandle">Arr&aacute;strame de aqu&iacute;<br></p>'+
     '<div class="elementButtons">' +
     '<a href="#" onclick=mostrarDialogoEditarVideo('+indice+')>'+
@@ -172,6 +172,7 @@ function agregarVideoDiv(indice, urlVideo, inicio, fin, color, top, left, width,
     
     $("#videoContainer_"+indice).draggable({
         handle: "p", 
+        stack: ".stack",
         containment: "#editorContainment",
         stop: function(event, ui){
             //ui.position - {top, left} current position
