@@ -3,7 +3,9 @@
 function principal() {
     require_once 'lib/php/facebook/loginFacebook.php';
     
-    if (!$user) {
+    if ($user) {
+        goToIndex();
+    }else{
         $pagina = "/";
         require_once 'modulos/principal/vistas/login.php';
     }
