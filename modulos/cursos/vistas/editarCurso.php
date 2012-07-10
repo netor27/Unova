@@ -9,9 +9,6 @@ require_once('layout/headers/headCierre.php');
 
 
 <div class="contenido">    
-    <div id="modalDialog">
-
-    </div>
     <div id="cursoHeader">
         <div id="cursoHeader_left">            
             <div id="cursoHeader_img" class="left">

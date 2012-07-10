@@ -8,9 +8,6 @@ require_once('layout/headers/headCierre.php');
 
 
 <div class="contenido">    
-    <div id="modalDialog">
-        Dialogo
-    </div>
     <div class="cursoHeader blueBox" style="width: 97.5%;">          
         <div id="cursoImageWrapper">
 
