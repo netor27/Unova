@@ -88,8 +88,8 @@ function agregarImagen(){
     var fin = $("#tiempoFinImagen").val();
     var color = $("#colorHiddenImagen").val();
     
-    agregarImagenDiv(imagenes.length, urlImagen, inicio, fin, color, 50, 50, 300, 200);
-    cargarImagenEnArreglo(urlImagen, inicio, fin, color, 50, 50, 300, 200);
+    agregarImagenDiv(imagenes.length, urlImagen, inicio, fin, color, 50, 50, 20, 10);
+    cargarImagenEnArreglo(urlImagen, inicio, fin, color, 50, 50, 20, 10);
 }
 
 function mostrarDialogoEditarImagen(idImagen){
@@ -141,7 +141,7 @@ function editarImagen(){
 }
 
 function agregarImagenDiv(indice, urlImagen, inicio, fin, color, top, left, width, height){
-    var textoDiv = '<div id="imagen_'+indice+'" class="ui-corner-all imagenAgregada  stack draggable" style="background-color: '+color+'; position: fixed; top: '+top+'px; left: '+left+'px; width: '+width+'px; height: '+height+'px;">' +
+    var textoDiv = '<div id="imagen_'+indice+'" class="ui-corner-all imagenAgregada  stack draggable" style="background-color: '+color+'; position: fixed; top: '+getUnidadPx(top)+'; left: '+getUnidadPx(left)+'; width: '+getUnidadPx(width)+'; height: '+getUnidadPx(height)+';">' +
     '<div class="elementButtons">' +
     '<a href="#" onclick=mostrarDialogoEditarImagen('+indice+')>'+
     '<div class="ui-state-default ui-corner-all littleBox">' +
@@ -177,8 +177,10 @@ function agregarImagenDiv(indice, urlImagen, inicio, fin, color, top, left, widt
             //ui.position - {top, left} current position
             var id = ui.helper.attr("id");
             var indice = id.split("_")[1];
-            imagenes[indice].top = ui.offset.top;
-            imagenes[indice].left = ui.offset.left;
+            $containmentWidth = $("#editorContainment").width();
+            $containmentHeight  = $("#editorContainment").height();            
+            imagenes[indice].top = ui.offset.top * 100 / $containmentHeight;
+            imagenes[indice].left = ui.offset.left * 100 / $containmentWidth;
         }
     });
     $("#imagen_"+indice).resizable({
@@ -188,8 +190,10 @@ function agregarImagenDiv(indice, urlImagen, inicio, fin, color, top, left, widt
             //ui.size - {width, height} current size
             var id = ui.helper.attr("id");
             var indice = id.split("_")[1];
-            imagenes[indice].width = ui.size.width;
-            imagenes[indice].height = ui.size.height;
+            $containmentWidth = $("#editorContainment").width();
+            $containmentHeight  = $("#editorContainment").height();            
+            imagenes[indice].width = ui.size.width * 100 / $containmentWidth;
+            imagenes[indice].height = ui.size.height * 100 / $containmentHeight;
         }
     });
 }

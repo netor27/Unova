@@ -14,10 +14,11 @@ $(function(){
 });
 
 function getUnidadPx(unidad){
-    if(unidad.indexOf("auto") != -1){
-        return unidad + "px";
-    }else{
+    var aux = ""+unidad;
+    if(aux.indexOf("auto") != -1){
         return unidad;
+    }else{
+        return unidad + "%";
     }
 }
 
@@ -76,11 +77,12 @@ function guardar(u, uuid, cu, cl){
     
     
     var videoData = {
-        top: $("#videoContainer").position().top,
-        left: $("#videoContainer").position().left,
-        width: $("#videoContainer").width(),
-        height: $("#videoContainer").height()
+        top: $("#videoContainer").position().top * 100 / $containmentHeight,
+        left: $("#videoContainer").position().left * 100 / $containmentWidth,
+        width: $("#videoContainer").width() * 100 / $containmentWidth,
+        height: $("#videoContainer").height() * 100 / $containmentHeight
     }
+    console.log(videoData['height']);
     
     logLinksAgregados();
     

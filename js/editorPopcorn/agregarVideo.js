@@ -87,8 +87,8 @@ function agregarVideo(){
     var fin = $("#tiempoFinVideo").val();
     var color = $("#colorHiddenVideo").val();
     
-    agregarVideoDiv(videos.length, urlVideo, inicio, fin, color, 50, 50, 350, 300);
-    cargarVideoEnArreglo(urlVideo, inicio, fin, color, 50, 50, 350, 300);
+    agregarVideoDiv(videos.length, urlVideo, inicio, fin, color, 50, 50, 20, 18);
+    cargarVideoEnArreglo(urlVideo, inicio, fin, color, 50, 50, 20, 18);
     
 }
 
@@ -141,7 +141,7 @@ function editarVideo(){
 }
 
 function agregarVideoDiv(indice, urlVideo, inicio, fin, color, top, left, width, height){
-    var textoDiv = '<div id="videoContainer_'+indice+'" class="ui-corner-all videoAgregado stack" style="background-color: '+color+'; position: fixed; top: '+top+'px; left: '+left+'px; width: '+width+'px; height: '+height+'px;">' +
+    var textoDiv = '<div id="videoContainer_'+indice+'" class="ui-corner-all videoAgregado stack" style="background-color: '+color+'; position: fixed; top: '+getUnidadPx(top)+'; left: '+getUnidadPx(left)+'; width: '+getUnidadPx(width)+'; height: '+getUnidadPx(height)+';">' +
     '<p class="ui-widget-header dragHandle">Arr&aacute;strame de aqu&iacute;<br></p>'+
     '<div class="elementButtons">' +
     '<a href="#" onclick=mostrarDialogoEditarVideo('+indice+')>'+
@@ -178,8 +178,10 @@ function agregarVideoDiv(indice, urlVideo, inicio, fin, color, top, left, width,
             //ui.position - {top, left} current position
             var id = ui.helper.attr("id");
             var indice = id.split("_")[1];
-            videos[indice].top = ui.offset.top;
-            videos[indice].left = ui.offset.left;
+            $containmentWidth = $("#editorContainment").width();
+            $containmentHeight  = $("#editorContainment").height();            
+            videos[indice].top = ui.offset.top * 100 / $containmentHeight;
+            videos[indice].left = ui.offset.left * 100 / $containmentWidth;
         }
     });
     $("#videoContainer_"+indice).resizable({
@@ -189,8 +191,10 @@ function agregarVideoDiv(indice, urlVideo, inicio, fin, color, top, left, width,
             //ui.size - {width, height} current size
             var id = ui.helper.attr("id");
             var indice = id.split("_")[1];
-            videos[indice].width = ui.size.width;
-            videos[indice].height = ui.size.height;
+            $containmentWidth = $("#editorContainment").width();
+            $containmentHeight  = $("#editorContainment").height();            
+            videos[indice].width = ui.size.width * 100 / $containmentWidth;
+            videos[indice].height = ui.size.height * 100 / $containmentHeight;
         }
 //      resize: function(event, ui) {
 //            $("#video_"+indice).children().each(function() {

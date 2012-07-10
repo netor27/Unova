@@ -144,7 +144,7 @@ function editarLink(){
 }
 
 function agregarLinkDiv(indice, texto, url, inicio, fin, color, top, left, width, height){
-    var textoDiv = '<div id="link_'+indice+'" class="ui-corner-all linkAgregado stack draggable" style="background-color: '+color+'; position: fixed; top: '+top+'px; left: '+left+'px; width: '+width+'px; height: '+height+'px;">' +
+    var textoDiv = '<div id="link_'+indice+'" class="ui-corner-all linkAgregado stack draggable" style="background-color: '+color+'; position: fixed; top: '+getUnidadPx(top)+'; left: '+getUnidadPx(left)+'; width: '+getUnidadPx(width)+'; height: '+getUnidadPx(height)+';">' +
     '<div class="elementButtons">' +
     '<a href="#" onclick=mostrarDialogoEditarLink('+indice+')>'+
     '<div class="ui-state-default ui-corner-all littleBox">' +
@@ -182,8 +182,10 @@ function agregarLinkDiv(indice, texto, url, inicio, fin, color, top, left, width
             //ui.position - {top, left} current position
             var id = ui.helper.attr("id");
             var indice = id.split("_")[1];
-            links[indice].top = ui.offset.top;
-            links[indice].left = ui.offset.left;
+            $containmentWidth = $("#editorContainment").width();
+            $containmentHeight  = $("#editorContainment").height();            
+            links[indice].top = ui.offset.top * 100 / $containmentHeight;
+            links[indice].left = ui.offset.left * 100 / $containmentWidth;            
         //logLinksAgregados();
         }
     });
@@ -194,8 +196,10 @@ function agregarLinkDiv(indice, texto, url, inicio, fin, color, top, left, width
             //ui.size - {width, height} current size
             var id = ui.helper.attr("id");
             var indice = id.split("_")[1];
-            links[indice].width = ui.size.width;
-            links[indice].height = ui.size.height;
+            $containmentWidth = $("#editorContainment").width();
+            $containmentHeight  = $("#editorContainment").height();
+            links[indice].width = ui.size.width * 100 / $containmentWidth;;
+            links[indice].height = ui.size.height * 100/ $containmentHeight;;
         //logLinksAgregados();
         }
     });

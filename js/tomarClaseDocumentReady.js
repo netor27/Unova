@@ -24,11 +24,10 @@ function getUnidadPx(unidad){
     if(unidad.indexOf("auto") != -1){
         return unidad;
     }else{
-        return unidad + "px";
+        return unidad + "%";
         
     }
 }
-
 
 function agregarTextoDiv(texto, inicio, fin, color, top, left, width, height){
     var textoDiv = '<div id="drag_'+$indice+'" class="ui-corner-all textoAgregado stack draggable" style="background-color: '+color+'; position: fixed; top: '+getUnidadPx(top)+'; left: '+getUnidadPx(left)+'; width: '+getUnidadPx(width)+'; height: '+getUnidadPx(height)+';">' +

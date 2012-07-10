@@ -81,7 +81,6 @@ if (isset($links))
 ?>
     }
         </script>
-
     </head>
     <body>
         <div id="modalDialog">
@@ -96,7 +95,7 @@ if (isset($links))
             </div>
         </div>
         <div id="editorContainment">
-            <div id="videoContainer" class="draggable resizable ui-widget-content" style="position: absolute; top: <?php echo $videoData['top'] . 'px'; ?>; left: <?php echo $videoData['left'] . 'px'; ?>; width: <?php echo $videoData['width'] . 'px'; ?>; height: <?php echo $videoData['height'] . 'px'; ?>;">				
+            <div id="videoContainer" class="draggable resizable ui-widget-content" style="position: absolute; top: <?php echo $videoData['top'] . '%'; ?>; left: <?php echo $videoData['left'] . '%'; ?>; width: <?php echo $videoData['width'] . '%'; ?>; height: <?php echo $videoData['height'] . '%'; ?>;">				
                 <video id="videoPrincipal" class="videoClass">
                     <source src="<?php echo $clase->archivo; ?>" type="video/mp4">
                     <source src="<?php echo $clase->archivo2; ?>" type="video/ogg">

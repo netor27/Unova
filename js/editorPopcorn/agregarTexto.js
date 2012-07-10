@@ -161,7 +161,8 @@ function editarTexto(){
 }
 
 function agregarTextoDiv(indice, texto, inicio, fin, color, top, left, width, height){
-    var textoDiv = '<div id="texto_'+indice+'" class="ui-corner-all textoAgregado stack draggable" style="background-color: '+color+'; position: fixed; top: '+top+'px; left: '+left+'px; width: '+width+'px; height: '+height+'px;">' +
+    
+    var textoDiv = '<div id="texto_'+indice+'" class="ui-corner-all textoAgregado stack draggable" style="background-color: '+color+'; position: fixed; top: '+getUnidadPx(top)+'; left: '+getUnidadPx(left)+'; width: '+getUnidadPx(width)+'; height: '+getUnidadPx(height)+';">' +
     '<div class="elementButtons">' +
     '<a href="#" onclick=mostrarDialogoEditarTexto('+indice+')>'+
     '<div class="ui-state-default ui-corner-all littleBox">' +
@@ -197,9 +198,11 @@ function agregarTextoDiv(indice, texto, inicio, fin, color, top, left, width, he
             //ui.position - {top, left} current position
             var id = ui.helper.attr("id");
             var indice = id.split("_")[1];
-            textos[indice].top = ui.offset.top;
-            textos[indice].left = ui.offset.left;
-        logTextosAgregados();
+            $containmentWidth = $("#editorContainment").width();
+            $containmentHeight  = $("#editorContainment").height();
+            textos[indice].top = ui.offset.top * 100 / $containmentHeight;
+            textos[indice].left = ui.offset.left * 100 / $containmentWidth;            
+            logTextosAgregados();   
         }
     });
     $("#texto_"+indice).resizable({
@@ -208,9 +211,11 @@ function agregarTextoDiv(indice, texto, inicio, fin, color, top, left, width, he
         stop: function(event, ui){
             //ui.size - {width, height} current size
             var id = ui.helper.attr("id");
-            var indice = id.split("_")[1];
-            textos[indice].width = ui.size.width;
-            textos[indice].height = ui.size.height;
+            var indice = id.split("_")[1];            
+            $containmentWidth = $("#editorContainment").width();
+            $containmentHeight  = $("#editorContainment").height();
+            textos[indice].height = ui.size.height * 100/ $containmentHeight;
+            textos[indice].width = ui.size.width * 100 / $containmentWidth;
         //logTextosAgregados();
         }
     });
