@@ -27,8 +27,8 @@ function enviarResumenSemanal() {
         echo "Total de usuarios = " . $totalUsuarios . '<br>';
         //obtenemos de 500 en 500 usuarios
         $i = 0;
-        for ($i = 0; $i <= $totalUsuarios; $i+=100) {
-            $usuarios = getUsuariosParaResumenSemanal($i, 100);
+        for ($i = 0; $i <= $totalUsuarios; $i+=500) {
+            $usuarios = getUsuariosParaResumenSemanal($i, 500);
             foreach ($usuarios as $usuario) {
                 echo '<br><br>==================================<br><br>';
                 echo 'Analizando usuario ' . $usuario->idUsuario . ' -- ' . $usuario->nombreUsuario . '<br>';
@@ -40,7 +40,7 @@ function enviarResumenSemanal() {
                 echo '---Preguntas sin responder ' . $numPreguntas . '<br>';
                 require_once 'modulos/email/modelos/envioEmailModelo.php';
                 if ($numAlumnos > 0 || $numPreguntas > 0) {
-                    enviarMailResumenSemanal($usuario->email, $usuario->nombreUsuario, $numAlumnos, $numPreguntas);
+                    //enviarMailResumenSemanal($usuario->email, $usuario->nombreUsuario, $numAlumnos, $numPreguntas);
                     echo 'mail enviado a ' . $usuario->email;
                 }else{
                     echo 'no se envio el mail porque tiene 0 alumnos y 0 preguntas';
