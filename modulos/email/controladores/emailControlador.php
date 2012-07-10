@@ -40,7 +40,7 @@ function enviarResumenSemanal() {
                 echo '---Preguntas sin responder ' . $numPreguntas . '<br>';
                 require_once 'modulos/email/modelos/envioEmailModelo.php';
                 if ($numAlumnos > 0 || $numPreguntas > 0) {
-                    //enviarMailResumenSemanal($usuario->email, $usuario->nombreUsuario, $numAlumnos, $numPreguntas);
+                    enviarMailResumenSemanal($usuario->email, $usuario->nombreUsuario, $numAlumnos, $numPreguntas);
                     echo 'mail enviado a ' . $usuario->email;
                 }else{
                     echo 'no se envio el mail porque tiene 0 alumnos y 0 preguntas';
