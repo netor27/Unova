@@ -77,10 +77,8 @@ function loginSubmit() {
 
 function logout() {
     require_once 'modulos/principal/modelos/loginModelo.php';
-    if (salir()) {
-        require_once ('funcionesPHP/funcionesGenerales.php');
-        goToIndex();
-    }
+    salir();
+    goToIndex();
 }
 
 ?>
