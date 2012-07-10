@@ -94,8 +94,9 @@ $(document).ready(function(){
     /*nombre.keyup(validateName);  
     email.keyup(validateEmail);
     pass1.keyup(validatePass1);  
-    pass2.keyup(validatePass2);  
     */
+    pass2.keyup(validatePass2);  
+    
 
     form.submit(function(){  
         if(validateName() && validateEmail() && validatePass1() && validatePass2())  

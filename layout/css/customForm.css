@@ -52,9 +52,12 @@
     font-style: italic;  
 }  
 #customForm div span.error{  
-
-    background-color:rgb(250, 22, 22);
-    color:rgb(255, 255, 255);
+    color:white;
+    font-weight:bold;
+    font-style:italic;
+    text-align:left;
+    background-color:rgb(179, 12, 0);
+    border-color:rgb(179, 12, 0);
 }  
 #customForm #send{  
     background: #30377a;  
@@ -81,10 +84,10 @@
     background: url(images/down_arrow_select.jpg) no-repeat right white;
 }
 .styled-select select {
-   background: transparent;
-   width: 268px;
-   padding: 5px;
-   font-size: 12px;
-   border: 1px solid #ccc;
-   height: 34px;
+    background: transparent;
+    width: 268px;
+    padding: 5px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    height: 34px;
 }
