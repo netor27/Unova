@@ -19,7 +19,14 @@ $(function(){
     });
     
     var i;
-    var n = document.getElementById("numTemas").value;
+    
+    var n = 0;
+    try{
+        n = document.getElementById("numTemas").value;
+    }catch(err){
+        n = 0;
+    }
+    
     for(i=0; i < n; i++){            
         makeSortable(i);
     }
@@ -144,7 +151,7 @@ $(function(){
                 return false; 
             } 
         } 
-        
+        jqForm.hide();
         return true;
     }
     function showResponse(responseText, statusText, xhr, $form)  {  

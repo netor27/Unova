@@ -2,6 +2,7 @@
 require_once('layout/headers/headInicio.php');
 require_once('layout/headers/headIndex.php');
 require_once('layout/headers/headSocialMedia.php');
+require_once('layout/headers/validarRespuestaPreguntas.php');
 require_once('layout/headers/headCierre.php');
 ?>
 <div class="contenido">    

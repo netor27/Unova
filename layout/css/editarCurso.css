@@ -137,12 +137,3 @@ a:hover{
 .claseNombre{
     padding:10px;
 }
-
-#preguntaForm{
-padding:0px 0px 0px 77px;
-}
-
-#preguntaForm textArea{
-    height: 30px;
-    width: 90%;
-}

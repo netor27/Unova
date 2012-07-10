@@ -14,5 +14,9 @@
         public $nombreUsuario;
         public $avatar;
         public $uniqueUrlUsuario;
+        
+        public $titulo;
+        public $uniqueUrl;
+        public $imagen;
     }
 ?>

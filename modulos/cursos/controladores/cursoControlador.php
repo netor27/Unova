@@ -427,6 +427,10 @@ function responderPreguntaCurso() {
             require_once 'modulos/cursos/clases/Pregunta.php';
             require_once 'modulos/cursos/modelos/PreguntaModelo.php';
             if (responderPregunta($idPregunta, $texto)) {
+                require_once 'modulos/email/modelos/envioEmailModelo.php';
+                require_once 'modulos/cursos/modelos/PreguntaModelo.php';
+                $datos = getInfoParaMailRespuestaPregunta($idPregunta);
+                enviarMailRespuestaPregunta($datos['email'], $curso->titulo,'www.unova.mx/curso/'. $curso->uniqueUrl, $datos['pregunta'], $texto);
                 echo '<br><div class="respuesta blueBox" style="width: 80%;">';
                 echo '<div class="comentarioAvatar"><img src="' . $usuario->avatar . '"></div>';
                 echo '<div class="comentarioUsuario"><a href="/usuario/' . $usuario->uniqueUrl . '">' . $usuario->nombreUsuario . '</a></div>';
@@ -706,11 +710,6 @@ function publicar() {
     } else {
         echo 'ERROR. Usuario no loggeado';
     }
-}
-
-function responderPreguntas(){
-    //mostrar las preguntas que este usuario no ha contestado
-    echo 'responder';
 }
 
 ?>

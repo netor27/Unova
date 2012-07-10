@@ -237,7 +237,7 @@ function enviarMailResumenSemanal($email, $nombreUsuario, $numAlumnos, $numPregu
                             Preguntas sin responder
                         </p>
                         <span style="padding:5px;margin:0;font-size:24px;color:darkred;">'. $numPreguntas.'</span>
-                        <p><a href="http://www.unova.co/cursos/curso/responderPreguntas">Responder las preguntas</a></p>
+                        <p><a href="http://www.unova.co/usuarios/cursos/responderPreguntas">Responder las preguntas</a></p>
                     </td>
                 </tr>
             </tbody>

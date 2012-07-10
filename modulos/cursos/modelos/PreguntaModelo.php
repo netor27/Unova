@@ -22,8 +22,8 @@ function responderPregunta($idPregunta, $respuesta) {
     $stmt = $conex->prepare("UPDATE pregunta 
                             SET respuesta = :respuesta, fechaRespuesta = NOW()
                             WHERE idPregunta = :id");
-    $stmt->bindParam(":respuesta",$respuesta);
-    $stmt->bindParam(":id",$idPregunta);
+    $stmt->bindParam(":respuesta", $respuesta);
+    $stmt->bindParam(":id", $idPregunta);
     return $stmt->execute();
 }
 
@@ -34,6 +34,20 @@ function bajaPregunta($idPregunta) {
     $stmt->bindParam(':id', $idPregunta);
     $stmt->execute();
     return $stmt->rowCount();
+}
+
+function getInfoParaMailRespuestaPregunta($idPregunta) {
+    require_once 'bd/conexRead.php';
+    global $conex;
+    $stmt = $conex->prepare("SELECT u.email, p.pregunta 
+                            FROM usuario u, pregunta p 
+                            WHERE u.idUsuario = p.idUsuario
+                            AND p.idPregunta = :idPregunta");
+    $stmt->bindParam(':idPregunta', $idPregunta);
+
+    $stmt->execute();
+    $row = $stmt->fetch();
+    return $row;
 }
 
 ?>

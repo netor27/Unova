@@ -67,3 +67,12 @@
 .currentPage a{    
     color: white;
 }
+
+#preguntaForm{
+padding:0px 0px 0px 77px;
+}
+
+#preguntaForm textArea{
+    height: 30px;
+    width: 90%;
+}

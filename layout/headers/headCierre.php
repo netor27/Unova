@@ -127,6 +127,7 @@
     }
     ?>
     <div id="e_site">    
+        <div id="modalDialog"></div>
         <?php
         $sessionMessage = getSessionMessage();
         if (!is_null($sessionMessage)) {

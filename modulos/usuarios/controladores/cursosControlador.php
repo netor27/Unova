@@ -18,4 +18,13 @@ function inscrito() {
     }
 }
 
+function responderPreguntas(){
+    //mostrar las preguntas que este usuario no ha contestado
+    if(validarUsuarioLoggeado()){
+        $usuario = getUsuarioActual();
+        require_once 'modulos/usuarios/modelos/UsuarioCursosModelo.php';
+        $preguntas = getPreguntasSinResponder($usuario->idUsuario);
+        require_once 'modulos/usuarios/vistas/responderPreguntas.php';
+    }
+}
 ?>

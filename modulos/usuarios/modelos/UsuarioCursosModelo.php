@@ -300,29 +300,29 @@ function setRatingUsuario($idUsuario, $idCurso, $rating) {
     $stmt->bindParam(':idCurso', $idCurso);
 
     $stmt->execute();
-    
+
     $stmt = $conex->prepare("SELECT count(rating) as cuenta, sum(rating) as suma
                             FROM usuariocurso
                             WHERE idUsuario = :idUsuario AND idCurso = :idCurso");
     $stmt->bindParam(':idUsuario', $idUsuario);
     $stmt->bindParam(':idCurso', $idCurso);
     $stmt->execute();
-    
+
     $row = $stmt->fetch();
     $n = $row['cuenta'];
     $sum = $row['suma'];
     $prom = $sum / $n;
-    
+
     $stmt = $conex->prepare("UPDATE curso 
                             SET rating = :rating
                             WHERE idCurso = :idCurso");
     $stmt->bindParam(':rating', $prom);
     $stmt->bindParam(':idCurso', $idCurso);
-    
+
     return $stmt->execute();
 }
 
-function getNumeroDeNuevosAlumnos($idUsuario, $dias){
+function getNumeroDeNuevosAlumnos($idUsuario, $dias) {
     require_once 'bd/conexRead.php';
     global $conex;
     $stmt = $conex->prepare("SELECT COUNT(uc.idUsuario) AS cuenta
@@ -332,14 +332,14 @@ function getNumeroDeNuevosAlumnos($idUsuario, $dias){
                              AND fechaInscripcion >= DATE_SUB(NOW(), INTERVAL $dias DAY)");
     $stmt->bindParam(':idUsuario', $idUsuario);
     $cuenta = 0;
-    if($stmt->execute()){
+    if ($stmt->execute()) {
         $row = $stmt->fetch();
-        $cuenta  = $row['cuenta'];
+        $cuenta = $row['cuenta'];
     }
     return $cuenta;
 }
 
-function getNumeroDePreguntasSinResponder($idUsuario){
+function getNumeroDePreguntasSinResponder($idUsuario) {
     require_once 'bd/conexRead.php';
     global $conex;
     $stmt = $conex->prepare("SELECT COUNT(p.idPregunta) AS cuenta
@@ -349,11 +349,55 @@ function getNumeroDePreguntasSinResponder($idUsuario){
                              AND respuesta IS NULL");
     $stmt->bindParam(':idUsuario', $idUsuario);
     $cuenta = 0;
-    if($stmt->execute()){
+    if ($stmt->execute()) {
         $row = $stmt->fetch();
-        $cuenta  = $row['cuenta'];
+        $cuenta = $row['cuenta'];
     }
     return $cuenta;
+}
+
+function getPreguntasSinResponder($idUsuario) {
+    require_once 'bd/conexRead.php';
+    global $conex;
+    $stmt = $conex->prepare("SELECT c.idCurso, c.titulo, c.uniqueUrl, c.imagen, p.idPregunta, p.idUsuario, p.pregunta, p.fecha, uc.nombreUsuario, uc.avatar, uc.uniqueUrl as uniqueUrlUsuario
+                            FROM pregunta p	
+                            INNER JOIN curso c ON p.idCurso = c.idCurso
+                            INNER JOIN usuario u ON c.idUsuario = u.idUsuario
+                            INNER JOIN usuario uc ON p.idUsuario = uc.idUsuario
+                            WHERE u.idUsuario = :idUsuario
+                            AND respuesta IS NULL
+                            ORDER BY c.uniqueUrl DESC");
+    $stmt->bindParam(':idUsuario', $idUsuario);
+
+    if ($stmt->execute()) {
+        require_once 'modulos/cursos/clases/Pregunta.php';
+        $preguntas = null;
+        $pregunta = null;
+        $rows = $stmt->fetchAll();
+        $i = 0;
+        foreach ($rows as $row) {
+            $pregunta = new Pregunta();
+
+            $pregunta->idPregunta = $row['idPregunta'];
+            $pregunta->idCurso = $row['idCurso'];
+            $pregunta->idUsuario = $row['idUsuario'];
+            $pregunta->pregunta = $row['pregunta'];
+            $pregunta->fecha = $row['fecha'];
+            $pregunta->nombreUsuario = $row['nombreUsuario'];
+            $pregunta->avatar = $row['avatar'];
+            $pregunta->uniqueUrlUsuario = $row['uniqueUrlUsuario'];
+            $pregunta->titulo = $row['titulo'];
+            $pregunta->uniqueUrl = $row['uniqueUrl'];
+            $pregunta->imagen = $row['imagen'];
+
+            $preguntas[$i] = $pregunta;
+            $i++;
+        }
+        return $preguntas;
+    } else {
+        //print_r($stmt->errorInfo());
+        return null;
+    }
 }
 
 ?>
