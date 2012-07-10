@@ -20,6 +20,7 @@ $facebook = new Facebook(array(
 $user = $facebook->getUser();
 
 if ($user) {
+    echo 'hay user';
     // Get logout URL
     $logoutUrl = $facebook->getLogoutUrl();
     $queries = array(
@@ -33,10 +34,12 @@ if ($user) {
     }
     $user_info = json_decode($batchResponse[0]['body'], TRUE);
 } else {
+    echo 'no hay user';
     // Get login URL
     $loginUrl = $facebook->getLoginUrl(array(
         'scope' => 'email'
             ));
+    echo '<br>login url<br>'.$loginUrl;
 }
 
 //si ya inicio sesión en facebook, entonces hacemos varias validaciones
