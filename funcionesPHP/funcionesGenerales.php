@@ -58,13 +58,18 @@ function validarUsuarioLoggeado() {
         $pagina = getUrl();
         $msgLogin = "Debes iniciar sesión para ver este contenido.";
         require_once 'lib/php/facebook/loginFacebook.php';
-        require_once 'modulos/principal/vistas/login.php';
-        return false;
+        if($user){
+            //si user existe entonces ya hay un inicio de sesión por facebook
+            return true;
+        }else{
+            //si no hay user, no hay usuario en facebook
+            require_once 'modulos/principal/vistas/login.php';
+            return false;
+        }        
     } else {
         return true;
     }
 }
-
 
 function validarUsuarioLoggeadoParaSubmits() {
     return isset($_SESSION['usuario']);
