@@ -495,4 +495,14 @@ function sumarTotalView($idCurso) {
     return $stmt->execute();
 }
 
+function sumarTotalReportes($idCurso){
+    require_once 'bd/conexWrite.php';
+    global $conex;
+    $stmt = $conex->prepare("UPDATE curso 
+                            SET totalReportes = totalReportes + 1
+                            WHERE idCurso = :idCurso");
+    $stmt->bindParam(':idCurso', $idCurso);
+    return $stmt->execute();
+}
+
 ?>

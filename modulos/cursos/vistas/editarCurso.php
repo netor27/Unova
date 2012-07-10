@@ -4,7 +4,6 @@ require_once('layout/headers/headEditarCurso.php');
 require_once('layout/headers/headStarRating.php');
 require_once('layout/headers/headSocialMedia.php');
 require_once('layout/headers/headCierre.php');
-
 ?>
 
 
@@ -16,19 +15,35 @@ require_once('layout/headers/headCierre.php');
                 <br>
                 <a href="/cursos/curso/cambiarImagen/<?php echo $cursoParaModificar->idCurso; ?>">Cambiar imagen</a>
             </div>            
-            <div id="cursoHeader_info" class="left">
+            <div id="cursoHeader_info" class="left" style="width:630px">
                 <div id="cursoHeader_info_titulo">
                     <h1 itemprop="name"><?php echo $cursoParaModificar->titulo; ?></h1>
                 </div>
-                <?php
-                for ($i = 1; $i <= 5; $i++) {
-                    if ($cursoParaModificar->rating == $i)
-                        echo '<input title="' . $i . '" name="adv2" type="radio" disabled="disabled" class="wow" checked="checked"/>';
-                    else
-                        echo '<input title="' . $i . '" name="adv2" type="radio" disabled="disabled" class="wow"/>';
-                }
-                ?>
-                <br><br>
+                <div style="float:left; padding-right: 20px;">
+                    <?php
+                    if ($cursoParaModificar->publicado == 1) {
+                        if ($numAlumnos == 0) {
+                            echo '<h3>No hay ningún usuario inscrito</h3>';
+                        } else if ($numAlumnos == 1) {
+                            echo '<h3><span style="font-weight:bold;">1</span> alumno inscrito</h3>';
+                        } else {
+                            echo '<h3>' . $numAlumnos . ' alumnos inscrito</h3>';
+                        }
+                    }
+                    ?>
+                </div>
+                <div style="float:left;">
+                    <?php
+                    for ($i = 1; $i <= 5; $i++) {
+                        if ($cursoParaModificar->rating == $i)
+                            echo '<input title="' . $i . '" name="adv2" type="radio" disabled="disabled" class="wow" checked="checked"/>';
+                        else
+                            echo '<input title="' . $i . '" name="adv2" type="radio" disabled="disabled" class="wow"/>';
+                    }
+                    ?>
+                </div>
+                
+                <br><br><br>
                 <h5>Categoria: <a href="/categoria/<?php echo $categoria->urlNombre; ?>"><?php echo $categoria->nombre; ?></a> >> <?php echo $subcategoria->nombre; ?></h5>
                 <br>
                 <h5>Palabras clave: 
@@ -194,9 +209,9 @@ require_once('layout/headers/headCierre.php');
                 <h2 style="padding-left: 20px;">Descripción corta</h2>   
                 <div id="descripcionContent">
                     <p itemprop="description">
-                    <?php
-                    echo $cursoParaModificar->descripcionCorta;
-                    ?>
+                        <?php
+                        echo $cursoParaModificar->descripcionCorta;
+                        ?>
                     </p>
                 </div>
             </div>

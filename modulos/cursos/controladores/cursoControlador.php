@@ -93,6 +93,7 @@ function editarCurso() {
         $usuarioDelCurso = getUsuarioDeCurso($cursoParaModificar->idCurso);
         $tiposClase = getTiposClase();
         $tituloPagina = substr($cursoParaModificar->titulo, 0, 50);
+        $numAlumnos = getNumeroDeAlumnos($cursoParaModificar->idCurso);
         require_once 'modulos/cursos/vistas/editarCurso.php';
     } else {
         //El usuario no es dueño de este curso, no lo puede modificar

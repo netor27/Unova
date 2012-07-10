@@ -75,7 +75,7 @@ require_once('layout/headers/headCierre.php');
                 </div>
             </div>
 
-            <div id="temasContainer" class="whiteBox" style="width: 99%;">
+            <div id="temasContainer" class="whiteBox" style="width: 98%;">
 
                 <?php
                 $i = 1;
@@ -131,6 +131,34 @@ require_once('layout/headers/headCierre.php');
                 }else {
                     ?>
                     <h2 style="text-align: center;">Este curso no tiene clases</h2>
+                    <?php
+                }
+                ?>
+            </div>
+            <div id="comentariosContainer" class="whiteBox" style="width: 97.5%;">
+                <div id="instructorHeader">
+                    Comentarios
+                </div>
+                <?php
+                if (isset($comentarios)) {
+                    echo '<ul id="pageMe" class="pageMe">';
+                    foreach ($comentarios as $comentario) {
+                        echo '<li>';
+                        if ($comentario->idUsuario == $curso->idUsuario)
+                            echo '<div class="comentarioContainer blueBox"  style="width:95%">';
+                        else
+                            echo '<div class="comentarioContainer whiteBox"  style="width:95%;margin-left:7px;">';
+                        echo '<div class="comentarioAvatar"><img src="' . $comentario->avatar . '"></div>';
+                        echo '<div class="comentarioUsuario"><a href="/usuario/' . $comentario->uniqueUrlUsuario . '">' . $comentario->nombreUsuario . '</a></div>';
+                        echo '<div class="comentarioFecha">' . transformaDateDDMMAAAA(strtotime($comentario->fecha)) . '</div>';
+                        echo '<br><div class="comentario">' . $comentario->texto . '</div>';
+                        echo '</div>';
+                        echo '</li>';
+                    }
+                    echo '</ul>';
+                }else {
+                    ?>
+                    <h3>No hay comentarios</h3>
                     <?php
                 }
                 ?>
@@ -191,35 +219,6 @@ require_once('layout/headers/headCierre.php');
             </div>
 
 
-
-            <div id="comentariosContainer" class="whiteBox" style="width: 95%;">
-                <div id="instructorHeader">
-                    Comentarios
-                </div>
-                <?php
-                if (isset($comentarios)) {
-                    echo '<ul id="pageMe" class="pageMe">';
-                    foreach ($comentarios as $comentario) {
-                        echo '<li>';
-                        if ($comentario->idUsuario == $curso->idUsuario)
-                            echo '<div class="comentarioContainer blueBox"  style="width:320px">';
-                        else
-                            echo '<div class="comentarioContainer whiteBox"  style="width:320px">';
-                        echo '<div class="comentarioAvatar"><img src="' . $comentario->avatar . '"></div>';
-                        echo '<div class="comentarioUsuario"><a href="/usuario/' . $comentario->uniqueUrlUsuario . '">' . $comentario->nombreUsuario . '</a></div>';
-                        echo '<div class="comentarioFecha">' . transformaDateDDMMAAAA(strtotime($comentario->fecha)) . '</div>';
-                        echo '<br><div class="comentario">' . $comentario->texto . '</div>';
-                        echo '</div>';
-                        echo '</li>';
-                    }
-                    echo '</ul>';
-                }else {
-                    ?>
-                    <h3>No hay comentarios</h3>
-                    <?php
-                }
-                ?>
-            </div>
         </div>
     </div>
 </div>

@@ -131,8 +131,8 @@ function tomarClase() {
                 $curso->idUsuario == $usuario->idUsuario ||
                 tipoUsuario() == "administrador") {
             $clase = getClase($idClase);
-            if ($curso->idUsuario != $usuario->idUsuario) {
-                //si no es el dueño, contar las views
+            if ($curso->idUsuario != $usuario->idUsuario && tipoUsuario() != "administrador") {
+                //si no es el dueño ni un administrador, contar las views
                 sumarVistaClase($idClase);
                 sumarTotalView($curso->idCurso);
             }
