@@ -146,6 +146,38 @@ function getUsuario($idUsuario) {
     return $usuario;
 }
 
+function getUsuariosParaResumenSemanal($offset, $numRows) {
+    require_once 'bd/conexRead.php';
+    global $conex;
+    $stmt = $conex->query("SELECT idUsuario, email, nombreUsuario 
+                           FROM usuario
+                           WHERE activado = 1
+                           LIMIT $offset, $numRows");
+    $usuarios = null;
+    $usuario = null;
+    $i = 0;
+    foreach ($stmt as $row) {
+        $usuario = new Usuario();
+        $usuario->idUsuario = $row['idUsuario'];
+        $usuario->nombreUsuario = $row['nombreUsuario'];
+        $usuario->email = $row['email'];
+        $usuarios[$i] = $usuario;
+        $i++;
+    }
+    return $usuarios;
+}
+
+function getTotalUsuarios() {
+    require_once 'bd/conexRead.php';
+    global $conex;
+    $stmt = $conex->query("SELECT COUNT(idUsuario) as cuenta FROM usuario");
+    $count = 0;
+    foreach ($stmt as $row) {
+        $count = $row['cuenta'];
+    }
+    return $count;
+}
+
 function getUsuarioFromUniqueUrl($uniqueUrl) {
     require_once 'bd/conexRead.php';
     global $conex;
@@ -279,7 +311,7 @@ function actualizaSaldoUsuario($idUsuario, $delta) {
                             WHERE idUsuario = :id");
     $stmt->bindParam(':delta', $delta);
     $stmt->bindParam(':id', $idUsuario);
-    
+
     return $stmt->execute();
 }
 

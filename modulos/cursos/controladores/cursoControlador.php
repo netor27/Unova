@@ -564,7 +564,7 @@ function inscribirUsuario() {
 
                                         require_once 'modulos/email/modelos/envioEmailModelo.php';
                                         //enviar email al usuario que se suscribió
-                                        enviarMailSuscripcionCurso($usuario->email, $curso->titulo, 'www.unova.mx/curso/' . $curso->uniqueUrl);
+                                        enviarMailSuscripcionCurso($usuario->email, $curso->titulo, $curso->imagen, 'www.unova.mx/curso/' . $curso->uniqueUrl);
                                         //enviar email al dueño del curso que alguien se suscribió
                                         //$duenioCurso = getUsuarioDeCurso($curso->idCurso);
                                         //enviarMailAlumnoSuscrito($duenioCurso->email, $curso->titulo, 'www.unova.mx/curso/' . $curso->uniqueUrl);
@@ -706,6 +706,11 @@ function publicar() {
     } else {
         echo 'ERROR. Usuario no loggeado';
     }
+}
+
+function responderPreguntas(){
+    //mostrar las preguntas que este usuario no ha contestado
+    echo 'responder';
 }
 
 ?>

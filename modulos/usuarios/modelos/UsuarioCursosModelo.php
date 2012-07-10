@@ -322,4 +322,38 @@ function setRatingUsuario($idUsuario, $idCurso, $rating) {
     return $stmt->execute();
 }
 
+function getNumeroDeNuevosAlumnos($idUsuario, $dias){
+    require_once 'bd/conexRead.php';
+    global $conex;
+    $stmt = $conex->prepare("SELECT COUNT(uc.idUsuario) AS cuenta
+                             FROM usuario u, curso c, usuariocurso uc
+                             WHERE u.idUsuario = c.idUsuario AND c.idCurso = uc.idCurso
+                             AND u.idUsuario = :idUsuario
+                             AND fechaInscripcion >= DATE_SUB(NOW(), INTERVAL $dias DAY)");
+    $stmt->bindParam(':idUsuario', $idUsuario);
+    $cuenta = 0;
+    if($stmt->execute()){
+        $row = $stmt->fetch();
+        $cuenta  = $row['cuenta'];
+    }
+    return $cuenta;
+}
+
+function getNumeroDePreguntasSinResponder($idUsuario){
+    require_once 'bd/conexRead.php';
+    global $conex;
+    $stmt = $conex->prepare("SELECT COUNT(p.idPregunta) AS cuenta
+                             FROM usuario u, curso c, pregunta p
+                             WHERE u.idUsuario = c.idUsuario AND c.idCurso = p.idCurso
+                             AND u.idUsuario = :idUsuario
+                             AND respuesta IS NULL");
+    $stmt->bindParam(':idUsuario', $idUsuario);
+    $cuenta = 0;
+    if($stmt->execute()){
+        $row = $stmt->fetch();
+        $cuenta  = $row['cuenta'];
+    }
+    return $cuenta;
+}
+
 ?>
