@@ -3,7 +3,7 @@
 //Application Configurations
 $app_id = "294007460696661";
 $app_secret = "beb28525091b61b76f36d2a76c875ca3";
-
+$site_url = "http://unova.co/login";
 try {
     include_once "lib/php/facebook/src/facebook.php";
 } catch (Exception $e) {
@@ -20,7 +20,6 @@ $facebook = new Facebook(array(
 $user = $facebook->getUser();
 
 if ($user) {
-    echo 'hay user';
     // Get logout URL
     $logoutUrl = $facebook->getLogoutUrl();
     $queries = array(
@@ -34,12 +33,11 @@ if ($user) {
     }
     $user_info = json_decode($batchResponse[0]['body'], TRUE);
 } else {
-    echo 'no hay user';
     // Get login URL
     $loginUrl = $facebook->getLoginUrl(array(
-        'scope' => 'email'
+        'scope' => 'email',
+        'redirect_uri'	=> $site_url
             ));
-    echo '<br>login url<br>'.$loginUrl;
 }
 
 //si ya inicio sesión en facebook, entonces hacemos varias validaciones
