@@ -63,12 +63,12 @@ define("FOOTER", '<p></p>
     ');
 
 function enviarMailBienvenida($email, $nombreUsuario, $urlConfirmacion) {
-    $text = 'Bienvenido a Unova,\n' . $nombreUsuario . '\n
+    $text = 'Bienvenido a Unova,\n' . utf8_encode($nombreUsuario) . '\n
         Haz quedado registrado satisfactoriamente en Unova,\n 
         por favor confirma tu cuenta siguiendo este enlace:\n\n
         ' . $urlConfirmacion;
     $html = HEADER . '
-        <h1 style="font-size:18px">Bienvenido a Unova, ' . $nombreUsuario . '</h1>
+        <h1 style="font-size:18px">Bienvenido a Unova, ' . utf8_encode($nombreUsuario) . '</h1>
             <table bgcolor="#f1f1ee" width="100%" cellpadding="0" cellspacing="0" style="padding:15px 0 15px 0">
                 <tbody>
                     <tr valign="top">
@@ -125,12 +125,12 @@ function enviarMailOlvidePassword($email, $urlReestablecer) {
                 </tbody>
             </table>
         ' . FOOTER;
-    return sendMail($text, $html, "Reestablecer contrasena", EMAIL_FROM, $email);
+    return sendMail($text, $html, utf8_encode("Reestablecer contraseña"), EMAIL_FROM, $email);
 }
 
 function enviarMailTransformacionVideoCompleta($email, $tituloCurso, $tituloClase, $urlCurso) {
     $text = 'Transformaci&oacute;n de video completa,\n\n
-        El video de tu clase "' . $tituloClase . '" perteneciente a tu curso "' . $tituloCurso . '"\n
+        El video de tu clase "' . utf8_encode($tituloClase) . '" perteneciente a tu curso "' . utf8_encode($tituloCurso) . '"\n
         ha sido transformado satisfactoriamente.\n
         Ya esta disponible en l&iacute;nea en la p&aacute;gina de tu curso:\n
         ' . $urlCurso . '\n\n
@@ -141,7 +141,7 @@ function enviarMailTransformacionVideoCompleta($email, $tituloCurso, $tituloClas
                 <tbody>
                     <tr valign="top">
                         <td style="font-size:13px;margin: 10px; padding: 10px;">
-                            <p style="padding:10px;margin:0">El video de tu clase "' . $tituloClase . '" perteneciente a tu curso "' . $tituloCurso . '" ha sido transformado satisfactoriamente.</p>
+                            <p style="padding:10px;margin:0">El video de tu clase "' . utf8_encode($tituloClase) . '" perteneciente a tu curso "' . utf8_encode($tituloCurso) . '" ha sido transformado satisfactoriamente.</p>
                             <p style="padding:10px;margin:0">Ya esta disponible en l&iacute;nea en la p&aacute;gina de tu curso:</p>
                             <p style="padding:10px;margin:0"><a href="' . $urlCurso . '">' . $urlCurso . '</a></p>
                         </td>
@@ -149,17 +149,17 @@ function enviarMailTransformacionVideoCompleta($email, $tituloCurso, $tituloClas
                 </tbody>
             </table>
         ' . FOOTER;
-    return sendMail($text, $html, "Transformacion de video completa", EMAIL_FROM, $email);
+    return sendMail($text, $html, utf8_encode("Transformacóon de video completa"), EMAIL_FROM, $email);
 }
 
 function enviarMailSuscripcionCurso($email, $tituloCurso, $imagenCurso, $urlCurso) {
-    $text = 'Haz quedado suscrito al curso "' . $tituloCurso . '",\n\n
+    $text = 'Haz quedado inscrito al curso "' . utf8_encode($tituloCurso) . '",\n\n
         Recuerda que es importante comentar y calificar los cursos para mejorar su calidad.\n\n
         Tambi&eacute;n puedes hacer preguntas directamente al profesor.\n\n
         Esto lo puedes hacer en el siguiente enlace:\n\n' . $urlCurso . '\n\n
         Gracias, equipo Unova.';
     $html = HEADER . '
-        <h1 style="font-size:18px">Haz quedado suscrito al curso "' . $tituloCurso . '"</h1>
+        <h1 style="font-size:18px">Haz quedado inscrito al curso "' . utf8_encode($tituloCurso) . '"</h1>
         <table bgcolor="#f1f1ee" width="100%" cellpadding="0" cellspacing="0" style="padding:15px 0 15px 0">
                 <tbody>
                     <tr valign="top">
@@ -178,28 +178,28 @@ function enviarMailSuscripcionCurso($email, $tituloCurso, $imagenCurso, $urlCurs
                 </tbody>
             </table>
         ' . FOOTER;
-    return sendMail($text, $html, "Suscripcion a curso", EMAIL_FROM, $email);
+    return sendMail($text, $html, utf8_encode("Inscripción a curso"), EMAIL_FROM, $email);
 }
 
 function enviarMailRespuestaPregunta($email, $tituloCurso, $urlCurso, $pregunta, $respuesta) {
     $text = 'Tu pregunta ha sido respondida: \n\n
-        ' . $pregunta . '\n\n
+        ' . utf8_encode($pregunta) . '\n\n
         Respuesta:\n\n
-        ' . $respuesta . '\n\n\n\n
+        ' . utf8_encode($respuesta) . '\n\n\n\n
         Equipo Unova.';
     $html = HEADER . '
-        <h1  style="font-size:18px">Tu pregunta en el curso "' . $tituloCurso . '" ha sido respondida </h1>
+        <h1  style="font-size:18px">Tu pregunta en el curso "' . utf8_encode($tituloCurso) . '" ha sido respondida </h1>
         <table bgcolor="#f1f1ee" width="100%" cellpadding="0" cellspacing="0" style="padding:15px 0 15px 0">
                 <tbody>
                     <tr valign="top">
                         <td style="font-size:13px;margin: 10px; padding: 10px;">
-                            <p style="font-size:17px; color:darkred;padding:10px;margin:0">' . $pregunta . '</p>
+                            <p style="font-size:17px; color:darkred;padding:10px;margin:0">' . utf8_encode($pregunta) . '</p>
                         </td>
                     </tr>
                     <tr valign="top">
                         <td style="font-size:13px;margin: 10px; padding: 10px;">
                             <p style="padding:10px;margin:0">Respuesta:</p>
-                            <p style="font-size:17px; color:darkgreen; padding:10px;margin:0">' . $respuesta . '</p>
+                            <p style="font-size:17px; color:darkgreen; padding:10px;margin:0">' . utf8_encode($respuesta) . '</p>
                         </td>
                     </tr>
                     <tr valign="top">
@@ -221,7 +221,7 @@ function enviarMailResumenSemanal($email, $nombreUsuario, $numAlumnos, $numPregu
         Equipo Unova.
         ';
     $html = HEADER . '
-        <h1 style="font-size:18px">'.$nombreUsuario.', este es tu resumen semanal en Unova</h1>
+        <h1 style="font-size:18px">'.utf8_encode($nombreUsuario).', este es tu resumen semanal en Unova</h1>
         <table bgcolor="#f1f1ee" width="100%" cellpadding="0" cellspacing="0" style="padding:15px 0 15px 0">
             <tbody>                                            
                 <tr valign="top" style="text-align: center;">
