@@ -258,6 +258,12 @@ require_once('layout/headers/headCierre.php');
                 }
                 ?>
             </div>
+            <div id="reportar" class="whiteBox" style="width: 95%;">
+                <a onclick="reportarCurso(<?php echo $curso->idCurso; ?>)">
+                    <img style="float:left;margin-left:30px;margin-right: 20px;" width="25px" src="/layout/imagenes/red_flag.png">
+                    <h4>Reportar como inapropiado</h4>
+                </a>
+            </div>
             <div id="SocialMediaContainer" style="width:97%">
                 <?php
                 require_once('layout/SocialMediaContainer.php');

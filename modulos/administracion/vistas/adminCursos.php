@@ -12,7 +12,7 @@ require_once('layout/headers/headCierre.php');
                     <td class="tableHeader">
                         Cursos
                     </td>
-                    <td colspan="6" class="filter">
+                    <td colspan="7" class="filter">
                         Filtrar: <input id="filterBoxOne" value="" maxlength="30" size="30" type="text" />
                         <img id="filterClearOne" src="/lib/js/jqueryTableSorter/img/cross.png" title="Click to clear filter." alt="Clear Filter Image" />
                     </td>
@@ -24,6 +24,7 @@ require_once('layout/headers/headCierre.php');
                     <th><a href='#' title="Click Header to Sort">Precio</a></th>
                     <th><a href='#' title="Click Header to Sort">Rating</a></th>
                     <th><a href='#' title="Click Header to Sort">Total Views</a></th>
+                    <th><a href='#' title="Click Header to Sort">Total Reportes</a></th>
                 </tr>
             </thead>
             <tbody>
@@ -39,6 +40,7 @@ require_once('layout/headers/headCierre.php');
                     echo '<td>'. $curso->precio . '</td>';
                     echo '<td>'. $curso->rating . '</td>';
                     echo '<td>'. $curso->totalViews . '</td>';
+                    echo '<td>'. $curso->totalReportes . '</td>';
                     echo '</tr>';
                 }
                 ?>
@@ -46,7 +48,7 @@ require_once('layout/headers/headCierre.php');
             </tbody>
             <tfoot>
                 <tr id="pagerOne">
-                    <td colspan="6">
+                    <td colspan="7">
                         <img src="/lib/js/jqueryTableSorter/img/first.png" class="first"/>
                         <img src="/lib/js/jqueryTableSorter/img/prev.png" class="prev"/>
                         <input type="text" class="pagedisplay"/>

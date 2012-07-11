@@ -251,6 +251,7 @@ function getAllCursos(){
         $curso->fechaPublicacion = $row['fechaPublicacion'];
         $curso->publicado = $row['publicado'];
         $curso->rating = $row['rating'];
+        $curso->totalReportes = $row['totalReportes'];
 
         $cursos[$i] = $curso;
         $i++;

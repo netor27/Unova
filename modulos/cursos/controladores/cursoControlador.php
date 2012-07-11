@@ -431,7 +431,7 @@ function responderPreguntaCurso() {
                 require_once 'modulos/email/modelos/envioEmailModelo.php';
                 require_once 'modulos/cursos/modelos/PreguntaModelo.php';
                 $datos = getInfoParaMailRespuestaPregunta($idPregunta);
-                enviarMailRespuestaPregunta($datos['email'], $curso->titulo,'www.unova.mx/curso/'. $curso->uniqueUrl, $datos['pregunta'], $texto);
+                enviarMailRespuestaPregunta($datos['email'], $curso->titulo, 'www.unova.mx/curso/' . $curso->uniqueUrl, $datos['pregunta'], $texto);
                 echo '<br><div class="respuesta blueBox" style="width: 80%;">';
                 echo '<div class="comentarioAvatar"><img src="' . $usuario->avatar . '"></div>';
                 echo '<div class="comentarioUsuario"><a href="/usuario/' . $usuario->uniqueUrl . '">' . $usuario->nombreUsuario . '</a></div>';
@@ -710,6 +710,29 @@ function publicar() {
         }
     } else {
         echo 'ERROR. Usuario no loggeado';
+    }
+}
+
+function reportarCurso() {
+    if (validarUsuarioLoggeadoParaSubmits()) {
+        $idCurso = $_GET['i'];
+        require_once 'modulos/cursos/modelos/CursoModelo.php';
+        $array = array();
+        if (isset($_SESSION['reportes'])) {
+            $array = $_SESSION['reportes'];
+        }
+        
+        if (in_array($idCurso,$array)) {
+            echo 'no';
+        } else {
+            if (sumarTotalReportes($idCurso)) {
+                array_push($array, $idCurso);
+                echo 'ok';
+            } else {
+                echo 'error';
+            }
+        }
+        $_SESSION['reportes'] = $array;
     }
 }
 

@@ -16,6 +16,7 @@ class Curso{
     public $rating;             //Integer
     public $keywords;           //varchar(50)
     public $totalViews;         //Integer
+    public $totalReportes;         //Integer
     
     
     //Las siguientes no son parte de la bd
