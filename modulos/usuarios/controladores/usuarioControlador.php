@@ -264,6 +264,8 @@ function confirmarCuenta() {
     $idUsuario = getIdUsuarioFromUuid($uuid);
     if (setActivado($idUsuario, 1)) {
         setSessionMessage("<h4 class='success'>Tu cuenta ha sido confirmada. ¡Gracias!</h4>");
+        require_once 'funcionesPHP/CargarInformacionSession.php';
+        cargarUsuarioSession();
     } else {
         setSessionMessage("<h4 class='error'>Ocurrió un error al confirmar tu cuenta. Intenta de nuevo más tarde</h4>");
     }
