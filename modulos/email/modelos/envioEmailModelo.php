@@ -149,7 +149,7 @@ function enviarMailTransformacionVideoCompleta($email, $tituloCurso, $tituloClas
                 </tbody>
             </table>
         ' . FOOTER;
-    return sendMail($text, $html, utf8_encode("Transformacóon de video completa"), EMAIL_FROM, $email);
+    return sendMail($text, $html, utf8_encode("Transformación de video completa"), EMAIL_FROM, $email);
 }
 
 function enviarMailSuscripcionCurso($email, $tituloCurso, $imagenCurso, $urlCurso) {
