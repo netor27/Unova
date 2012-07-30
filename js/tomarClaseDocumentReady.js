@@ -30,9 +30,11 @@ function getUnidadPx(unidad){
 }
 
 function agregarTextoDiv(texto, inicio, fin, color, top, left, width, height){
-    var textoDiv = '<div id="drag_'+$indice+'" class="ui-corner-all textoAgregado stack draggable" style="background-color: '+color+'; position: fixed; top: '+getUnidadPx(top)+'; left: '+getUnidadPx(left)+'; width: '+getUnidadPx(width)+'; height: '+getUnidadPx(height)+';">' +
+    var textoDiv = '<div id="drag_'+$indice+'" class="ui-corner-all textoAgregado stack draggable" style="overflow:auto;background-color: '+color+'; position: fixed; top: '+getUnidadPx(top)+'; left: '+getUnidadPx(left)+'; width: '+getUnidadPx(width)+'; height: '+getUnidadPx(height)+';">' +
+    '<div id="content_'+$indice+'" style="width:90%; height:90%; padding:5px; ">'+
     '<div>' +
     texto +
+    '</div>' +
     '</div>' +
     '</div>';
  
@@ -43,6 +45,7 @@ function agregarTextoDiv(texto, inicio, fin, color, top, left, width, height){
         target: "footnotediv"
     });
     $("#drag_"+$indice).draggable({
+        handle: "#content_"+$indice,
         containment: "#editorContainment",
         stack: ".stack"
     });
@@ -96,6 +99,7 @@ function agregarVideoDiv(urlVideo, inicio, fin, color, top, left, width, height)
     var indiceVideo = $idVideo;
     $idVideo++;
     var textoDiv = '<div id="videoContainer_'+indiceVideo+'" class="ui-corner-all videoAgregado draggable" style="background-color: '+color+'; position: fixed; top: '+getUnidadPx(top)+'; left: '+getUnidadPx(left)+'; width: '+getUnidadPx(width)+'; height: '+getUnidadPx(height)+';">' +
+    '<p class="ui-widget-header dragHandle">Arr&aacute;strame de aqu&iacute;<br></p>'+
     '<div id="video_'+indiceVideo+'" class="videoPopcorn" style="width:98%; height: 98%;position: absolute;top:1%;left:1%;">'+
     '</div>' +
     '</div>';
@@ -113,6 +117,7 @@ function agregarVideoDiv(urlVideo, inicio, fin, color, top, left, width, height)
         pauseVideo();
     });
      $("#videoContainer_"+indiceVideo).draggable({
+        
         containment: "#editorContainment",
         stack: ".stack"
     });

@@ -31,11 +31,11 @@
     margin: 15px;
 }
 .textoLink{
-    
+
 }
 .textoLink:hover{
     text-decoration: underline;
-    
+
 }
 #editorContainment{
     width: 100%;
@@ -46,4 +46,16 @@
 }
 .draggable{
     cursor:move;
+}
+.dragHandle {
+    cursor: move;
+    font-size: 1.5em;
+    float: left;
+    display: block;
+    position: relative;
+    top: 0%;
+    left: 0%;
+    z-index: 9;
+    margin: 0;
+    padding: 0;
 }

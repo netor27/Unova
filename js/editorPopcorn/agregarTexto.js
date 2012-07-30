@@ -162,7 +162,8 @@ function editarTexto(){
 
 function agregarTextoDiv(indice, texto, inicio, fin, color, top, left, width, height){
     
-    var textoDiv = '<div id="texto_'+indice+'" class="ui-corner-all textoAgregado stack draggable" style="background-color: '+color+'; position: fixed; top: '+getUnidadPx(top)+'; left: '+getUnidadPx(left)+'; width: '+getUnidadPx(width)+'; height: '+getUnidadPx(height)+';">' +
+    var textoDiv = '<div id="texto_'+indice+'" class="ui-corner-all textoAgregado stack draggable" style="overflow:auto; background-color: '+color+'; position: fixed; top: '+getUnidadPx(top)+'; left: '+getUnidadPx(left)+'; width: '+getUnidadPx(width)+'; height: '+getUnidadPx(height)+';">' +
+    '<div id="content_'+indice+'" style="width:90%; height:90%; padding:5px;">'+
     '<div class="elementButtons">' +
     '<a href="#" onclick=mostrarDialogoEditarTexto('+indice+')>'+
     '<div class="ui-state-default ui-corner-all littleBox">' +
@@ -182,6 +183,7 @@ function agregarTextoDiv(indice, texto, inicio, fin, color, top, left, width, he
     '<div>' +
     texto +
     '</div>' +
+    '</div>' +
     '</div>';
  
     $popPrincipal.footnote({
@@ -192,6 +194,7 @@ function agregarTextoDiv(indice, texto, inicio, fin, color, top, left, width, he
     });
     
     $("#texto_"+indice).draggable({
+        handle: "#content_"+indice,
         containment: "#editorContainment",
         stack: ".stack",
         stop: function(event, ui){
