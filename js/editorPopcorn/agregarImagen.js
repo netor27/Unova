@@ -129,10 +129,18 @@ function editarImagen(){
     var inicio = $("#tiempoInicioImagen").val();
     var fin = $("#tiempoFinImagen").val();
     var color = $("#colorHiddenImagen").val();
-    var position = $("#imagen_"+idEditarImagen).position();    
-    //console.log("position = "+position.top+" - "+position.left);
+    
+    $containmentWidth = $("#editorContainment").width();
+    $containmentHeight  = $("#editorContainment").height();
+    
+    var position = $("#imagen_"+idEditarImagen).position();   
+    position.top = position.top * 100 / $containmentHeight;
+    position.left = position.left * 100 / $containmentWidth;     
+    
     var width = $("#imagen_"+idEditarImagen).width();
     var height = $("#imagen_"+idEditarImagen).height();
+    width = width * 100 / $containmentWidth;
+    height = height * 100/ $containmentHeight;
     
     agregarImagenDiv(imagenes.length, urlImagen, inicio, fin, color, position.top, position.left, width, height);
     cargarImagenEnArreglo(urlImagen, inicio, fin, color, position.top, position.left, width, height);

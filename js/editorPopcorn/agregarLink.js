@@ -132,10 +132,18 @@ function editarLink(){
     var inicio = $("#tiempoInicioLink").val();
     var fin = $("#tiempoFinLink").val();
     var color = $("#colorHiddenLink").val();
+    
+    $containmentWidth = $("#editorContainment").width();
+    $containmentHeight  = $("#editorContainment").height();
+    
     var position = $("#link_"+idEditarLink).position();    
-    //console.log("position = "+position.top+" - "+position.left);
+    position.top = position.top * 100 / $containmentHeight;
+    position.left = position.left * 100 / $containmentWidth;     
+    
     var width = $("#link_"+idEditarLink).width();
     var height = $("#link_"+idEditarLink).height();
+    width = width * 100 / $containmentWidth;
+    height = height * 100/ $containmentHeight;
     
     agregarLinkDiv(links.length, texto, url, inicio, fin, color, position.top, position.left, width, height);
     cargarLinkEnArreglo(texto, url, inicio, fin, color, position.top, position.left, width, height);

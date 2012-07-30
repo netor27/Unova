@@ -149,10 +149,18 @@ function editarTexto(){
     var inicio = $("#tiempoInicioTexto").val();
     var fin = $("#tiempoFinTexto").val();
     var color = $("#colorHiddenTexto").val();
-    var position = $("#texto_"+idEditar).position();    
-    //console.log("position = "+position.top+" - "+position.left);
+    
+    $containmentWidth = $("#editorContainment").width();
+    $containmentHeight  = $("#editorContainment").height();
+    
+    var position = $("#texto_"+idEditar).position();        
+    position.top = position.top * 100 / $containmentHeight;
+    position.left = position.left * 100 / $containmentWidth;     
+    
     var width = $("#texto_"+idEditar).width();
     var height = $("#texto_"+idEditar).height();
+    width = width * 100 / $containmentWidth;
+    height = height * 100/ $containmentHeight;
     
     agregarTextoDiv(textos.length, texto, inicio, fin, color, position.top, position.left, width, height);   
     cargarTextoEnArreglo(texto, inicio, fin, color, position.top, position.left, width, height);

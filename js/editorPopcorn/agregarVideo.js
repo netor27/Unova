@@ -129,10 +129,18 @@ function editarVideo(){
     var inicio = $("#tiempoInicioVideo").val();
     var fin = $("#tiempoFinVideo").val();
     var color = $("#colorHiddenVideo").val();
+    
+    $containmentWidth = $("#editorContainment").width();
+    $containmentHeight  = $("#editorContainment").height();
+    
     var position = $("#video_"+idEditarVideo).offset();    
-    //console.log("position = "+position.top+" - "+position.left);
+    position.top = position.top * 100 / $containmentHeight;
+    position.left = position.left * 100 / $containmentWidth;     
+        
     var width = $("#video_"+idEditarVideo).width();
     var height = $("#video_"+idEditarVideo).height();
+    width = width * 100 / $containmentWidth;
+    height = height * 100/ $containmentHeight;
     
     agregarVideoDiv(videos.length, urlVideo, inicio, fin, color, position.top, position.left, width, height);
     cargarVideoEnArreglo(urlVideo, inicio, fin, color, position.top, position.left, width, height);
