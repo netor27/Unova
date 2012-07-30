@@ -117,7 +117,7 @@ function agregarVideoDiv(urlVideo, inicio, fin, color, top, left, width, height)
         pauseVideo();
     });
      $("#videoContainer_"+indiceVideo).draggable({
-        
+        handle: "p",
         containment: "#editorContainment",
         stack: ".stack"
     });
