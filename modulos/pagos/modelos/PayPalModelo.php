@@ -53,4 +53,31 @@ function paypal_encrypt($hash) {
     }
 }
 
+function encriptarInformacionBotonPago($nombreArticulo, $numeroArticulo, $precio, $variableId){
+    //validar la longitud máxima de las variables
+    if(strlen($nombreArticulo) > 127)
+        $nombreArticulo = substr($nombreArticulo, 0, 127);
+    if(strlen($numeroArticulo) > 127)
+        $numeroArticulo = substr($numeroArticulo, 0, 127);
+    if(strlen($variableId) > 256)
+        $variableId = substr($variableId, 0, 256);
+    
+    $form = array(
+        'cmd' => '_xclick',
+        'business' => 'neto.r27@gmail.com',
+        'cert_id' => '6Z8ETPUX39V7N',
+        'lc' => 'ES_MX',
+        'invoice' => '',
+        'currency_code' => 'MXN',
+        'no_shipping' => '1',
+        'quantity' => '1',
+        'item_name' => $nombreArticulo,
+        'item_number' => $numeroArticulo,
+        'amount' => $precio,
+        'custom' => $variableId
+    );
+    $encrypted = paypal_encrypt($form);
+    return $encrypted;
+}
+
 ?>
