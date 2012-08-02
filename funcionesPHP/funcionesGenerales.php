@@ -58,14 +58,14 @@ function validarUsuarioLoggeado() {
         $pagina = getUrl();
         $msgLogin = "Debes iniciar sesión para ver este contenido.";
         require_once 'lib/php/facebook/loginFacebook.php';
-        if($user){
+        if ($user) {
             //si user existe entonces ya hay un inicio de sesión por facebook
             return true;
-        }else{
+        } else {
             //si no hay user, no hay usuario en facebook
             require_once 'modulos/principal/vistas/login.php';
             return false;
-        }        
+        }
     } else {
         return true;
     }
@@ -165,6 +165,35 @@ function bytesToDollars($bytes) {
     //Convertir primero a GB y luego multiplicar por 0.15 que es lo que cuesta el gb al mes
     $dollars = round($bytes / 1000000000 * 0.15, 4);
     return $dollars;
+}
+
+function getTipoOperacion($idTipoOperacion) {
+    switch ($idTipoOperacion) {
+        case 1:
+            return "Recarga de saldo";
+            break;
+        case 2:
+            return "Inscripci&oacute;n";
+            break;
+        case 3:
+            return "Ganancia por ventas";
+            break;
+        default:
+            return "Tipo de operaci&oacute;n no definida";
+            break;
+    }
+}
+
+function operacionEsPositiva($idTipoOperacion) {
+    switch ($idTipoOperacion) {
+        case 1:
+        case 3:
+            return true;
+            break;
+        case 2:
+            return false;
+            break;
+    }
 }
 
 ?>

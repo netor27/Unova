@@ -1,0 +1,39 @@
+.saldoBox{
+    height: 100px;
+}
+.saldoBox h3{
+    font-size: 30px;
+}
+.OperacionesContainer {
+    text-align: center;
+    width: 95%;
+    background: #E6F1F6;
+    border: 1px solid #C5D5DD;
+    border-radius: 4px;
+    font-size: 14px;
+}
+.OperacionesTable{
+    width: 100%;
+    border-collapse: collapse;
+}
+th{
+    background:#fafafa;
+    background:-moz-linear-gradient(#fafafa,#e0e0e0);
+    background:-webkit-linear-gradient(#fafafa,#e0e0e0);
+}
+.par{
+    background:#fafafa;
+}
+
+.operacionTipo{
+    text-align: left;
+}
+.operacionDetalle{
+    text-align: left;
+}
+.cantidadPositiva{
+    color: rgb(72,148,74);
+}
+.cantidadNegativa{
+    color: rgb(187,31,14);
+}
