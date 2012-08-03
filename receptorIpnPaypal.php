@@ -111,5 +111,6 @@ if (strcmp($res, "VERIFIED") == 0) {
     $emailtext = $msg . "/n/n" . $emailtext;
 }
 
+require_once 'modulos/email/modelos/EmailModelo.php';
 sendMail($emailtext,$emailtext,$subject,$from,$email);
 ?>
