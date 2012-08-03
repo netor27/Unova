@@ -102,6 +102,11 @@ function transformaMysqlDateDDMMAAAA($date) {
     return $fecha->format('d/m/Y');
 }
 
+function transformaMysqlDateDDMMAAAAConHora($date) {
+    $time = strtotime($date);    
+    return date('d/m/Y -- h:i a', $time);
+}
+
 function getUniqueCode($length) {
     $code = md5(uniqid(rand(), true));
     if ($length != "")

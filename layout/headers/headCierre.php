@@ -50,7 +50,7 @@
                 </a>
                 <div id="perfil_links">
                     <!--<a href="/usuarios/saldo">-->
-                    <a href="/usuarios/saldo">
+                    <a href="#">
                         <span>Cuenta</span>
                         <br>
                         <?php

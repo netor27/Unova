@@ -34,7 +34,7 @@ require_once('layout/headers/headCierre.php');
                     <th style="width: 20%">Fecha</th>
                     <th style="width: 20%">Tipo de operaci&oacute;n</th>                                                
                     <th style="width: 40%">Detalles de la operaci&oacute;n</th>
-                    <th style="width: 20%" colspan="2">Cantidad</th>
+                    <th style="width: 20%;padding-left: 5px;;" colspan="2">Cantidad</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,17 +49,17 @@ require_once('layout/headers/headCierre.php');
                         echo '<tr class="non">';
                     if (operacionEsPositiva($operacion->idTipoOperacion)) {
 
-                        echo '<td class="operacionFecha">' . $operacion->fecha . '</td>';
+                        echo '<td class="operacionFecha">' . transformaMysqlDateDDMMAAAAConHora($operacion->fecha) . '</td>';
                         echo '<td class="operacionTipo cantidadPositiva">' . getTipoOperacion($operacion->idTipoOperacion) . '</td>';
                         echo '<td class="operacionDetalle">' . $operacion->detalle . '</td>';
                         echo '<td class="cantidadPositiva">$' . $operacion->cantidad . '</td>';
                         echo '<td ></td>';
                     } else {
-                        echo '<td class="operacionFecha">' . $operacion->fecha . '</td>';
+                        echo '<td class="operacionFecha">' . transformaMysqlDateDDMMAAAAConHora($operacion->fecha) . '</td>';
                         echo '<td class="operacionTipo cantidadNegativa">' . getTipoOperacion($operacion->idTipoOperacion) . '</td>';
                         echo '<td class="operacionDetalle">' . $operacion->detalle . '</td>';
                         echo '<td></td>';
-                        echo '<td class="cantidadNegativa">- $' . $operacion->cantidad . '</td>';
+                        echo '<td class="cantidadNegativa" >- $' . $operacion->cantidad . '</td>';
                     }
                     echo '</tr>';
                     $i++;

@@ -560,7 +560,15 @@ function inscribirUsuario() {
                                 require_once 'modulos/usuarios/modelos/usuarioModelo.php';
                                 if (actualizaSaldoUsuario($usuario->idUsuario, -$curso->precio)) {
                                     //Se actualizó correctamente el saldo del usuario, procedemos
-                                    //a inscribir al usuario
+                                    //a guardar la operación
+                                    require_once 'modulos/pagos/modelos/operacionModelo.php';
+                                    $operacion = new Operacion();
+                                    $operacion->cantidad = $curso->precio;
+                                    $operacion->detalle = "Inscripción a curso " . $curso->titulo;
+                                    $operacion->idUsuario = $usuario->idUsuario;
+                                    altaOperacion($operacion);
+                                    
+                                    //ahora a inscribir al usuario
                                     if (inscribirUsuarioCurso($usuario->idUsuario, $idCurso)) {
                                         require_once('funcionesPHP/CargarInformacionSession.php');
                                         cargarCursosSession();
