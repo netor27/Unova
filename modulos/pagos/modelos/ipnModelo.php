@@ -1,7 +1,7 @@
 <?php
 
 require_once 'modulos/pagos/clases/ipnMensaje.php';
-require_once 'bd/conx.php';
+require_once 'bd/conex.php';
 
 function agregarIpnMensaje($ipnMensaje) {
     global $conex;

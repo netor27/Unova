@@ -1,4 +1,6 @@
 <?php
+//Url que se debe configurar en paypal
+// http://unova.co/receptorIpnPaypal.php
 
 $emailtext = "mensaje recibido";
 $subject = "IPN MSG";
