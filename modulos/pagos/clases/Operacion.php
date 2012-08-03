@@ -8,7 +8,6 @@ class Operacion{
     public $fecha;
     public $detalle;
     public $cantidad;
-    
-    
+    public $completada;
 }
 ?>

@@ -26,50 +26,63 @@ require_once('layout/headers/headCierre.php');
         </div>
 
     </div>
+
     <h2>Últimas operaciones</h2>
     <div class="OperacionesContainer">
-        <table class="OperacionesTable" cellpadding="5" cellspacing="5" >
-            <thead>
-                <tr class="OperacionesTableHeader">
-                    <th style="width: 20%">Fecha</th>
-                    <th style="width: 20%">Tipo de operaci&oacute;n</th>                                                
-                    <th style="width: 40%">Detalles de la operaci&oacute;n</th>
-                    <th style="width: 20%;padding-left: 5px;;" colspan="2">Cantidad</th>
-                </tr>
-            </thead>
-            <tbody>
 
-                <?php
-                $operacionPositiva;
-                $i = 0;
-                foreach ($operaciones as $operacion) {
-                    if ($i % 2 == 0)
-                        echo '<tr class="par">';
-                    else
-                        echo '<tr class="non">';
-                    if (operacionEsPositiva($operacion->idTipoOperacion)) {
+        <?php
+        if (isset($operaciones)) {
+            ?>
 
-                        echo '<td class="operacionFecha">' . transformaMysqlDateDDMMAAAAConHora($operacion->fecha) . '</td>';
-                        echo '<td class="operacionTipo cantidadPositiva">' . getTipoOperacion($operacion->idTipoOperacion) . '</td>';
-                        echo '<td class="operacionDetalle">' . $operacion->detalle . '</td>';
-                        echo '<td class="cantidadPositiva">$' . $operacion->cantidad . '</td>';
-                        echo '<td ></td>';
-                    } else {
-                        echo '<td class="operacionFecha">' . transformaMysqlDateDDMMAAAAConHora($operacion->fecha) . '</td>';
-                        echo '<td class="operacionTipo cantidadNegativa">' . getTipoOperacion($operacion->idTipoOperacion) . '</td>';
-                        echo '<td class="operacionDetalle">' . $operacion->detalle . '</td>';
-                        echo '<td></td>';
-                        echo '<td class="cantidadNegativa" >- $' . $operacion->cantidad . '</td>';
+
+            <table class="OperacionesTable" cellpadding="5" cellspacing="5" >
+                <thead>
+                    <tr class="OperacionesTableHeader">
+                        <th style="width: 20%">Fecha</th>
+                        <th style="width: 20%">Tipo de operaci&oacute;n</th>                                                
+                        <th style="width: 40%">Detalles de la operaci&oacute;n</th>
+                        <th style="width: 20%;padding-left: 5%;" colspan="2">Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <?php
+                    $i = 0;
+                    foreach ($operaciones as $operacion) {
+                        if ($i % 2 == 0)
+                            echo '<tr class="par">';
+                        else
+                            echo '<tr class="non">';
+                        if (operacionEsPositiva($operacion->idTipoOperacion)) {
+
+                            echo '<td class="operacionFecha">' . transformaMysqlDateDDMMAAAAConHora($operacion->fecha) . '</td>';
+                            echo '<td class="operacionTipo cantidadPositiva">' . getTipoOperacion($operacion->idTipoOperacion) . '</td>';
+                            echo '<td class="operacionDetalle">' . $operacion->detalle . '</td>';
+                            echo '<td class="cantidadPositiva">$' . $operacion->cantidad . '</td>';
+                            echo '<td ></td>';
+                        } else {
+                            echo '<td class="operacionFecha">' . transformaMysqlDateDDMMAAAAConHora($operacion->fecha) . '</td>';
+                            echo '<td class="operacionTipo cantidadNegativa">' . getTipoOperacion($operacion->idTipoOperacion) . '</td>';
+                            echo '<td class="operacionDetalle">' . $operacion->detalle . '</td>';
+                            echo '<td></td>';
+                            echo '<td class="cantidadNegativa" >- $' . $operacion->cantidad . '</td>';
+                        }
+                        echo '</tr>';
+                        $i++;
                     }
-                    echo '</tr>';
-                    $i++;
-                }
-                ?>
+                    ?>
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+
+            <?php
+        } else {
+            ?>
+        <h3 style="padding-left: 30px; color:black;">No hay registros</h3>
+            <?php
+        }
+        ?>
     </div>
-
 
 </div>
 

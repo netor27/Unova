@@ -9,6 +9,8 @@ $from = "contacto@unova.mx";
 $url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 $host = 'Host: www.sandbox.paypal.com';
 
+$msgExtra = "";
+
 //Si en paypal esta configurado un email como variable de get, enviamos a ese mail
 //sino, se envía por default a un mail establecido
 if (isset($_GET['email']))
@@ -95,7 +97,7 @@ if (strcmp($res, "VERIFIED") == 0) {
             } else {
                 $mensaje = "Se agregó correctamente el mensaje\n\n\n";
                 require_once 'modulos/pagos/controladores/ipnControlador.php';
-                analizarIpnMensaje($ipnMensaje);
+                $msgExtra = analizarIpnMensaje($ipnMensaje);
             }
         }
     }
@@ -112,6 +114,8 @@ if (strcmp($res, "VERIFIED") == 0) {
     $subject = "IPN Paypal Invalido";
     $emailtext = $msg . "/n/n" . $emailtext;
 }
+
+$emailtext = $emailtext . '<br><br>' . $msgExtra;
 
 require_once 'modulos/email/modelos/EmailModelo.php';
 sendMail($emailtext,$emailtext,$subject,$from,$email);

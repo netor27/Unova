@@ -1,33 +1,22 @@
 <?php
+
+//require_once 'modulos/pagos/controladores/ipnControlador.php';
+//$ipnMensaje = new IpnMensaje();
+//$ipnMensaje->txn_type = 'cart';
+//$ipnMensaje->payment_status = "Completed";
+//$ipnMensaje->custom = "13";
+//$ipnMensaje->mc_gross = "176";
+//
+//$msg = analizarIpnMensaje($ipnMensaje);
+//
+//echo $msg;
+
 require_once 'modulos/pagos/modelos/operacionModelo.php';
-require_once 'funcionesPHP/funcionesGenerales.php';
-
-$operaciones = getUltimasOperacionesPorUsuario(20,3);
-$operaciones = array_reverse($operaciones);
+$operacion = new Operacion();
+$operacion->cantidad = "500";
+$operacion->detalle = "Inscripción a curso  Matemáticas 1";
+$operacion->idUsuario = 3;
+$operacion->completada = 1;
+$operacion->idTipoOperacion = 2;
+altaOperacion($operacion);
 ?>
-
-<table>
-    <tr>
-        <td>IdOperacion</td>
-        <td>tipo</td>
-        <td>usuario</td>
-        <td>fecha</td>
-        <td>detalle</td>
-        <td>cantidad</td>
-    </tr>
-
-    <?php
-    foreach ($operaciones as $operacion) {
-        echo '<tr>';
-        echo '<td>'.$operacion->idOperacion.'</td>';
-       
-        echo '<td>'.getTipoOperacion($operacion->idTipoOperacion).'</td>';
-        echo '<td>'.$operacion->idUsuario.'</td>';
-        echo '<td>'.$operacion->fecha.'</td>';
-        echo '<td>'.$operacion->detalle.'</td>';
-        echo '<td>'.$operacion->cantidad.'</td>';
-        echo '</tr>';
-    }
-    ?>
-
-</table>

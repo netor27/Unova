@@ -26,6 +26,7 @@ function loginUsuario($email, $password) {
         $usuario->saldo = $row['saldo'];
 
         $_SESSION['usuario'] = $usuario;
+        $_SESSION['contador'] = 1;
 
         //actualizamos en la base de datos el sessionId actual
         actualizarIdSession($usuario->idUsuario);

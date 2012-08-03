@@ -33,7 +33,7 @@ class IpnMensaje {
         $res.=" <br> item_number =>" . $this->item_number;
         $res.=" <br> payment_status =>" . $this->payment_status;
         $res.=" <br> parent_txt_id =>" . $this->parent_txt_id;
-        $res.=" <br> mc_gross (cantidad depositada)=>" . $this->mc_gross;
+        $res.=" <br> mc_gross (importe bruto)=>" . $this->mc_gross;
         $res.=" <br> mc_fee (comision) =>" . $this->mc_fee;
         $res.=" <br> mc_currency =>" . $this->mc_currency;
         $res.=" <br> first_name =>" . $this->first_name;
