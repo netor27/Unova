@@ -3,7 +3,7 @@
 require_once 'modulos/usuarios/clases/Usuario.php';
 
 function getCursosInscrito($idUsuario, $offset, $numRows) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
 
     $stmt = $conex->prepare("SELECT c.idCurso, c.titulo, c.uniqueUrl, c.imagen, uc.fechaInscripcion
@@ -34,7 +34,7 @@ function getCursosInscrito($idUsuario, $offset, $numRows) {
 }
 
 function getCursosInstructor($idUsuario, $offset, $numRows) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
 
     $stmt = $conex->prepare("SELECT c.idCurso, c.titulo, c.uniqueUrl, c.imagen, c.fechaPublicacion
@@ -65,7 +65,7 @@ function getCursosInstructor($idUsuario, $offset, $numRows) {
 }
 
 function getCursosInscritoDetalles($idUsuario, $orderBy, $orderAscDesc) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $auxOrder = "";
     if ($orderBy == "fechaInscripcion")
@@ -117,7 +117,7 @@ function getCursosInscritoDetalles($idUsuario, $orderBy, $orderAscDesc) {
 }
 
 function getCursosInstructorDetalles($idUsuario, $orderBy, $orderAscDesc) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $auxOrder = "";
     if ($orderBy == "fechaCreacion")
@@ -166,7 +166,7 @@ function getCursosInstructorDetalles($idUsuario, $orderBy, $orderAscDesc) {
 }
 
 function getCursosInstructorDetallesPublicados($idUsuario, $orderBy, $orderAscDesc) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $auxOrder = "";
     if ($orderBy == "fechaCreacion")
@@ -212,7 +212,7 @@ function getCursosInstructorDetallesPublicados($idUsuario, $orderBy, $orderAscDe
 }
 
 function esUsuarioUnAlumnoDelCurso($idUsuario, $idCurso) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT idUsuario 
                              FROM usuariocurso
@@ -230,7 +230,7 @@ function esUsuarioUnAlumnoDelCurso($idUsuario, $idCurso) {
 }
 
 function getNumeroCursosCreados($idUsuario) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT COUNT(*) as cuenta 
                              FROM curso
@@ -246,7 +246,7 @@ function getNumeroCursosCreados($idUsuario) {
 }
 
 function getNumeroCursosTomados($idUsuario) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT COUNT(*) as cuenta 
                              FROM usuariocurso
@@ -262,7 +262,7 @@ function getNumeroCursosTomados($idUsuario) {
 }
 
 function inscribirUsuarioCurso($idUsuario, $idCurso) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("INSERT INTO usuariocurso (idUsuario, idCurso, fechaInscripcion)
                             VALUES(:idUsuario, :idCurso, NOW()) ");
@@ -273,7 +273,7 @@ function inscribirUsuarioCurso($idUsuario, $idCurso) {
 }
 
 function getRatingUsuario($idUsuario, $idCurso) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
 
     $stmt = $conex->prepare("SELECT rating
@@ -290,7 +290,7 @@ function getRatingUsuario($idUsuario, $idCurso) {
 }
 
 function setRatingUsuario($idUsuario, $idCurso, $rating) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE usuariocurso 
                             SET rating = :rating
@@ -323,7 +323,7 @@ function setRatingUsuario($idUsuario, $idCurso, $rating) {
 }
 
 function getNumeroDeNuevosAlumnos($idUsuario, $dias) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT COUNT(uc.idUsuario) AS cuenta
                              FROM usuario u, curso c, usuariocurso uc
@@ -340,7 +340,7 @@ function getNumeroDeNuevosAlumnos($idUsuario, $dias) {
 }
 
 function getNumeroDePreguntasSinResponder($idUsuario) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT COUNT(p.idPregunta) AS cuenta
                              FROM usuario u, curso c, pregunta p
@@ -357,7 +357,7 @@ function getNumeroDePreguntasSinResponder($idUsuario) {
 }
 
 function getPreguntasSinResponder($idUsuario) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT c.idCurso, c.titulo, c.uniqueUrl, c.imagen, p.idPregunta, p.idUsuario, p.pregunta, p.fecha, uc.nombreUsuario, uc.avatar, uc.uniqueUrl as uniqueUrlUsuario
                             FROM pregunta p	

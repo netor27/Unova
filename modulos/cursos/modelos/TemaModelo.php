@@ -4,7 +4,7 @@ require_once 'modulos/cursos/clases/Curso.php';
 require_once 'modulos/cursos/clases/Tema.php';
 
 function altaTema($tema) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("INSERT INTO tema (idCurso, nombre) 
                             VALUES (:idCurso, :nombre)");
@@ -20,7 +20,7 @@ function altaTema($tema) {
 }
 
 function bajaTema($idTema) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("DELETE FROM tema WHERE idTema = :id");
     $stmt->bindParam(':id', $idTema);
@@ -29,7 +29,7 @@ function bajaTema($idTema) {
 }
 
 function actualizaTema($tema) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE tema SET nombre = :nombre
                              WHERE idTema = :idTema");
@@ -39,7 +39,7 @@ function actualizaTema($tema) {
 }
 
 function getTema($idTema) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM tema where idTema = :id");
     $stmt->bindParam(':id', $idTema);
@@ -56,7 +56,7 @@ function getTema($idTema) {
 }
 
 function numeroDeClasesDelTema($idTema) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT count(*) as cuenta
                              FROM clase 
@@ -68,7 +68,7 @@ function numeroDeClasesDelTema($idTema) {
 }
 
 function getIdCursoPerteneciente($idTema) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT idCurso FROM tema WHERE idTema = :idTema");
     $stmt->bindParam(":idTema", $idTema);

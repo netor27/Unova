@@ -3,7 +3,7 @@
 require_once 'modulos/cursos/clases/Clase.php';
 
 function altaClase($clase) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("INSERT INTO clase (idTema, titulo, idTipoClase, archivo, transformado)
                              VALUES(:idTema, :titulo, :tipoClase, :archivo, :transformado)");
@@ -22,7 +22,7 @@ function altaClase($clase) {
 }
 
 function bajaClase($idClase) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("DELETE FROM clase WHERE idClase = :id");
     $stmt->bindParam(':id', $idClase);
@@ -31,7 +31,7 @@ function bajaClase($idClase) {
 }
 
 function actualizaInformacionClase($clase) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE clase 
                             SET titulo = :titulo, descripcion = :descripcion
@@ -43,7 +43,7 @@ function actualizaInformacionClase($clase) {
 }
 
 function actualizaDuracionClase($idClase, $duration) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE clase SET duracion = :duracion
                             WHERE idClase = :idClase");
@@ -53,7 +53,7 @@ function actualizaDuracionClase($idClase, $duration) {
 }
 
 function actualizaCodigoClase($idClase,$codigo) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE clase SET codigo = :codigo
                             WHERE idClase = :idClase");
@@ -63,7 +63,7 @@ function actualizaCodigoClase($idClase,$codigo) {
 }
 
 function actualizaOrdenClase($idClase, $idTema, $orden) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE clase 
                             SET orden = :orden, idTema = :idTema
@@ -75,7 +75,7 @@ function actualizaOrdenClase($idClase, $idTema, $orden) {
 }
 
 function actualizaArchivosDespuesTransformacion($idClase, $archivo, $archivo2) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE clase 
                             SET transformado = 1, archivo = :archivo , archivo2 = :archivo2
@@ -87,7 +87,7 @@ function actualizaArchivosDespuesTransformacion($idClase, $archivo, $archivo2) {
 }
 
 function getClase($idClase) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM clase where idClase = :idClase");
     $stmt->bindParam(':idClase', $idClase);
@@ -113,7 +113,7 @@ function getClase($idClase) {
 }
 
 function getTiposClase() {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM tipoclase");
     $stmt->execute();
@@ -134,7 +134,7 @@ function getTiposClase() {
 }
 
 function clasePerteneceACurso($idCurso, $idClase) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("Select c.idCurso, cl.idClase
                              FROM curso c, tema t, clase cl
@@ -151,7 +151,7 @@ function clasePerteneceACurso($idCurso, $idClase) {
 }
 
 function getCursoPerteneciente($idClase) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("Select c.idCurso, c.idUsuario, c.idSubcategoria, c.titulo, c.uniqueUrl, c.precio, c.descripcionCorta, c.descripcion, c.imagen, c.rating, c.keywords
                              FROM curso c, tema t, clase cl
@@ -178,7 +178,7 @@ function getCursoPerteneciente($idClase) {
 }
 
 function sumarVistaClase($idClase) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE clase 
                             SET views = views + 1

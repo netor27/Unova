@@ -3,7 +3,7 @@
 require_once 'modulos/categorias/clases/Categoria.php';
 
 function altaCategoria($categoria) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("INSERT INTO categoria (nombre, urlNombre) values(:nombre, :urlNombre)");
     $stmt->bindParam(':nombre', $categoria->nombre);
@@ -15,7 +15,7 @@ function altaCategoria($categoria) {
 }
 
 function bajaCategoria($idCategoria) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("DELETE FROM categoria WHERE idCategoria = :id");
     $stmt->bindParam(':id', $idCategoria);
@@ -24,7 +24,7 @@ function bajaCategoria($idCategoria) {
 }
 
 function actualizaCategoria($categoria) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE categoria SET nombre = :nombre, urlNombre = :urlNombre WHERE idCategoria = :id");
     $stmt->bindParam(':nombre', $categoria->nombre);
@@ -34,7 +34,7 @@ function actualizaCategoria($categoria) {
 }
 
 function getCategorias() {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->query("SELECT * FROM categoria ORDER BY nombre");
     $arreglo = null;
@@ -52,7 +52,7 @@ function getCategorias() {
 }
 
 function getCategoria($idCategoria) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM categoria where idCategoria = :id");
     $stmt->bindParam(':id', $idCategoria);
@@ -69,7 +69,7 @@ function getCategoria($idCategoria) {
 }
 
 function getCategoriaPorUniqueUrl($uniqueUrl) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM categoria where urlNombre = :id");
     $stmt->bindParam(':id', $uniqueUrl);
@@ -86,7 +86,7 @@ function getCategoriaPorUniqueUrl($uniqueUrl) {
 }
 
 function getCursosPorCategoria($idCategoria, $offset, $numRows) {    
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT SQL_CALC_FOUND_ROWS c.idCurso, c.idUsuario, c.idSubcategoria, c.titulo, c.uniqueUrl, c.precio, c.imagen, u.nombreUsuario, u.uniqueUrl as uniqueUrlUsuario,
                                 count(distinct cl.idClase) as numClases, count(distinct uc.idUsuario) as numAlumnos, 

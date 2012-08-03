@@ -3,7 +3,7 @@
 require_once 'modulos/cursos/clases/Curso.php';
 
 function altaCurso($curso) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("INSERT into curso (idUsuario, idSubcategoria, titulo, uniqueUrl, precio, descripcionCorta, fechaCreacion, keywords) 
                              values (:idUsuario, :idSubcategoria, :titulo, :uniqueUrl, 0, :descripcionCorta, NOW(), :keywords)");
@@ -24,7 +24,7 @@ function altaCurso($curso) {
 }
 
 function altaCursoBusqueda($curso) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("INSERT into cursobusqueda (idCurso, titulo, keywords, descripcionCorta) 
                              values (:idCurso, :titulo, :keywords, :descripcionCorta)");
@@ -38,7 +38,7 @@ function altaCursoBusqueda($curso) {
 }
 
 function bajaCurso($idCurso) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("DELETE FROM curso WHERE idCurso = :id");
     $stmt->bindParam(':id', $idCurso);
@@ -49,7 +49,7 @@ function bajaCurso($idCurso) {
 }
 
 function bajaCursoBusqueda($idCurso) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("DELETE FROM cursobusqueda WHERE idCurso = :id");
     $stmt->bindParam(':id', $idCurso);
@@ -58,7 +58,7 @@ function bajaCursoBusqueda($idCurso) {
 }
 
 function actualizaInformacionCurso($curso) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE curso SET idSubcategoria = :idSubcategoria, titulo = :titulo, uniqueUrl = :uniqueUrl,
                              descripcionCorta = :descripcionCorta, descripcion = :descripcion, keywords = :keywords
@@ -78,7 +78,7 @@ function actualizaInformacionCurso($curso) {
 }
 
 function acutalizaInformacionCursoBusqueda($curso) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE cursobusqueda SET titulo = :titulo, 
                              descripcionCorta = :descripcionCorta,
@@ -92,7 +92,7 @@ function acutalizaInformacionCursoBusqueda($curso) {
 }
 
 function setPublicarCurso($idCurso, $valor) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE curso SET publicado = :valor, fechaPublicacion = NOW()
                             WHERE idCurso = :idCurso");
@@ -102,7 +102,7 @@ function setPublicarCurso($idCurso, $valor) {
 }
 
 function getIdUsuarioDeCurso($idCurso) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT idUsuario FROM curso where idCurso = :id");
     $stmt->bindParam(':id', $idCurso);
@@ -113,7 +113,7 @@ function getIdUsuarioDeCurso($idCurso) {
 }
 
 function getUsuarioDeCurso($idCurso) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     require_once 'modulos/usuarios/clases/Usuario.php';
 
     global $conex;
@@ -135,7 +135,7 @@ function getUsuarioDeCurso($idCurso) {
 }
 
 function actualizaImagenCurso($curso) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE curso SET imagen = :imagen
                             WHERE idCurso = :idCurso");
@@ -145,7 +145,7 @@ function actualizaImagenCurso($curso) {
 }
 
 function getCurso($idCurso) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM curso where idCurso = :id");
     $stmt->bindParam(':id', $idCurso);
@@ -171,7 +171,7 @@ function getCurso($idCurso) {
 }
 
 function getCursoFromUniqueUrl($cursoUrl) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM curso where uniqueUrl = :uniqueUrl");
     $stmt->bindParam(':uniqueUrl', $cursoUrl);
@@ -198,7 +198,7 @@ function getCursoFromUniqueUrl($cursoUrl) {
 }
 
 function getCursos($offset, $numRows) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM curso LIMIT :offset, :numRows");
     $stmt->bindParam(':offset', $offset);
@@ -227,7 +227,7 @@ function getCursos($offset, $numRows) {
 }
 
 function getAllCursos(){
-     require_once 'bd/conexRead.php';
+     require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM curso");
     $stmt->execute();
@@ -260,7 +260,7 @@ function getAllCursos(){
 }
 
 function getCursosFuncion() {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT SQL_CALC_FOUND_ROWS c.idCurso, c.idUsuario, c.idSubcategoria, c.titulo, c.uniqueUrl, c.precio, c.imagen, u.nombreUsuario, u.uniqueUrl as uniqueUrlUsuario,
                                 count(distinct cl.idClase) as numClases, count(distinct uc.idUsuario) as numAlumnos, 
@@ -312,7 +312,7 @@ function getCursosFuncion() {
 }
 
 function getCursosGratis($offset, $numRows) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM curso 
                             WHERE precio = 0
@@ -344,7 +344,7 @@ function getCursosGratis($offset, $numRows) {
 }
 
 function getTemas($idCurso) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT idTema, idCurso, nombre 
                              FROM tema
@@ -370,7 +370,7 @@ function getTemas($idCurso) {
 }
 
 function getClases($idCurso) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT c.idClase, c.idTema, c.titulo, c.orden, c.idTipoClase, c.transformado, c.views, c.duracion
                             FROM clase c, tema t
@@ -402,7 +402,7 @@ function getClases($idCurso) {
 }
 
 function getNumeroDeAlumnos($idCurso) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT count(idUsuario) as cuenta
                              FROM usuariocurso
@@ -414,7 +414,7 @@ function getNumeroDeAlumnos($idCurso) {
 }
 
 function getComentarios($idCurso) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT c.idComentario, c.idUsuario, c.idCurso, c.texto, u.nombreUsuario, u.avatar, u.uniqueUrl, c.fecha
                             FROM comentario c, usuario u
@@ -444,7 +444,7 @@ function getComentarios($idCurso) {
 }
 
 function getPreguntas($idCurso) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT p.idPregunta, p.idCurso, p.idUsuario, p.pregunta, p.respuesta, p.fecha, p.fechaRespuesta, u.nombreUsuario, u.uniqueUrl, u.avatar
                             FROM pregunta p, usuario u
@@ -477,7 +477,7 @@ function getPreguntas($idCurso) {
 }
 
 function elTituloEsUnico($uniqueUrl) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT idCurso FROM curso where uniqueUrl = :uniqueUrl");
     $stmt->bindParam(':uniqueUrl', $uniqueUrl);
@@ -487,7 +487,7 @@ function elTituloEsUnico($uniqueUrl) {
 }
 
 function sumarTotalView($idCurso) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE curso 
                             SET totalViews = totalViews + 1
@@ -497,7 +497,7 @@ function sumarTotalView($idCurso) {
 }
 
 function sumarTotalReportes($idCurso){
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE curso 
                             SET totalReportes = totalReportes + 1

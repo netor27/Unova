@@ -1,7 +1,7 @@
 <?php
 
 function loginUsuario($email, $password) {
-    require_once ('bd/conexRead.php');
+    require_once ('bd/conex.php');
     $numeroTuplas = 0;
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM usuario WHERE email = :email and password = :pass");
@@ -40,7 +40,7 @@ function loginUsuario($email, $password) {
 
 function actualizarIdSession($idUsuario) {
     $sessionId = session_id();
-    require_once ('bd/conexWrite.php');
+    require_once ('bd/conex.php');
     global $conex;
     $stmt = $conex->prepare("UPDATE usuario SET sessionId = :sessionId WHERE idUsuario = :idUsuario");
     $stmt->bindParam(':sessionId', $sessionId);
@@ -49,7 +49,7 @@ function actualizarIdSession($idUsuario) {
 }
 
 function validateSessionIdUsuario($idUsuario, $sessionId) {
-    require_once ('bd/conexRead.php');
+    require_once ('bd/conex.php');
     global $conex;
     $stmt = $conex->prepare("SELECT idUsuario FROM usuario WHERE idUsuario = :id and sessionId = :sessionId");
     $stmt->bindParam(':id', $idUsuario);

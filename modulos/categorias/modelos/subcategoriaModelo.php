@@ -3,7 +3,7 @@
 require_once 'modulos/categorias/clases/Subcategoria.php';
 
 function altaSubcategoria($subcategoria) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("INSERT INTO subcategoria (idCategoria, nombre) values(:idCategoria, :nombre)");
     $stmt->bindParam(':idCategoria', $subcategoria->idCategoria);
@@ -16,7 +16,7 @@ function altaSubcategoria($subcategoria) {
 }
 
 function bajaSubcategoria($idSubcategoria) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("DELETE FROM subcategoria WHERE idSubcategoria = :id");
     $stmt->bindParam(':id', $idSubcategoria);
@@ -25,7 +25,7 @@ function bajaSubcategoria($idSubcategoria) {
 }
 
 function actualizaSubcategoria($subcategoria) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE subcategoria SET nombre = :nombre WHERE idSubcategoria = :id");
     $stmt->bindParam(':nombre', $subcategoria->nombre);
@@ -34,7 +34,7 @@ function actualizaSubcategoria($subcategoria) {
 }
 
 function getSubcategoriasDeCategoria($idCategoria) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM subcategoria where idCategoria = :id ORDER BY nombre");
     $stmt->bindParam(':id', $idCategoria);
@@ -57,7 +57,7 @@ function getSubcategoriasDeCategoria($idCategoria) {
 }
 
 function getSubcategoria($idSubcategoria) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM subcategoria where idSubcategoria = :id");
     $stmt->bindParam(':id', $idSubcategoria);
@@ -74,7 +74,7 @@ function getSubcategoria($idSubcategoria) {
 }
 
 function getCategoriaPerteneciente($idSubcategoria) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     require_once 'modulos/categorias/clases/Categoria.php';
     global $conex;
     $stmt = $conex->prepare("SELECT c.idCategoria, c.nombre, c.urlNombre

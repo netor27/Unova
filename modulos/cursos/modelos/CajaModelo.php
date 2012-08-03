@@ -2,7 +2,7 @@
 
 function agregarTarjetasDesdeCSV($idCaja, $archivoCsv) {
     $res = array();
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("INSERT INTO tarjeta (idCaja, ladoA, ladoB, tiempo)
                              VALUES(:idCaja, :ladoA, :ladoB, :tiempo)");

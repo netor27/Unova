@@ -1,7 +1,7 @@
 <?php
 
 function busquedaCurso($busqueda, $offset, $numRows) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT SQL_CALC_FOUND_ROWS c.idCurso, c.idUsuario, c.idSubcategoria, c.titulo, c.uniqueUrl, c.precio, c.imagen, u.nombreUsuario, u.uniqueUrl as uniqueUrlUsuario,
                                 count(distinct cl.idClase) as numClases, count(distinct uc.idUsuario) as numAlumnos, 

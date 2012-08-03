@@ -3,7 +3,7 @@
 require_once 'modulos/usuarios/clases/Usuario.php';
 
 function altaUsuario($usuario) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $uuid = md5($usuario->email) . getUniqueCode(4);
     $stmt = $conex->prepare("INSERT into usuario (email,password,nombreUsuario, uniqueUrl, fechaRegistro, uuid) values(:email,:password,:nombreUsuario,:uniqueUrl, NOW() ,:uuid)");
@@ -23,7 +23,7 @@ function altaUsuario($usuario) {
 }
 
 function eliminarUsuario($idUsuario) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("DELETE FROM usuario WHERE idUsuario = :id");
     $stmt->bindParam(':id', $idUsuario);
@@ -33,7 +33,7 @@ function eliminarUsuario($idUsuario) {
 
 //Funciones de actualización
 function actualizaInformacionUsuario($usuario) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
 
     global $conex;
     $stmt = $conex->prepare("UPDATE usuario 
@@ -49,7 +49,7 @@ function actualizaInformacionUsuario($usuario) {
 }
 
 function actualizaPassword($usuario) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE usuario 
                             SET password = :password 
@@ -60,7 +60,7 @@ function actualizaPassword($usuario) {
 }
 
 function actualizaAvatar($usuario) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE usuario 
                             SET avatar = :avatar 
@@ -71,7 +71,7 @@ function actualizaAvatar($usuario) {
 }
 
 function actualizaEmail($usuario) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE usuario 
                             SET email = :email, activado = 0 
@@ -82,7 +82,7 @@ function actualizaEmail($usuario) {
 }
 
 function setActivado($idUsuario, $valor) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE usuario 
                             SET activado = :valor 
@@ -93,7 +93,7 @@ function setActivado($idUsuario, $valor) {
 }
 
 function getUsuarios() {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->query("SELECT * FROM usuario");
     $usuarios = null;
@@ -120,7 +120,7 @@ function getUsuarios() {
 }
 
 function getUsuario($idUsuario) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM usuario WHERE idUsuario = :id");
     $stmt->bindParam(':id', $idUsuario);
@@ -147,7 +147,7 @@ function getUsuario($idUsuario) {
 }
 
 function getUsuariosParaResumenSemanal($offset, $numRows) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->query("SELECT idUsuario, email, nombreUsuario 
                            FROM usuario
@@ -168,7 +168,7 @@ function getUsuariosParaResumenSemanal($offset, $numRows) {
 }
 
 function getTotalUsuarios() {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->query("SELECT COUNT(idUsuario) as cuenta FROM usuario");
     $count = 0;
@@ -179,7 +179,7 @@ function getTotalUsuarios() {
 }
 
 function getUsuarioFromUniqueUrl($uniqueUrl) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM usuario WHERE uniqueUrl = :uniqueUrl");
     $stmt->bindParam(':uniqueUrl', $uniqueUrl);
@@ -206,7 +206,7 @@ function getUsuarioFromUniqueUrl($uniqueUrl) {
 }
 
 function getIdUsuarioFromUuid($uuid) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT idUsuario FROM usuario WHERE uuid = :uuid");
     $stmt->bindParam(':uuid', $uuid);
@@ -220,7 +220,7 @@ function getIdUsuarioFromUuid($uuid) {
 }
 
 function getUsuarioFromEmail($email) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM usuario WHERE email = :email");
     $stmt->bindParam(':email', $email);
@@ -247,7 +247,7 @@ function getUsuarioFromEmail($email) {
 }
 
 function validarPassAnterior($idUsuario, $passAnterior) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT count(*) AS cuenta
                             FROM usuario 
@@ -263,7 +263,7 @@ function validarPassAnterior($idUsuario, $passAnterior) {
 }
 
 function getUUIDFromEmail($email) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT uuid 
                             FROM usuario
@@ -279,7 +279,7 @@ function getUUIDFromEmail($email) {
 }
 
 function reestablecerPasswordPorUUID($uuid, $pass) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE usuario 
                             SET password = :password 
@@ -294,7 +294,7 @@ function reestablecerPasswordPorUUID($uuid, $pass) {
 }
 
 function elNombreUsuarioEsUnico($uniqueUrl) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT idUsuario FROM usuario where uniqueUrl = :uniqueUrl");
     $stmt->bindParam(':uniqueUrl', $uniqueUrl);
@@ -304,7 +304,7 @@ function elNombreUsuarioEsUnico($uniqueUrl) {
 }
 
 function actualizaSaldoUsuario($idUsuario, $delta) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE usuario 
                             SET saldo = saldo + :delta

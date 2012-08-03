@@ -3,7 +3,7 @@
 require_once 'modulos/pagos/clases/Operacion.php';
 
 function altaOperacion($operacion) {
-    require_once 'bd/conexWrite.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("INSERT into operacion (idTipoOperacion, idUsuario, detalle, cantidad) values(:idTipoOperacion, :idUsuario,:detalle,:cantidad)");
     $stmt->bindParam(':idTipoOperacion', $operacion->idTipoOperacion);
@@ -23,7 +23,7 @@ function altaOperacion($operacion) {
 }
 
 function getOperaciones() {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->query("SELECT * FROM operacion");
     $operaciones = null;
@@ -45,7 +45,7 @@ function getOperaciones() {
 }
 
 function getUltimasOperacionesPorUsuario($n, $idUsuario) {
-    require_once 'bd/conexRead.php';
+    require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM operacion 
                             WHERE idUsuario = :idUsuario
