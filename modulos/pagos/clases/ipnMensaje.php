@@ -26,23 +26,23 @@ class IpnMensaje {
 
     function toString() {
         $res = "Mensaje recibido " + date("d/m/Y  H:i:s");
-        $res.=" /n txn_type => " . $txn_type;
-        $res.=" /n txn_id => " . $txn_id;
-        $res.=" /n receirver_email =>" . $receiver_email;
-        $res.=" /n item_name =>" . $item_name;
-        $res.=" /n item_number =>" . $item_number;
-        $res.=" /n payment_status =>" . $payment_status;
-        $res.=" /n parent_txt_id =>" . $parent_txt_id;
-        $res.=" /n mc_gross (cantidad depositada)=>" . $mc_gross;
-        $res.=" /n mc_fee (comision) =>" . $mc_fee;
-        $res.=" /n mc_currency =>" . $mc_currency;
-        $res.=" /n first_name =>" . $first_name;
-        $res.=" /n last_name =>" . $last_name;
-        $res.=" /n payer_email =>" . $payer_email;        
-        $res.=" /n payment_date =>" . $payment_date;
-        $res.=" /n test_ipn =>" . $test_ipn;
-        $res.=" /n custom =>" . $custom;
-        $res.=" /n/n/n/n Complete post/n/n/n " . $complete_post;
+        $res.=" <br> txn_type => " . $txn_type;
+        $res.=" <br> txn_id => " . $txn_id;
+        $res.=" <br> receirver_email =>" . $receiver_email;
+        $res.=" <br> item_name =>" . $item_name;
+        $res.=" <br> item_number =>" . $item_number;
+        $res.=" <br> payment_status =>" . $payment_status;
+        $res.=" <br> parent_txt_id =>" . $parent_txt_id;
+        $res.=" <br> mc_gross (cantidad depositada)=>" . $mc_gross;
+        $res.=" <br> mc_fee (comision) =>" . $mc_fee;
+        $res.=" <br> mc_currency =>" . $mc_currency;
+        $res.=" <br> first_name =>" . $first_name;
+        $res.=" <br> last_name =>" . $last_name;
+        $res.=" <br> payer_email =>" . $payer_email;        
+        $res.=" <br> payment_date =>" . $payment_date;
+        $res.=" <br> test_ipn =>" . $test_ipn;
+        $res.=" <br> custom =>" . $custom;
+        $res.=" <br><br><br><br> Complete post<br><br><br> " . $complete_post;
         return $res;
     }
 
