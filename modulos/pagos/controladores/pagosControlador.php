@@ -20,10 +20,10 @@ function manejarMensajePagoSatisfactorio($idOperacion, $cantidad) {
             if (actualizaSaldoUsuario($operacion->idUsuario, $cantidad)) {
                 //Se actualizó correctamente el saldo del usuario
                 return "<br>Se actualizó correctamente el saldo del usuario<br>";
-            }else{
+            } else {
                 return "<br>Se actualizó la operación, pero ocurrió un error al actualizar el saldo<br>";
             }
-        }else{
+        } else {
             return "<br>Ocurrió un error al actualizar la operacion. No se actualizó el saldo<br>";
         }
     } else {
@@ -33,5 +33,53 @@ function manejarMensajePagoSatisfactorio($idOperacion, $cantidad) {
             operación<br> la cantidad de la operación es de " .
                 $operacion->cantidad . " y la cantidad de la transacción es de "
                 . $cantidad;
+    }
+}
+
+function getFormaRecargarSaldo() {
+    if (isset($_GET['cnt']) && isset($_GET['des'])) {
+        $cantidad = removeBadHtmlTags($_GET['cnt']);
+        $descripcion = removeBadHtmlTags($_GET['des']);
+        $usuario = getUsuarioActual();
+        if (isset($usuario)) {
+            if ($cantidad >= 50) {
+                require_once 'modulos/pagos/modelos/operacionModelo.php';
+                require_once 'modulos/pagos/modelos/PayPalModelo.php';
+
+                $operacion = new Operacion();
+                $operacion->cantidad = $cantidad;
+                $operacion->detalle = $descripcion;
+                $operacion->completada = 0;
+                $operacion->idUsuario = $usuario->idUsuario;
+                $operacion->idTipoOperacion = 1;
+                $operacion->idOperacion = 1;
+                //$operacion->idOperacion = altaOperacion($operacion);
+                $encrypted = encriptarInformacionBotonPago($descripcion, "", $cantidad, $operacion->idOperacion);
+
+                echo '<div style="text-align:center;">';
+                echo '<h2 >Pagar con tarjeta de crédito   </h2>';
+                echo '<img style="float:left;" src="/layout/imagenes/pagosPorPaypal.gif" style="padding-right:20px;">'; 
+                echo '<h3>Serás redirigido al sitio de Paypal donde realizaras el pago de una manera segura</h3>';
+                echo '<br><br>';
+                echo '<h3><strong>No es necesario tener una cuenta de paypal</strong></h3>';
+                echo '<br><br>';
+                echo '<form action="https://www.paypal.com.mx/cgi-bin/webscr" method="post">';
+                echo '<input type="hidden" name="cmd" value="_s-xclick">';
+                echo '<input type="hidden" name="encrypted" value="';
+                echo $encrypted . '">';
+                echo ' <input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" alt="PayPal, la forma más segura y rápida de pagar en línea.">';
+                echo '</form>';
+                
+                echo '</div>';
+            } else {
+                //No es una cantidad valida
+                echo 'no es una cantidad válida';
+            }
+        } else {
+            echo 'no hay usuario loggeado';
+            //No hay un usuario loggeado
+        }
+    } else {
+        //no hay datos..
     }
 }

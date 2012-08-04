@@ -7,8 +7,8 @@ require_once('layout/headers/headCierre.php');
 <div class="contenido">
     <div>
         <h1>Mi cuenta en Unova</h1>
-        <div class="whiteBox saldoBox" style="width: 90%; padding: 30px 0px 30px 10px;">
-            <div class="left">
+        <div class="whiteBox saldoBox" style="width: 90%; padding: 30px 0px 30px 10px;text-align: center;">
+            <div class="left" style="width:50%;">
                 <h3>Tu saldo actual es de 
                     <?php
                     if ($usuarioHead->saldo > 0) {
@@ -19,9 +19,14 @@ require_once('layout/headers/headCierre.php');
                     ?>
                 </h3>
             </div>
-
-            <div class="right">
-                <a class="blueButton" style="font-size: 30px; margin: 20px;" href="/usuarios/saldo/recargar">Recargar Saldo</a>
+            <div class="left blueBox" style="width:45%; margin: 0px; ">                
+                <h3>Recargar Saldo</h3>
+                <div style="margin-bottom:10px;">
+                    <label>Cantidad a Recargar:</label>
+                    $<input type="text" id="cantidadRecargar" value="50" style="width:50px; margin-left:20px; padding-left: 10px;">
+                    <br>
+                    <button id="botonRecargar">Aceptar</button>
+                </div>
             </div>
         </div>
 
@@ -78,7 +83,7 @@ require_once('layout/headers/headCierre.php');
             <?php
         } else {
             ?>
-        <h3 style="padding-left: 30px; color:black;">No hay registros</h3>
+            <h3 style="padding-left: 30px; color:black;">No hay registros</h3>
             <?php
         }
         ?>
