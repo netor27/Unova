@@ -19,7 +19,8 @@ function bajaCategoria($idCategoria) {
     global $conex;
     $stmt = $conex->prepare("DELETE FROM categoria WHERE idCategoria = :id");
     $stmt->bindParam(':id', $idCategoria);
-    return $stmt->execute();
+    $stmt->execute();
+    return $stmt->rowCount();
 }
 
 function actualizaCategoria($categoria) {

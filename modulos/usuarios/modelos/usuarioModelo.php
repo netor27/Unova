@@ -287,7 +287,10 @@ function reestablecerPasswordPorUUID($uuid, $pass) {
     $stmt->bindParam(':password', $pass);
     $stmt->bindParam(':id', $uuid);
     $n = 0;
-    return $stmt->execute();
+    if ($stmt->execute()) {
+        $n = $stmt->rowCount();
+    }
+    return $n;
 }
 
 function elNombreUsuarioEsUnico($uniqueUrl) {
