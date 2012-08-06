@@ -1,5 +1,12 @@
 <?php
 
+function principal() {
+    $nombre = "";
+    $email = "";
+    require_once 'modulos/usuarios/vistas/registro.php';
+}
+
+
 function alta() {
 
     if (isset($_POST['nombre']) && isset($_POST['email']) && isset($_POST['pass1']) && isset($_POST['pass2'])) {
