@@ -216,7 +216,7 @@ h6{ margin:0;   padding:0px 0px  0px 0px;;  color:#30377a;  font-weight:100;    
     z-index: 100; 
     border: solid #333;   
 }
-#cursos_menu a:hover{text-decoration: underline;}
+#cursos_menu a:hover{text-decoration: none;}
 
 .cursosMenuHeader{
     background: #233E6A url('images/headerbg.png') repeat-x; 
@@ -233,7 +233,11 @@ h6{ margin:0;   padding:0px 0px  0px 0px;;  color:#30377a;  font-weight:100;    
 .cursoMenuElement:hover{    
     overflow: hidden;
     padding: 5px 5px 5px 5px;
-    background-color: #ccffcc;
+    background-color: #006187;
+    color:white;
+}
+.cursoMenuElement:hover h6{
+    color:white;
 }
 .cursoMenuElement img{
     float:left;
