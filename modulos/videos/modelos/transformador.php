@@ -23,7 +23,6 @@ function transformarArchivo($file) {
     $mins = $mins + ($hours * 60);    
     $secs = substr($secs, 0, 2);
     $duration = $mins . ":" . $secs;
-    System_Daemon::info("Duracion " . $duration);
     //putLog($duration);
     $pathInfo = pathinfo($file);
     
@@ -38,7 +37,6 @@ function transformarArchivo($file) {
     passthru($cmd, $return_var);
     $duration = ob_get_contents();
     ob_end_clean();
-    System_Daemon::info("Se ejecuto bien " . $return_var);
     if ($return_var == 0) {
         unlink($file);
     }

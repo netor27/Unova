@@ -124,7 +124,9 @@ while (!System_Daemon::isDying() && $runningOkay) {
         } else {
             $json = $job->getData();
             require_once 'modulos/videos/controladores/videoControlador.php';
-            if (!transformar($json)) {
+            if (transformar($json)) {
+                System_Daemon::notice('Video transformado correctamente');                
+            }else{
                 System_Daemon::info("ERROR! el resultado de la transformación no es cero");
             }
             $colaMensajes->deleteJob($job);
