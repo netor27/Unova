@@ -161,6 +161,7 @@ function getCursoPerteneciente($idClase) {
     $curso = NULL;
     if ($stmt->execute()) {
         $row = $stmt->fetch();
+        require_once 'modulos/cursos/clases/Curso.php';
         $curso = new Curso();
         $curso->idCurso = $row['idCurso'];
         $curso->idUsuario = $row['idUsuario'];

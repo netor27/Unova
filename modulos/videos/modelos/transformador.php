@@ -6,9 +6,8 @@
  * @author neto
  * 
  */
-function transformarArchivo($file) {
+function transformarArchivo($file) {    
     $return_var = -1;
-
     //Obtener la duración
     ob_start();
     passthru('ffmpeg -i "' . $file . '" 2>&1');
@@ -19,19 +18,27 @@ function transformarArchivo($file) {
     $search = '/Duration: (.*?),/';
     $duration = preg_match($search, $duration, $matches, PREG_OFFSET_CAPTURE);
     $duration = $matches[1][0];
-    list($hours, $mins, $secs) = split('[:]', $duration);
+    
+    list($hours, $mins, $secs) = explode(':', $duration);
     $mins = $mins + ($hours * 60);    
     $secs = substr($secs, 0, 2);
     $duration = $mins . ":" . $secs;
+    System_Daemon::info("Duracion " . $duration);
     //putLog($duration);
     $pathInfo = pathinfo($file);
+    
+    require_once 'funcionesPHP/funcionesGenerales.php';
     $uniqueCode = getUniqueCode(15);
     $outputFile = $pathInfo['dirname'] . "/" . $uniqueCode . "_" . $pathInfo['filename'] . ".mp4";
     $outputFileOgv = $pathInfo['dirname'] . "/" . $uniqueCode . "_" . $pathInfo['filename'] . "OGV.ogv";
-    $cmd = 'ffmpeg -i "' . $file . '" "' . $outputFile . '";';
-    $cmd = $cmd . 'ffmpeg2theora -o "' . $outputFileOgv . '" "' . $outputFile . '"';
+    $cmd = 'ffmpeg -i "' . $file . '" "' . $outputFile . '" 2>&1;';
+    $cmd = $cmd . 'ffmpeg2theora -o "' . $outputFileOgv . '" "' . $outputFile . '" 2>&1';
     //putLog($cmd);
-    system($cmd, $return_var);
+    ob_start();
+    passthru($cmd, $return_var);
+    $duration = ob_get_contents();
+    ob_end_clean();
+    System_Daemon::info("Se ejecuto bien " . $return_var);
     if ($return_var == 0) {
         unlink($file);
     }

@@ -86,16 +86,20 @@ function crearClase($idUsuario, $idCurso, $uuid, $idTema, $fileName, $fileType) 
             $clase->transformado = 0;
             $idClase = altaClase($clase);
             //Si es video creamos la clase con la bandera que todavía no se transforma
-            //hacemos un llamado asincrono para transformarlo
-            require_once 'funcionesPHP/AsyncPost.php';
-            $url = "http://localhost/videos.php";
+            //guardamos en la cola que falta transformar este video
+            
+            //$url = "http://localhost/videos.php";
             $file = $filePath . $fileName;
             $params = array(
                 "idClase" => $idClase,
                 "file" => $file,
                 "fileType" => $fileType
             );
-            curl_post_async($url, $params);
+            $json = json_encode($params);
+            
+            require_once 'lib/php/beanstalkd/ColaMensajes.php';
+            $colaMensajes = new ColaMensajes("transformarvideos");
+            $colaMensajes->push($json);
             return $clase;
         } else {
             $clase->transformado = 1;

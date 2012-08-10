@@ -1,34 +1,30 @@
 <?php
-// register Pheanstalk class loader
-require_once('lib/php/beanstalkd/pheanstalk_init.php');
 
-$pheanstalk = new Pheanstalk('127.0.0.1');
+// register Pheanstalk class loader
+require_once('lib/php/beanstalkd/ColaMensajes.php');
+$colaMensajes = new ColaMensajes("transformarvideos");
+
 
 $accion;
 if (!isset($_GET['a'])) {
-    $accion = "publicar";
+    $accion = "status";
 } else {
     $accion = $_GET['a'];
 }
 
 if ($accion == "publicar") {
-    // ----------------------------------------
-    // producer (queues jobs)
-    $pheanstalk
-            ->useTube('testtube')
-            ->put("job payload goes here\n");
+    $colaMensajes->push("Estos son los datos del job");
 }
 
 if ($accion == "leer") {
-// ----------------------------------------
-// worker (performs jobs)
-    $job = $pheanstalk
-            ->watch('testtube')
-            ->ignore('default')
-            ->reserve();
-    echo $job->getData() . '<br><br>';
-    $pheanstalk->delete($job);
+    $job = $colaMensajes->pop();
+    if ($job == "") {
+        echo 'no hay datos en job, suponemos time_out';        
+    }else{
+        echo $job->getData() . '<br><br>';
+        $colaMensajes->deleteJob($job);
+    }
 }
 
-$pheanstalk->printTubeStats('testtube');
+$colaMensajes->printStats();
 ?>

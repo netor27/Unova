@@ -9,22 +9,26 @@ function borrarClase() {
             require_once 'modulos/cursos/modelos/ClaseModelo.php';
             if (getUsuarioActual()->idUsuario == getIdUsuarioDeCurso($idCurso) && clasePerteneceACurso($idCurso, $idClase)) {
                 $clase = getClase($idClase);
-                if (bajaClase($idClase) <= 0) {
-                    //Error al dar de baja la clase
-                    echo "<div><h3 class='error'> Ocurrió un error al borrar la clase. Intenta de nuevo más tarde.</h3></div>";
-                } else {
-                    //Si fue satisfactorio, borramos el archivo del cdn
-                    require_once 'modulos/cdn/modelos/cdnModelo.php';
-                    $splitted = explode("/", $clase->archivo);
-                    $fileName = $splitted[sizeof($splitted) - 1];
-                    deleteArchivoCdn($fileName, $clase->idTipoClase);
-                    if ($clase->idTipoClase == 0) {
-                        //si es video borramos el archivo2
-                        $splitted = explode("/", $clase->archivo2);
+                if ($clase->transformado == 1) {
+                    if (bajaClase($idClase) <= 0) {
+                        //Error al dar de baja la clase
+                        echo "<div><h3 class='error'> Ocurrió un error al borrar la clase. Intenta de nuevo más tarde.</h3></div>";
+                    } else {
+                        //Si fue satisfactorio, borramos el archivo del cdn
+                        require_once 'modulos/cdn/modelos/cdnModelo.php';
+                        $splitted = explode("/", $clase->archivo);
                         $fileName = $splitted[sizeof($splitted) - 1];
                         deleteArchivoCdn($fileName, $clase->idTipoClase);
+                        if ($clase->idTipoClase == 0) {
+                            //si es video borramos el archivo2
+                            $splitted = explode("/", $clase->archivo2);
+                            $fileName = $splitted[sizeof($splitted) - 1];
+                            deleteArchivoCdn($fileName, $clase->idTipoClase);
+                        }
+                        echo "<div><h3 class='success'>Se borró la clase correctamente</h3></div>";
                     }
-                    echo "<div><h3 class='success'>Se borró la clase correctamente</h3></div>";
+                } else {
+                    echo "<div><h3 class='error'> Debes esperar a que se transforme para poder borrar esta clase.</h3></div>";
                 }
             } else {
                 //Error, el usuario no es dueño de este curso, no puede borrar
