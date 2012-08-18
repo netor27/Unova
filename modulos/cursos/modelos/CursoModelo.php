@@ -375,7 +375,7 @@ function getClases($idCurso) {
     $stmt = $conex->prepare("SELECT c.idClase, c.idTema, c.titulo, c.orden, c.idTipoClase, c.transformado, c.views, c.duracion
                             FROM clase c, tema t
                             WHERE c.idTema = t.idTema AND t.idCurso = :id
-                            ORDER BY orden ASC ");
+                            ORDER BY  t.idTema, orden ASC ");
     $stmt->bindParam(':id', $idCurso);
     if (!$stmt->execute())
         print_r($stmt->errorInfo());

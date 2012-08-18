@@ -214,7 +214,15 @@ h6{ margin:0;   padding:0px 0px  0px 0px;;  color:#30377a;  font-weight:100;    
     color: black;
     min-width:270px; 
     z-index: 100; 
-    border: solid #333;   
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-right-color: #333;
+    border-bottom-color: #333;
+    border-left-color: #333;
+    border-right-width: initial;
+    border-bottom-width: initial;
+    border-left-width: initial;
 }
 #cursos_menu a:hover{text-decoration: none;}
 

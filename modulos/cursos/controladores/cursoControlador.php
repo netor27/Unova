@@ -84,7 +84,8 @@ function editarCurso() {
         $duracion = 0;
         if (isset($clases)) {
             foreach ($clases as $clase) {
-                $duracion += $clase->duracion;
+                if ($clase->idTipoClase == 0)
+                    $duracion += transformaMMSStoMinutes($clase->duracion);
             }
         }
 
@@ -233,7 +234,8 @@ function detalles() {
                         $duracion = 0;
                         if (isset($clases)) {
                             foreach ($clases as $clase) {
-                                $duracion += $clase->duracion;
+                                if ($clase->idTipoClase == 0)
+                                    $duracion += $clase->duracion;
                             }
                         }
                         $comentarios = getComentarios($curso->idCurso);
@@ -268,7 +270,8 @@ function detalles() {
                 $duracion = 0;
                 if (isset($clases)) {
                     foreach ($clases as $clase) {
-                        $duracion += $clase->duracion;
+                        if ($clase->idTipoClase == 0)
+                            $duracion += $clase->duracion;
                     }
                 }
                 $comentarios = getComentarios($curso->idCurso);
@@ -314,7 +317,8 @@ function tomarCurso() {
             $duracion = 0;
             if (isset($clases)) {
                 foreach ($clases as $clase) {
-                    $duracion += $clase->duracion;
+                    if ($clase->idTipoClase == 0)
+                        $duracion += $clase->duracion;
                 }
             }
             $comentarios = getComentarios($curso->idCurso);
@@ -580,7 +584,7 @@ function inscribirUsuario() {
                                         //Ocurrió un error al disminuir el saldo
                                         setSessionMessage("<h4 class='error'>Ocurrió un error al inscribirte al curso</h4>");
                                         redirect("/curso/" . $curso->uniqueUrl);
-                                    }                                    
+                                    }
                                 } else {
                                     //No tiene saldo suficiente para suscribirse al curso, lo enviamos a
                                     //una página donde puede recargar saldo

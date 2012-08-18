@@ -6,6 +6,21 @@ $(function(){
         e.preventDefault();
     });
     
+    $("#menuClasesLink").click(function(e){       
+        e.preventDefault();
+        $("#clases_menu").show();       
+    });
+    
+    //Evento para evitar que se cierre al dar click dentro del menu
+    $("#clases_menu").mouseup(function(){
+        return false;
+    });
+    //Evento en todo el body que cierra el menu si no 
+    $(document).mouseup(function(e){       
+        if($(e.target).parent("a.menuClasesLink").length == 0){
+            $("#clases_menu").hide();
+        }        
+    });
 });
 
 Popcorn( function() {
@@ -65,7 +80,7 @@ function agregarImagenDiv(urlImagen, inicio, fin, color, top, left, width, heigh
         text: textoDiv,
         target: "footnotediv"
     });
-     $("#drag_"+$indice).draggable({
+    $("#drag_"+$indice).draggable({
         containment: "#editorContainment",
         stack: ".stack"
     });
@@ -87,7 +102,7 @@ function agregarLinkDiv(texto, url, inicio, fin, color, top, left, width, height
         text: textoDiv,
         target: "footnotediv"
     });
-     $("#drag_"+$indice).draggable({
+    $("#drag_"+$indice).draggable({
         containment: "#editorContainment",
         stack: ".stack"
     });
@@ -116,7 +131,7 @@ function agregarVideoDiv(urlVideo, inicio, fin, color, top, left, width, height)
     auxVarVideo.on("playing", function() {    	
         pauseVideo();
     });
-     $("#videoContainer_"+indiceVideo).draggable({
+    $("#videoContainer_"+indiceVideo).draggable({
         handle: "p",
         containment: "#editorContainment",
         stack: ".stack"

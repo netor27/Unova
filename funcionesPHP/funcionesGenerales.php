@@ -103,7 +103,7 @@ function transformaMysqlDateDDMMAAAA($date) {
 }
 
 function transformaMysqlDateDDMMAAAAConHora($date) {
-    $time = strtotime($date);    
+    $time = strtotime($date);
     return date('d/m/Y -- h:i a', $time);
 }
 
@@ -199,6 +199,12 @@ function operacionEsPositiva($idTipoOperacion) {
             return false;
             break;
     }
+}
+
+function transformaMMSStoMinutes($tiempo) {
+    list($minutes, $seconds) = explode(":", $tiempo);
+    $minutes = $minutes + floor($seconds / 60);
+    return $minutes;
 }
 
 ?>

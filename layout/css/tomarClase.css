@@ -1,61 +1,59 @@
-#e_site{
-    display: none;
-}
-.littleBox{
-    margin: 2px;
-    position: relative;
-    padding: 4px 0;
-    float: left;
+#top-bar .logo{
+    padding-right: 40px;
 }
 
-#videoPrincipal{
-    display:block;
-    width: 100%;
-    height: 100%;
-}
-
-.imagenes{
-    width:100%;
-    height:100%;
-    border: none;
-}
-
-.videoPopcorn object{
-    width: 100%;
-    height: 100%;
-}
-
-.textoLink div{
-    text-align:center;
-    font-size: 24px;
-    margin: 15px;
-}
-.textoLink{
+#clases_menu {  
+    display: none; 
+    text-align: left; 
+    position: absolute; 
+    left:120px; 
+    background-color:white; 
+    color: black;
+    min-width:270px; 
+    z-index: 100; 
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-right-color: #333;
+    border-bottom-color: #333;
+    border-left-color: #333;
+    max-height: 600px;
+    overflow-style: move;
+    overflow-y:  auto;
 
 }
-.textoLink:hover{
-    text-decoration: underline;
+#clases_menu a:hover{text-decoration: none;}
 
+.clasesMenuHeader{
+    background: #233E6A url('images/headerbg.png') repeat-x; 
+    padding: 10px 5px 10px 5px;    
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    color: #ffffff;
 }
-#editorContainment{
-    width: 100%;
-    display: block;
-    position: fixed;
-    top: 50px;
-    bottom: 0%;
+.clasesMenuElement{    
+    background-color: white;
+    overflow: hidden;
+    padding: 5px 5px 5px 5px;    
 }
-.draggable{
-    cursor:move;
+.clasesMenuElementActual{
+    background-color: rgb(190,199,97);   
 }
-.dragHandle {
-    cursor: move;
-    font-size: 1.5em;
-    float: left;
-    display: block;
-    position: relative;
-    top: 0%;
-    left: 0%;
-    z-index: 9;
-    margin: 0;
-    padding: 0;
+.clasesMenuElement:hover{    
+    overflow: hidden;
+    padding: 5px 5px 5px 5px;
+    background-color: #006187;
+    color:white;
 }
+.clasesMenuElement:hover h6{
+    color:white;
+}
+.clasesMenuElement img{
+    float:left;
+    margin: 0px 10px 0px 0px;
+}
+.clasesMenuVerMas{
+    text-align: right;
+    padding: 0px 10px 5px 0px;
+}
+

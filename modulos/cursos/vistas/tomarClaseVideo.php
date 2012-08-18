@@ -2,6 +2,8 @@
 require_once('layout/headers/headInicio.php');
 require_once('layout/headers/headTomarClase.php');
 ?>
+<link rel="stylesheet" href="/layout/css/tomarClaseVideo.css" />
+
 <script languague="javascript">
     function cargarElementosGuardados(){
 <?php
@@ -44,16 +46,11 @@ if (isset($var['links'])) {
 if (isset($var['videoData'])) {
     $videoData = $var['videoData'];
 }
-
-
-
-
-
 ?>
     }
 </script>
 <?php
-require_once('layout/headers/headCierre.php');
+require_once('layout/headers/headCierreTomarClase.php');
 ?>
 
 </div>

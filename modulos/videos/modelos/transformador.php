@@ -14,7 +14,7 @@ function transformarArchivo($file) {
     $duration = ob_get_contents();
     ob_end_clean();
     
-    //putLog($duration);
+    putLog($duration);
     $search = '/Duration: (.*?),/';
     $duration = preg_match($search, $duration, $matches, PREG_OFFSET_CAPTURE);
     $duration = $matches[1][0];
@@ -23,7 +23,7 @@ function transformarArchivo($file) {
     $mins = $mins + ($hours * 60);    
     $secs = substr($secs, 0, 2);
     $duration = $mins . ":" . $secs;
-    //putLog($duration);
+    putLog($duration);
     $pathInfo = pathinfo($file);
     
     require_once 'funcionesPHP/funcionesGenerales.php';
@@ -35,7 +35,7 @@ function transformarArchivo($file) {
     //putLog($cmd);
     ob_start();
     passthru($cmd, $return_var);
-    $duration = ob_get_contents();
+    $aux = ob_get_contents();
     ob_end_clean();
     if ($return_var == 0) {
         unlink($file);

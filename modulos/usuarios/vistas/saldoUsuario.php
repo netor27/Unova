@@ -9,7 +9,7 @@ require_once('layout/headers/headCierre.php');
         <h1>Mi cuenta en Unova</h1>
         <div class="whiteBox saldoBox" style="width: 90%; padding: 30px 0px 30px 10px;text-align: center;">
             <div class="left" style="width:50%;">
-                <h3>Tu saldo actual es de 
+                <h3>Tu saldo actual es de <br>
                     <?php
                     if ($usuarioHead->saldo > 0) {
                         echo '<span class="cantidadPositiva"> $' . $usuarioHead->saldo . '</span>';

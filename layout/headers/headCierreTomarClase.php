@@ -5,31 +5,24 @@
     <div id="e_bar">
         <div id="top-bar">
             <a href="/" class="logo left" id="logo"> <img src="/layout/imagenes/Unova_Logo_135x47.png"></a>
-            <div id="e_search-box-wrapper">
-                <div id="e_search-box"  class="right">
-                    <form action="/busqueda.php" id="search-form" method="get">
-                        <input id="q" class="search-input ease3 ui-autocomplete-input" autocomplete="off" name="q" type="text" placeholder="Buscar" role="textbox" aria-autocomplete="list" aria-haspopup="true"/>
-                        <input type="submit" id="u_search-submit" value/>
-                    </form>
-                </div>
-            </div>            
-            <?php
-            if (tipoUsuario() == 'visitante') {
-                ?>
-                <a href="/usuarios/registro" class="element right ease3">Registrarse</a>
-                <a href="/login" class="element right ease3">Iniciar Sesión</a>
+            <div style="margin-left: 20px;">
+                <a href="#" class="element left ease3" id="menuClasesLink"> Clases de este curso <img src="/layout/imagenes/down.png"></a>                
                 <?php
-            } else {
-                $usuarioHead = getUsuarioActual();
-                if (isset($usuarioHead)) {
-                    ?>
-                    <a href="#" class="element right ease3" id="menuPerfilLink"><?php echo substr($usuarioHead->nombreUsuario, 0, 14); ?><img src="/layout/imagenes/down.png"></a>                
-                    <a href="#" class="element right ease3" id="menuCursosLink">Mis cursos  <img src="/layout/imagenes/down.png"></a>                
-                    <?php
+                if($idSiguienteClase > 0){
+                    echo '<a href="/curso/'.$curso->uniqueUrl . '/' . $idSiguienteClase .'" class="element left ease3" id="menuSiguienteClase"> Siguiente Clase <img src="/layout/imagenes/siguiente.png"></a>';
                 }
+                ?>
+                
+            </div>
+            <?php
+            $usuarioHead = getUsuarioActual();
+            if (isset($usuarioHead)) {
+                ?>
+                <a href="#" class="element right ease3" id="menuPerfilLink"><?php echo substr($usuarioHead->nombreUsuario, 0, 14); ?><img src="/layout/imagenes/down.png"></a>                
+                <a href="#" class="element right ease3" id="menuCursosLink">Mis cursos  <img src="/layout/imagenes/down.png"></a>                
+                <?php
             }
             ?>
-            <a href="/cursos/curso/crearCurso" class="element right ease3">Crear un curso</a>
         </div>
     </div>
     <?php
@@ -118,18 +111,64 @@
                     </div>
                 </a>
             </div>
-        </div>
-
-        <?php
-    }
-    ?>
-    <div id="e_site">    
-        <div id="modalDialog"></div>
-        <?php
-        $sessionMessage = getSessionMessage();
-        if (!is_null($sessionMessage)) {
-            echo '<div id="sessionMessage" class="centerText" >';
-            echo $sessionMessage;
-            echo '</div>';
+            <div id="clases_menu">
+                <?php
+                if (isset($temas) && isset($clases)) {
+                    foreach ($temas as $tema) {
+                        echo '<div class="clasesMenuHeader">';
+                        echo $tema->nombre;
+                        echo '</div>';
+                        foreach ($clases as $claseF) {
+                            if ($tema->idTema == $claseF->idTema) {
+                                ?>
+                                <a href="/curso/<?php echo $curso->uniqueUrl . "/" . $claseF->idClase; ?>">
+                                    <?php
+                                    if ($claseF->idClase == $clase->idClase)
+                                        echo '<div class="clasesMenuElement clasesMenuElementActual">';
+                                    else
+                                        echo '<div class="clasesMenuElement">';
+                                    ?>
+                                    <?php
+                                    switch ($claseF->idTipoClase) {
+                                        case 0:
+                                            echo '<img src="/layout/imagenes/video.png">';
+                                            break;
+                                        case 1:
+                                            echo '<img src="/layout/imagenes/document.png">';
+                                            break;
+                                        case 2:
+                                            echo '<img src="/layout/imagenes/presentation.png">';
+                                            break;
+                                        default:
+                                            echo '<img src="/layout/imagenes/document.png">';
+                                            break;
+                                    }
+                                    echo '<span class="left">' . $claseF->titulo . '</span>';
+                                    if ($claseF->idTipoClase == 0) {
+                                        echo '<br><span class="left">' . $claseF->duracion . '</span>';
+                                    }
+                                    ?>
+                            </div>
+                        </a>
+                        <?php
+                    }
+                }
+            }
         }
         ?>
+    </div>
+    </div>
+
+    <?php
+}
+?>
+<div id="e_site">    
+    <div id="modalDialog"></div>
+    <?php
+    $sessionMessage = getSessionMessage();
+    if (!is_null($sessionMessage)) {
+        echo '<div id="sessionMessage" class="centerText" >';
+        echo $sessionMessage;
+        echo '</div>';
+    }
+    ?>

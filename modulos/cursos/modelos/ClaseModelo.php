@@ -188,4 +188,20 @@ function sumarVistaClase($idClase) {
     return $stmt->execute();
 }
 
+function obtenerIdSiguienteClase($idClase,$clases){
+    $idSiguienteClase = -1;
+    $bandera = true;
+    $i = 0;
+    $numClases = sizeof($clases);
+    while($bandera && $i < $numClases){
+        if($clases[$i]->idClase == $idClase){
+            if($i+1 < sizeof($clases)){
+                $idSiguienteClase = $clases[$i+1]->idClase;
+                $bandera = false;
+            }
+        }
+        $i++;
+    }
+    return $idSiguienteClase;
+}
 ?>

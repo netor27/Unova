@@ -135,11 +135,14 @@ function tomarClase() {
                 $curso->idUsuario == $usuario->idUsuario ||
                 tipoUsuario() == "administrador") {
             $clase = getClase($idClase);
+            $temas = getTemas($curso->idCurso);
+            $clases = getClases($curso->idCurso);
             if ($curso->idUsuario != $usuario->idUsuario && tipoUsuario() != "administrador") {
                 //si no es el dueño ni un administrador, contar las views
                 sumarVistaClase($idClase);
                 sumarTotalView($curso->idCurso);
             }
+            $idSiguienteClase = obtenerIdSiguienteClase($clase->idClase, $clases);
             switch ($clase->idTipoClase) {
                 case 0:
                     if ($clase->transformado == 1) {
