@@ -232,7 +232,7 @@ function enviarMailResumenSemanal($email, $nombreUsuario, $numAlumnos, $numPregu
                         <span style="padding:5px;margin:0;font-size:24px;color:darkgreen;">'.$numAlumnos.'</span>
                         <p><a href="http://www.unova.co/usuarios/cursos/instructor">Ir a mis cursos</a></p>
                     </td>
-                    <td style="font-size:18px;margin: 10px; padding: 10px; width: 50%; border-left: 1px;border-style: dotted;">
+                    <td style="font-size:18px;margin: 10px; padding: 10px; width: 50%;">
                         <p style=""> 
                             Preguntas sin responder
                         </p>
