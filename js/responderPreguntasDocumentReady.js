@@ -6,6 +6,8 @@ $(function(){
                 return false; 
             } 
         } 
+        $img = jqForm.parent(".respuesta").children(".loading");
+        $img.show();
         jqForm.hide();
         return true;
     }

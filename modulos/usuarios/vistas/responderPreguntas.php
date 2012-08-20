@@ -36,6 +36,9 @@ require_once ('layout/headers/headCierre.php');
                 echo '</div>';
             } else {
                 echo '<div class="respuesta">';
+                echo '<div class="loading" style="display:none;">';
+                echo '<img src="/layout/imagenes/loading.gif" style="width:30px;">';
+                echo '</div>';
                 echo '<form id="preguntaForm" method="POST" action="/cursos/curso/responderPreguntaCurso/' . $pregunta->idCurso . '/' . $pregunta->idPregunta . '"  class="preguntarForm">';
                 echo '<textarea id="pregunta" name="respuesta"  ></textArea>';
                 echo '<br><input type="submit" value="  Responder  ">';

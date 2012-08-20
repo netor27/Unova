@@ -9,7 +9,10 @@ require_once ('layout/headers/headCierre.php');
     
     <div class="cursosContainer">
         <h1 class="left">Cursos de los que soy instructor</h1>
-        <br><br><a href="/cursos/curso/crearCurso" class="blueButton right">Crear un curso</a><br><br>
+        <br><br>
+        <a href="/cursos/curso/crearCurso" class="blueButton right">Crear un curso</a>
+        <a href="/usuarios/cursos/responderPreguntas" class="blueButton right" style="margin-right: 5px;">Responder las preguntas pendientes</a>
+        <br><br>
         <ul>
             <?php
             if (isset($cursos) && !is_null($cursos)) {

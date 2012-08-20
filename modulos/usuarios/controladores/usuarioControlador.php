@@ -86,64 +86,64 @@ function cambiarImagen() {
 }
 
 function cambiarImagenSubmit() {
-    if(validarUsuarioLoggeadoParaSubmits()){
-    if (isset($_FILES['imagen'])) {
-        $anchoImagen = 200;
-        $altoImagen = 200;
+    if (validarUsuarioLoggeadoParaSubmits()) {
+        if (isset($_FILES['imagen'])) {
+            $anchoImagen = 200;
+            $altoImagen = 200;
 
-        require_once 'modulos/usuarios/modelos/usuarioModelo.php';
-        $usuarioCambiar = getUsuario(getUsuarioActual()->idUsuario);
-        if ((($_FILES["imagen"]["type"] == "image/gif")
-                || ($_FILES["imagen"]["type"] == "image/jpeg")
-                || ($_FILES["imagen"]["type"] == "image/pjpeg")
-                || ($_FILES["imagen"]["type"] == "image/png"))
-                && ($_FILES["imagen"]["size"] < 5000000)) {
-            require_once 'funcionesPHP/CropImage.php';
-            //guardamos la imagen en el formato original
-            $file = "archivos/temporal/" . $_FILES["imagen"]["name"];
+            require_once 'modulos/usuarios/modelos/usuarioModelo.php';
+            $usuarioCambiar = getUsuario(getUsuarioActual()->idUsuario);
+            if ((($_FILES["imagen"]["type"] == "image/gif")
+                    || ($_FILES["imagen"]["type"] == "image/jpeg")
+                    || ($_FILES["imagen"]["type"] == "image/pjpeg")
+                    || ($_FILES["imagen"]["type"] == "image/png"))
+                    && ($_FILES["imagen"]["size"] < 5000000)) {
+                require_once 'funcionesPHP/CropImage.php';
+                //guardamos la imagen en el formato original
+                $file = "archivos/temporal/" . $_FILES["imagen"]["name"];
 
-            move_uploaded_file($_FILES["imagen"]["tmp_name"], $file);
+                move_uploaded_file($_FILES["imagen"]["tmp_name"], $file);
 
-            $path = pathinfo($file);
-            $uniqueCode = getUniqueCode(5);
-            $destName = $uniqueCode . "_perfil_" . $usuarioCambiar->idUsuario . "." . $path['extension'];
-            $dest = $path['dirname'] . "/" . $destName;
+                $path = pathinfo($file);
+                $uniqueCode = getUniqueCode(5);
+                $destName = $uniqueCode . "_perfil_" . $usuarioCambiar->idUsuario . "." . $path['extension'];
+                $dest = $path['dirname'] . "/" . $destName;
 
-            if (cropImage($file, $dest, $altoImagen, $anchoImagen)) {
-                //Se hizo el crop correctamente
-                //borramos la imagen temporal
-                unlink($file);
-                require_once 'modulos/cdn/modelos/cdnModelo.php';
-                $uri = crearArchivoCDN($dest, $destName, -1);
-                if ($uri != NULL) {
-                    $usuarioCambiar->avatar = $uri;
-                    //actualizamos la información en la bd                
-                    actualizaAvatar($usuarioCambiar);
-                    require_once 'funcionesPHP/CargarInformacionSession.php';
-                    cargarUsuarioSession();
-                    setSessionMessage("<h4 class='success'>Haz cambiado tu imagen correctamente. Espera unos minutos para ver el cambio</h4>");
-                    redirect("/usuario/" . $usuarioCambiar->uniqueUrl);
+                if (cropImage($file, $dest, $altoImagen, $anchoImagen)) {
+                    //Se hizo el crop correctamente
+                    //borramos la imagen temporal
+                    unlink($file);
+                    require_once 'modulos/cdn/modelos/cdnModelo.php';
+                    $uri = crearArchivoCDN($dest, $destName, -1);
+                    if ($uri != NULL) {
+                        $usuarioCambiar->avatar = $uri;
+                        //actualizamos la información en la bd                
+                        actualizaAvatar($usuarioCambiar);
+                        require_once 'funcionesPHP/CargarInformacionSession.php';
+                        cargarUsuarioSession();
+                        setSessionMessage("<h4 class='success'>Haz cambiado tu imagen correctamente. Espera unos minutos para ver el cambio</h4>");
+                        redirect("/usuario/" . $usuarioCambiar->uniqueUrl);
+                    } else {
+                        //Ocurrió un error al subir al cdn
+                        setSessionMessage("<h4 class='error'>Error cdn</h4>");
+                        redirect("/usuarios/usuario/cambiarImagen");
+                    }
                 } else {
-                    //Ocurrió un error al subir al cdn
-                    setSessionMessage("<h4 class='error'>Error cdn</h4>");
+                    //Error al hacer el crop
+                    //borramos la imagen temporal
+                    unlink($file);
+                    setSessionMessage("<h4 class='error'>Ocurrió un error al procesar tu imagen. Intenta de nuevo más tarde</h4>");
                     redirect("/usuarios/usuario/cambiarImagen");
                 }
             } else {
-                //Error al hacer el crop
-                //borramos la imagen temporal
-                unlink($file);
-                setSessionMessage("<h4 class='error'>Ocurrió un error al procesar tu imagen. Intenta de nuevo más tarde</h4>");
+                //El archivo no es válido o es demasiado grande
+                setSessionMessage("<h4 class='error'>No es una imagen válida.</h4>");
                 redirect("/usuarios/usuario/cambiarImagen");
             }
-        } else {
-            //El archivo no es válido o es demasiado grande
-            setSessionMessage("<h4 class='error'>No es una imagen válida.</h4>");
-            redirect("/usuarios/usuario/cambiarImagen");
         }
+    } else {
+        goToIndex();
     }
-}else{
-    goToIndex();
-}
 }
 
 function cambiarPassword() {
@@ -193,12 +193,15 @@ function recuperarPasswordSubmit() {
         $email = $_POST['email'];
 
         $uuid = getUUIDFromEmail($email);
-        $link = "www.unova.mx/usuarios/usuario/reestablecerPassword/" . $uuid;
-
-        //Enviar el mail //
-        require_once 'modulos/email/modelos/envioEmailModelo.php';
-        enviarMailOlvidePassword($email, $link);
-        setSessionMessage("<h4 class='info'>Te hemos enviado un correo electrónico para que reestablescas tu contraseña.</h4>");
+        if (!empty($uuid)) {
+            $link = "www.unova.mx/usuarios/usuario/reestablecerPassword/" . $uuid;
+            //Enviar el mail //
+            require_once 'modulos/email/modelos/envioEmailModelo.php';
+            enviarMailOlvidePassword($email, $link);
+            setSessionMessage("<h4 class='info'>Te hemos enviado un correo electrónico para que reestablescas tu contraseña.</h4>");
+        }else{
+            setSessionMessage("<h4 class='error'>No tenemos registrado este correo electrónico.</h4>");
+        }
     }
     goToIndex();
 }
