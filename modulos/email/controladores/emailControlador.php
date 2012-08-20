@@ -24,7 +24,7 @@ function enviarResumenSemanal() {
         require_once 'modulos/usuarios/modelos/UsuarioCursosModelo.php';
 
         $totalUsuarios = getTotalUsuarios();
-        echo "Total de usuarios = " . $totalUsuarios . "\n\n";
+        //echo "Total de usuarios = " . $totalUsuarios . "\n\n";
         //obtenemos de 500 en 500 usuarios
         $i = 0;
         $numEnviados = 0;
@@ -51,7 +51,7 @@ function enviarResumenSemanal() {
                 }
             }
         }
-        echo "Usuarios: Total=" . $totalUsuarios . ";confirmados=;" . $numConfirmados . "mailsEnviados=" . $numEnviados;
+        echo "Usuarios: Total=" . $totalUsuarios . " ;Confirmados=" . $numConfirmados . " ;mailsEnviados=" . $numEnviados ." ; ";
     }
 //    else {
 //        goToIndex();
