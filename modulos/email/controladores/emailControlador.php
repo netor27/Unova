@@ -1,7 +1,6 @@
 <?php
 //Script
-//  wget -O - -q http://localhost/email.php?llaveSecreta=199201302
-//  exit 0
+//  wget -O - -q http://unova.co/email.php?llaveSecreta=199201302 >> /home/neto/logs/mailSemanal.log
 // 
 //  
 //    ejecutado desde cron-tab semanalmente para enviar un resumen semanal a 
@@ -42,7 +41,7 @@ function enviarResumenSemanal() {
                 //echo '---Preguntas sin responder ' . $numPreguntas . " \n  ";
                 require_once 'modulos/email/modelos/envioEmailModelo.php';
                 if ($numAlumnos > 0 || $numPreguntas > 0) {
-                    //enviarMailResumenSemanal($usuario->email, $usuario->nombreUsuario, $numAlumnos, $numPreguntas);
+                    enviarMailResumenSemanal($usuario->email, $usuario->nombreUsuario, $numAlumnos, $numPreguntas);
                     //echo 'mail enviado a ' . $usuario->email ." \n  ";
                     $numEnviados++;
                 } else {
