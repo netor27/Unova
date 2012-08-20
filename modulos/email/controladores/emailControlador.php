@@ -27,26 +27,29 @@ function enviarResumenSemanal() {
         echo "Total de usuarios = " . $totalUsuarios . '<br>';
         //obtenemos de 500 en 500 usuarios
         $i = 0;
+        $n = 0;
         for ($i = 0; $i <= $totalUsuarios; $i+=500) {
             $usuarios = getUsuariosParaResumenSemanal($i, 500);
             foreach ($usuarios as $usuario) {
-                echo '<br><br>==================================<br>\n  ';
-                echo 'Analizando usuario ' . $usuario->idUsuario . ' -- ' . $usuario->nombreUsuario . '<br>\n  ';
+                echo "<br><br>================================== <br>\n  ";
+                echo 'Analizando usuario ' . $usuario->idUsuario . ' -- ' . $usuario->nombreUsuario . " <br>\n  ";
                 //Obtener el número de nuevos alumnos en sus cursos
                 $numAlumnos = getNumeroDeNuevosAlumnos($usuario->idUsuario, $dias);
-                echo '---Alumnos nuevos ' . $numAlumnos . '<br>\n  ';
+                echo '---Alumnos nuevos ' . $numAlumnos . " <br>\n  ";
                 //Obtener el número de preguntas sin responder
                 $numPreguntas = getNumeroDePreguntasSinResponder($usuario->idUsuario);
-                echo '---Preguntas sin responder ' . $numPreguntas . '<br>\n  ';
+                echo '---Preguntas sin responder ' . $numPreguntas . " <br>\n  ";
                 require_once 'modulos/email/modelos/envioEmailModelo.php';
                 if ($numAlumnos > 0 || $numPreguntas > 0) {
                     //enviarMailResumenSemanal($usuario->email, $usuario->nombreUsuario, $numAlumnos, $numPreguntas);
-                    echo 'mail enviado a ' . $usuario->email ."<br>\n  ";
+                    echo 'mail enviado a ' . $usuario->email ." <br>\n  ";
+                    $n++;
                 }else{
-                    echo 'no se envio el mail porque tiene 0 alumnos y 0 preguntas<br>\n  ';
+                    echo "no se envio el mail porque tiene 0 alumnos y 0 preguntas <br>\n  ";
                 }
             }
         }
+        echo "Se envio el mail a " . $n . " usuarios de " . $i . " usuarios con cuenta confirmada <br>\n";
     }
 //    else {
 //        goToIndex();
