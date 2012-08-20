@@ -25,5 +25,4 @@ function bajaComentario($idComentario){
     return $stmt->rowCount();
 }
 
-
 ?>

@@ -84,4 +84,3 @@ require_once('layout/headers/headCierre.php');
 <?php
 require_once('layout/foot.php');
 ?>
-            

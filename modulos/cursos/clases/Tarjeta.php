@@ -1,6 +1,6 @@
 <?php
 
- class Clase{
+ class Tarjeta{
      public $idTarjeta;
      public $idCaja;
      public $ladoA;

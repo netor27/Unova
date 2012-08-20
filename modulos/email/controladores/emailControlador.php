@@ -1,5 +1,4 @@
 <?php
-
 //Script
 //  wget -O - -q http://localhost/email.php?llaveSecreta=199201302
 //  exit 0
