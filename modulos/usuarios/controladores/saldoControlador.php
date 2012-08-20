@@ -26,4 +26,17 @@ function recargar() {
     }
 }
 
+function abonarSaldos() {
+    $secret = -1;
+    if (isset($_GET['llaveSecreta'])) {
+        $secret = $_GET['llaveSecreta'];
+    }
+    //Si esta llave no es igual, no hacer nada
+    if ($secret == "87293821") {
+        
+    } else {
+        
+    }
+}
+
 ?>

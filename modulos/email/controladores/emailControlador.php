@@ -17,7 +17,7 @@ function enviarResumenSemanal() {
         $secret = $_GET['llaveSecreta'];
     }
     //Si esta llave no es igual, no hacer nada
-    if ($secret == 199201302) {
+    if ($secret == "199201302") {
         require_once 'modulos/usuarios/modelos/usuarioModelo.php';
         require_once 'modulos/usuarios/modelos/UsuarioCursosModelo.php';
 
