@@ -30,20 +30,20 @@ function enviarResumenSemanal() {
         for ($i = 0; $i <= $totalUsuarios; $i+=500) {
             $usuarios = getUsuariosParaResumenSemanal($i, 500);
             foreach ($usuarios as $usuario) {
-                echo '<br><br>==================================<br><br>';
-                echo 'Analizando usuario ' . $usuario->idUsuario . ' -- ' . $usuario->nombreUsuario . '<br>';
+                echo '<br><br>==================================<br>\n  ';
+                echo 'Analizando usuario ' . $usuario->idUsuario . ' -- ' . $usuario->nombreUsuario . '<br>\n  ';
                 //Obtener el número de nuevos alumnos en sus cursos
                 $numAlumnos = getNumeroDeNuevosAlumnos($usuario->idUsuario, $dias);
-                echo '---Alumnos nuevos ' . $numAlumnos . '<br>';
+                echo '---Alumnos nuevos ' . $numAlumnos . '<br>\n  ';
                 //Obtener el número de preguntas sin responder
                 $numPreguntas = getNumeroDePreguntasSinResponder($usuario->idUsuario);
-                echo '---Preguntas sin responder ' . $numPreguntas . '<br>';
+                echo '---Preguntas sin responder ' . $numPreguntas . '<br>\n  ';
                 require_once 'modulos/email/modelos/envioEmailModelo.php';
                 if ($numAlumnos > 0 || $numPreguntas > 0) {
-                    enviarMailResumenSemanal($usuario->email, $usuario->nombreUsuario, $numAlumnos, $numPreguntas);
-                    echo 'mail enviado a ' . $usuario->email;
+                    //enviarMailResumenSemanal($usuario->email, $usuario->nombreUsuario, $numAlumnos, $numPreguntas);
+                    echo 'mail enviado a ' . $usuario->email ."<br>\n  ";
                 }else{
-                    echo 'no se envio el mail porque tiene 0 alumnos y 0 preguntas';
+                    echo 'no se envio el mail porque tiene 0 alumnos y 0 preguntas<br>\n  ';
                 }
             }
         }
