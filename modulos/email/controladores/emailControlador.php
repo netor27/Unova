@@ -48,8 +48,8 @@ function enviarResumenSemanal() {
                 }else{
                     echo "no se envio el mail porque tiene 0 alumnos y 0 preguntas \n  ";
                 }
+                $n++;
             }
-            $n++;
         }
         echo "Se envio el mail a " . $numEnviados . " usuarios de " . $n . " usuarios con cuenta confirmada <br>\n";
     }

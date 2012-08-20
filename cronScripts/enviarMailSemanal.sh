@@ -6,7 +6,7 @@
 #
 #Script que manda llamar http://unova.co/email.php?llaveSecreta=199201302
 #
-wget -O - -q http://unova.co/email.php?llaveSecreta=199201302 
+wget -O - -a /home/neto/logs/mailSemanal.log http://unova.co/email.php?llaveSecreta=199201302 
 date=`date`
 echo Se ejecuto script mail semanal $date >> /home/neto/logs/mailSemanal.log
 exit 0
