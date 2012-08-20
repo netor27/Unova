@@ -55,7 +55,6 @@ function enviarResumenSemanal() {
 //    else {
 //        goToIndex();
 //    }
-    exit;
 }
 
 ?>
