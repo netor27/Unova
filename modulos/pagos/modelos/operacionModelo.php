@@ -22,6 +22,15 @@ function altaOperacion($operacion) {
     return $id;
 }
 
+function bajaOperacion($idOperacion){
+    require_once 'bd/conex.php';
+    global $conex;
+    $stmt = $conex->prepare("DELETE FROM operacion 
+                            WHERE idOperacion = :idOperacion");
+    $stmt->bindParam(':idOperacion', $idOperacion);
+    return $stmt->execute();
+}
+
 function setOperacionCompletada($idOperacion) {
     require_once 'bd/conex.php';
     global $conex;

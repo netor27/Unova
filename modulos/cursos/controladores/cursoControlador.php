@@ -574,7 +574,7 @@ function inscribirUsuario() {
                                         require_once 'modulos/pagos/modelos/operacionModelo.php';
                                         $operacion = new Operacion();
                                         $operacion->cantidad = $curso->precio;
-                                        $operacion->detalle = "Curso: " . $curso->titulo;
+                                        $operacion->detalle = "Curso: <a href='/curso/" . $curso->uniqueUrl . "'>" . $curso->titulo . '</a>';
                                         $operacion->idUsuario = $usuario->idUsuario;
                                         $operacion->completada = 1;
                                         $operacion->idTipoOperacion = 2;
@@ -596,7 +596,7 @@ function inscribirUsuario() {
 
                             if ($suscribirAlumno) {
                                 //ahora a inscribir al usuario
-                                if (inscribirUsuarioCurso($usuario->idUsuario, $idCurso)) {
+                                if (inscribirUsuarioCurso($usuario->idUsuario, $idCurso, $curso->precio)) {
                                     require_once('funcionesPHP/CargarInformacionSession.php');
                                     cargarCursosSession();
                                     cargarUsuarioSession();

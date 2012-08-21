@@ -261,14 +261,48 @@ function getNumeroCursosTomados($idUsuario) {
     return $n;
 }
 
-function inscribirUsuarioCurso($idUsuario, $idCurso) {
+function inscribirUsuarioCurso($idUsuario, $idCurso, $precio) {
     require_once 'bd/conex.php';
     global $conex;
-    $stmt = $conex->prepare("INSERT INTO usuariocurso (idUsuario, idCurso, fechaInscripcion)
-                            VALUES(:idUsuario, :idCurso, NOW()) ");
+
+    $abonado = 0;
+    $fechaParaAbonarSaldo = "";
+
+    if ($precio == 0) {
+        //como es gratis, la fecha para abonar es hoy y se guarda como abonado.
+        $fechaParaAbonarSaldo = "NOW()";
+        $abonado = 1;
+    } else {
+        //Con esto, se abonara el saldo 15 días después de la venta del curso
+        $fechaParaAbonarSaldo = "DATE_ADD(CURDATE(), INTERVAL 14 DAY)";
+        //no ha sido abonado
+        $abonado = 0;
+    }
+    $queryString = "INSERT INTO usuariocurso 
+                    (idUsuario, idCurso, fechaInscripcion, 
+                     fechaParaAbonarSaldo, saldoFueAbonado, precioCurso)
+                    VALUES(:idUsuario, :idCurso, NOW(), " . $fechaParaAbonarSaldo . " ,
+                           :saldoFueAbonado, :precioCurso) ";
+
+
+    $stmt = $conex->prepare($queryString);
     $stmt->bindParam(':idUsuario', $idUsuario);
     $stmt->bindParam(':idCurso', $idCurso);
+    $stmt->bindParam(':saldoFueAbonado', $abonado);
+    $stmt->bindParam(':precioCurso', $precio);
 
+    return $stmt->execute();
+}
+
+function establecerUsuarioCursoComoAbonado($idUsuario, $idCurso){
+    require_once 'bd/conex.php';
+    global $conex;
+    $stmt = $conex->prepare("UPDATE usuariocurso 
+                            SET saldoFueAbonado = 1
+                            WHERE idUsuario = :idUsuario 
+                            AND idCurso = :idCurso");
+    $stmt->bindParam(':idUsuario', $idUsuario);
+    $stmt->bindParam(':idCurso', $idCurso);
     return $stmt->execute();
 }
 
@@ -398,6 +432,30 @@ function getPreguntasSinResponder($idUsuario) {
         //print_r($stmt->errorInfo());
         return null;
     }
+}
+
+function getCursosPorAbonarSaldo() {
+    require_once 'bd/conex.php';
+    global $conex;
+    $stmt = $conex->query("SELECT c.idUsuario, c.idCurso, c.titulo, c.uniqueUrl, uc.precioCurso, uc.idUsuario as idAlumno
+                            FROM curso c, usuariocurso uc
+                            WHERE c.idCurso = uc.idCurso
+                            AND fechaParaAbonarSaldo <= CURDATE()
+                            AND uc.saldoFueAbonado = 0 ");
+    $arreglo = array();
+    $aux = array();
+    $i = 0;
+    foreach ($stmt as $res) {
+        $aux['idUsuario'] = $res['idUsuario'];
+        $aux['idCurso'] = $res['idCurso'];
+        $aux['titulo'] = $res['titulo'];
+        $aux['uniqueUrl'] = $res['uniqueUrl'];
+        $aux['precioCurso'] = $res['precioCurso'];
+        $aux['idAlumno'] = $res['idAlumno'];
+        $arreglo[$i] = $aux;
+        $i++;
+    }
+    return $arreglo;
 }
 
 ?>
