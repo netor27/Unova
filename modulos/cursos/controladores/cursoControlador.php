@@ -764,4 +764,30 @@ function reportarCurso() {
     }
 }
 
+function cambiarPrecio() {
+
+    if (validarUsuarioLoggeadoParaSubmits() &&
+            isset($_POST['cantidad']) &&
+            !empty($_POST['ic'])) {
+        $precio = str_replace("$", "", $_POST['cantidad']);
+        $precio = floatval($precio);
+        $idCurso = $_POST['ic'];
+        $usuario = getUsuarioActual();
+        require_once 'modulos/cursos/modelos/CursoModelo.php';
+        $curso = getCurso($idCurso);
+
+        if ($usuario->idUsuario == $curso->idUsuario) {
+            //Al usuario le pertenece este curso            
+            actualizaPrecioCurso($idCurso, $precio);
+            setSessionMessage("<h4 class='success'>Se modificó corectamente el precio del curso</h4>");
+            redirect("/curso/" . $curso->uniqueUrl);
+        } else {
+            setSessionMessage("<h4 class='error'>No puedes modificar este curso</h4>");
+            goToIndex();
+        }
+    } else {
+        goToIndex();
+    }
+}
+
 ?>

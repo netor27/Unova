@@ -1,4 +1,16 @@
 $(function(){
+    
+    $("#modalDialogCambiarPrecio").dialog({
+        height: 200,
+        width: 580,
+        modal: true,
+        autoOpen: false
+    });
+    
+    $("#cambiarPrecio").click( function (){
+        $("#modalDialogCambiarPrecio").dialog("open");
+    });
+    
     $('.wow').rating();
     
     $("#cursoTabs").tabs();
