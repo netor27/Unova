@@ -183,6 +183,9 @@ function getTipoOperacion($idTipoOperacion) {
         case 3:
             return "Ganancia por ventas";
             break;
+        case 4:
+            return "Retiro de saldo";
+            break;
         default:
             return "Tipo de operaci&oacute;n no definida";
             break;
@@ -196,6 +199,7 @@ function operacionEsPositiva($idTipoOperacion) {
             return true;
             break;
         case 2:
+        case 4:
             return false;
             break;
     }

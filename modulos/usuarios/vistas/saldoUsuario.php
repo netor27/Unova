@@ -3,11 +3,17 @@ require_once('layout/headers/headInicio.php');
 require_once('layout/headers/headSaldoUsuario.php');
 require_once('layout/headers/headCierre.php');
 ?>
-
+<script>
+    $maxSaldo = <?php echo $usuario->saldo; ?>
+</script>
 <div class="contenido">
     <div>
-        <h1>Mi cuenta en Unova</h1>
-        <div class="whiteBox saldoBox" style="width: 90%; padding: 30px 0px 30px 10px;text-align: center;">
+        <h1 class="left">Mi cuenta en Unova</h1>
+        <br>
+        <div class="right">
+            <a id="btnRetirarSaldo" class="blueButton">Retirar saldo</a>
+        </div>
+        <div class="whiteBox saldoBox" style="width: 98%; padding: 30px 0px 30px 10px;text-align: center;">
             <div class="left" style="width:50%;">
                 <h3>Tu saldo actual es de <br>
                     <?php
@@ -29,7 +35,21 @@ require_once('layout/headers/headCierre.php');
                 </div>
             </div>
         </div>
-
+    </div>
+    <div id="modalDialogRetirarSaldo" title="Retirar saldo">
+        <div>
+            <form method="post" action="/usuarios/saldo/retirarSaldoSubmit">
+                <p>
+                    <label for="amount">Cantidad a retirar:</label>
+                    <input type="text" name="cantidad" id="cantidad" style="border:0; color:#f6931f; font-weight:bold;" value="10"/>
+                </p>
+                <div id="slider-range-min"></div>
+                <br>
+                <input class="right" type="submit" value="  Aceptar ">
+            </form>
+        </div><br><br><br><br>
+        <h3>-Tu saldo será abonado a tu cuenta de paypal asociada con tu correo electrónico</h3>
+        <h3>-La solicitud será resuelta en un lapso no mayor a 3 días hábiles</h3>
     </div>
 
     <h2>Últimas operaciones</h2>

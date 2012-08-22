@@ -91,4 +91,59 @@ function abonarSaldos() {
     }
 }
 
+function retirarSaldoSubmit() {
+    if (validarUsuarioLoggeadoParaSubmits() && !empty($_POST['cantidad'])) {
+        $cantidad = str_replace("$", "", $_POST['cantidad']);
+        $cantidad = floatval($cantidad);
+        $todoBien = false;
+        $usuario = getUsuarioActual();
+        if ($cantidad > 0 && $cantidad <= $usuario->saldo) {
+            require_once 'modulos/pagos/modelos/solicitudSaldoModelo.php';
+            require_once 'modulos/usuarios/modelos/usuarioModelo.php';
+            require_once 'modulos/pagos/modelos/operacionModelo.php';
+            require_once 'funcionesPHP/CargarInformacionSession.php';
+
+            if (actualizaSaldoUsuario($usuario->idUsuario, -$cantidad)) {
+                //Se actualizó correctamente el saldo, entonces generamos una operación
+                $operacion = new Operacion();
+                $operacion->idUsuario = $usuario->idUsuario;
+                $operacion->cantidad = $cantidad;
+                $operacion->idTipoOperacion = 4;
+                $operacion->completada = 1;
+                $operacion->detalle = "Retiro de saldo";
+                $operacion->idOperacion = altaOperacion($operacion);
+                if ($operacion->idOperacion >= 0) {
+                    //se dio de alta correctamente la operacion, generamos la solicitud
+                    $solicitudSaldo = new SolicitudSaldo();
+                    $solicitudSaldo->idUsuario = $usuario->idUsuario;
+                    $solicitudSaldo->cantidad = $cantidad;
+                    $solicitudSaldo->entregado = 0;
+                    if (altaSolicitudSaldo($solicitudSaldo)) {
+                        setSessionMessage("<h4 class='success'>Tu solicitud de retirar saldo fue enviada correctamente</h4>");
+                        cargarUsuarioSession();
+                    } else {
+                        //si ocurre un error, damos de baja la operación y regresamos el saldo a como estaba
+                        bajaOperacion($operacion->idOperacion);
+                        actualizaSaldoUsuario($usuario->idUsuario, $cantidad);
+                        setSessionMessage("<h4 class='error'>Ocurrió un error al realizar tu solicitud. Intenta de nuevo más tarde</h4>");
+                    }
+                } else {
+                    //no se dió de alta la operación, regresamos el saldo
+                    actualizaSaldoUsuario($usuario->idUsuario, $cantidad);
+                    setSessionMessage("<h4 class='error'>Ocurrió un error al realizar tu solicitud. Intenta de nuevo más tarde</h4>");
+                }
+            } else {
+                //no se actualizó el saldo
+                setSessionMessage("<h4 class='error'>Ocurrió un error al realizar tu solicitud. Intenta de nuevo más tarde</h4>");
+            }
+        } else {
+            //no es una cantidad válida
+            setSessionMessage("<h4 class='error'>La cantidad no es válida</h4>");
+        }
+        redirect("/usuarios/saldo");
+    } else {
+        goToIndex();
+    }
+}
+
 ?>
