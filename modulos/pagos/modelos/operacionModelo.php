@@ -85,13 +85,13 @@ function getOperaciones() {
     return $operaciones;
 }
 
-function getUltimasOperacionesPorUsuario($n, $idUsuario) {
+function getUltimasOperacionesPorUsuario($offset, $n, $idUsuario) {
     require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM operacion 
                             WHERE idUsuario = :idUsuario and completada = 1
                             ORDER BY fecha DESC
-                            LIMIT $n");
+                            LIMIT $offset, $n");
     $stmt->bindParam(':idUsuario', $idUsuario);
     $stmt->execute();
     $operaciones = null;

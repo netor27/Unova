@@ -4,15 +4,22 @@ require_once('layout/headers/headSaldoUsuario.php');
 require_once('layout/headers/headCierre.php');
 ?>
 <script>
-    $maxSaldo = <?php echo $usuario->saldo; ?>
+    $maxSaldo = <?php echo $usuario->saldo; ?>;
+    $offset = <?php echo $numOperaciones; ?>;
 </script>
 <div class="contenido">
     <div>
         <h1 class="left">Mi cuenta en Unova</h1>
         <br>
-        <div class="right">
-            <a id="btnRetirarSaldo" class="blueButton">Retirar saldo</a>
-        </div>
+        <?php
+        if ($usuarioHead->saldo > 0) {
+            ?>
+            <div class="right">
+                <a id="btnRetirarSaldo" class="blueButton">Retirar saldo</a>
+            </div>
+            <?php
+        }
+        ?>
         <div class="whiteBox saldoBox" style="width: 98%; padding: 30px 0px 30px 10px;text-align: center;">
             <div class="left" style="width:50%;">
                 <h3>Tu saldo actual es de <br>
@@ -69,7 +76,7 @@ require_once('layout/headers/headCierre.php');
                         <th style="width: 20%;padding-left: 5%;" colspan="2">Cantidad</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tableBodyOperaciones">
 
                     <?php
                     $i = 0;
@@ -96,10 +103,10 @@ require_once('layout/headers/headCierre.php');
                         $i++;
                     }
                     ?>
-
+                    
                 </tbody>
             </table>
-
+        <a style="padding-left: 5px;" id="mostrarMasOperaciones">Ver operaciones anteriores</a>
             <?php
         } else {
             ?>

@@ -1,4 +1,23 @@
-$(function() {
+$(function() {    
+    
+    $("#mostrarMasOperaciones").click(function () {
+        var url = '/usuarios.php?c=saldo&a=getOperacionesAnteriores&offset=' + $offset;
+        $.ajax({
+            type: 'get',
+            url: url, 
+            success: function(data) {
+                var str = data.toString();
+                $("#tableBodyOperaciones").append(data);
+                if(str.indexOf("notification") != -1){
+                    $("#mostrarMasOperaciones").remove();
+                }else{                    
+                    $offset += 6;
+                }
+            }
+        });
+        
+    });
+    
     $("#botonRecargar").click(function () {
         var cantidad = $("#cantidadRecargar").val();
         cantidad = parseFloat(cantidad);

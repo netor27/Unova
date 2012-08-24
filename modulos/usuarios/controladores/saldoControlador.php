@@ -3,20 +3,53 @@
 function principal() {
     if (validarUsuarioLoggeado()) {
         require_once 'modulos/pagos/modelos/operacionModelo.php';
-        $numOperaciones = 20;
-        if (isset($_GET['n'])) {
-            if (is_numeric($_GET['n'])) {
-                $numOperaciones = $_GET['n'];
-            }
-        }
-
+        $numOperaciones = 6;
         $usuario = getUsuarioActual();
-        $operaciones = getUltimasOperacionesPorUsuario($numOperaciones, $usuario->idUsuario);
+        $operaciones = getUltimasOperacionesPorUsuario(0, $numOperaciones, $usuario->idUsuario);
         if (isset($operaciones)) {
             $operaciones = array_reverse($operaciones);
         }
 
         require_once 'modulos/usuarios/vistas/saldoUsuario.php';
+    }
+}
+
+function getOperacionesAnteriores() {
+    if (validarUsuarioLoggeadoParaSubmits()) {
+        if (!empty($_GET['offset'])) {
+            $offset = intval($_GET['offset']);
+            $numOperaciones = 6;
+            $usuario = getUsuarioActual();
+            require_once 'modulos/pagos/modelos/operacionModelo.php';
+            $operaciones = getUltimasOperacionesPorUsuario($offset, $numOperaciones, $usuario->idUsuario);
+            if (isset($operaciones)) {
+                $i = 0;
+                foreach ($operaciones as $operacion) {
+                    if ($i % 2 == 0)
+                        echo '<tr class="par">';
+                    else
+                        echo '<tr class="non">';
+                    if (operacionEsPositiva($operacion->idTipoOperacion)) {
+
+                        echo '<td class="operacionFecha">' . transformaMysqlDateDDMMAAAAConHora($operacion->fecha) . '</td>';
+                        echo '<td class="operacionTipo cantidadPositiva">' . getTipoOperacion($operacion->idTipoOperacion) . '</td>';
+                        echo '<td class="operacionDetalle">' . $operacion->detalle . '</td>';
+                        echo '<td class="cantidadPositiva">$' . $operacion->cantidad . '</td>';
+                        echo '<td ></td>';
+                    } else {
+                        echo '<td class="operacionFecha">' . transformaMysqlDateDDMMAAAAConHora($operacion->fecha) . '</td>';
+                        echo '<td class="operacionTipo cantidadNegativa">' . getTipoOperacion($operacion->idTipoOperacion) . '</td>';
+                        echo '<td class="operacionDetalle">' . $operacion->detalle . '</td>';
+                        echo '<td></td>';
+                        echo '<td class="cantidadNegativa" >- $' . $operacion->cantidad . '</td>';
+                    }
+                    echo '</tr>';
+                    $i++;
+                }
+            }else{
+                echo "<h4 class='notification'>Ya no hay operaciones</h4>";
+            }
+        }
     }
 }
 
