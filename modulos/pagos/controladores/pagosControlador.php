@@ -54,7 +54,7 @@ function getFormaRecargarSaldo() {
                 $operacion->idTipoOperacion = 1;
                 $operacion->idOperacion = 1;
                 //$operacion->idOperacion = altaOperacion($operacion);
-                $encrypted = encriptarInformacionBotonPago($descripcion, "", $cantidad, $operacion->idOperacion);
+                $encrypted = encriptarInformacionBotonPago($descripcion, "12", $cantidad, $operacion->idOperacion);
 
                 echo '<div style="text-align:center;">';
                 echo '<h2 >Pagar con tarjeta de crédito   </h2>';
@@ -63,13 +63,12 @@ function getFormaRecargarSaldo() {
                 echo '<br><br>';
                 echo '<h3><strong>No es necesario tener una cuenta de paypal</strong></h3>';
                 echo '<br><br>';
-                echo '<form action="https://www.paypal.com.mx/cgi-bin/webscr" method="post">';
+                echo '<form action="https://www.paypal.com/cgi-bin/webscr" method="post">';
                 echo '<input type="hidden" name="cmd" value="_s-xclick">';
                 echo '<input type="hidden" name="encrypted" value="';
                 echo $encrypted . '">';
-                echo ' <input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" alt="PayPal, la forma más segura y rápida de pagar en línea.">';
-                echo '</form>';
-                
+                echo '<input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">';
+                echo '</form>';                
                 echo '</div>';
             } else {
                 //No es una cantidad valida

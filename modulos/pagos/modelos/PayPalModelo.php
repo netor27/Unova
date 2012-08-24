@@ -55,8 +55,8 @@ function encriptarInformacionBotonPago($nombreArticulo, $numeroArticulo, $precio
 
     $form = array(
         'cmd' => '_xclick',
-        'business' => 'neto.r27@gmail.com',
-        'cert_id' => '6Z8ETPUX39V7N',
+        'business' => "neto.r27@gmail.com",
+        'cert_id' => 'M3DDBR4WZK46W',
         'lc' => 'ES_MX',
         'invoice' => '',
         'currency_code' => 'MXN',
