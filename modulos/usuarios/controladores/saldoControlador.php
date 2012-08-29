@@ -6,9 +6,9 @@ function principal() {
         $numOperaciones = 6;
         $usuario = getUsuarioActual();
         $operaciones = getUltimasOperacionesPorUsuario(0, $numOperaciones, $usuario->idUsuario);
-        if (isset($operaciones)) {
-            $operaciones = array_reverse($operaciones);
-        }
+//        if (isset($operaciones)) {
+//            $operaciones = array_reverse($operaciones);
+//        }
 
         require_once 'modulos/usuarios/vistas/saldoUsuario.php';
     }
@@ -46,8 +46,8 @@ function getOperacionesAnteriores() {
                     echo '</tr>';
                     $i++;
                 }
-            }else{
-                echo "<h4 class='notification'>Ya no hay operaciones</h4>";
+            } else {
+                echo "<h4 class='notice' style='width:100%'>Ya no hay operaciones</h4>";
             }
         }
     }
@@ -84,43 +84,34 @@ function abonarSaldos() {
         $cantidadPorAbonar = 0;
         foreach ($cursosPorAbonar as $curso) {
             $cantidadPorAbonar = $curso['precioCurso'] * $porcentajeDeGananciaParaProfesores;
-            if (actualizaSaldoUsuario($curso['idUsuario'], $cantidadPorAbonar)) {
-                //Se actualizó correctamente el saldo del usuario
-                //Creamos la operación
-                $operacion = new Operacion();
-                $operacion->cantidad = $cantidadPorAbonar;
-                $operacion->completada = 1;
-                $operacion->detalle = "Curso: <a href='/curso/" . $curso['uniqueUrl'] . "'>" . $curso['titulo'] . '</a>';
-                $operacion->idTipoOperacion = 3; //ganancia por ventas = 3
-                $operacion->idUsuario = $curso['idUsuario'];
-                $operacion->idOperacion = altaOperacion($operacion);
-                $banderaOperacion = ($operacion->idOperacion >= 0 );
-                $banderaUsuarioCurso = false;
-                if ($banderaOperacion) {
-                    //se dió de alta correctamente la operación
-                    //establecemos el usuariocurso como abonado
-                    $banderaUsuarioCurso = establecerUsuarioCursoComoAbonado($curso['idAlumno'], $curso['idCurso']);
-                }
-                if ($banderaUsuarioCurso) {
-                    //TODO BIEN!!
-                    $numUsuariosAbonados = $numUsuariosAbonados + 1;
-                    $cantidadAbonada = $cantidadAbonada + $cantidadPorAbonar;
-                } else {
-                    //si no fue actualizado correctamente el usuariocurso, revertimos la operación y el saldo
-                    if ($banderaOperacion) {
-                        //la operación si fue insertada correctamente, la borramos
-                        bajaOperacion($operacion->idOperacion);
+            try {
+                require_once 'bd/conex.php';
+                //Realizamos esta operación como una transacción
+                beginTransaction();
+                if (actualizaSaldoUsuario($curso['idUsuario'], $cantidadPorAbonar)) {
+                    //Se actualizó correctamente el saldo del usuario
+                    //Creamos la operación
+                    $operacion = new Operacion();
+                    $operacion->cantidad = $cantidadPorAbonar;
+                    $operacion->completada = 1;
+                    $operacion->detalle = "Curso: <a href='/curso/" . $curso['uniqueUrl'] . "'>" . $curso['titulo'] . '</a>';
+                    $operacion->idTipoOperacion = 3; //ganancia por ventas = 3
+                    $operacion->idUsuario = $curso['idUsuario'];
+                    $operacion->idOperacion = altaOperacion($operacion);
+                    if (($operacion->idOperacion >= 0) && establecerUsuarioCursoComoAbonado($curso['idAlumno'], $curso['idCurso'])) {
+                        $numUsuariosAbonados = $numUsuariosAbonados + 1;
+                        $cantidadAbonada = $cantidadAbonada + $cantidadPorAbonar;
+                        commitTransaction();
+                    } else {
+                        rollBackTransaction();
                     }
-                    //regresamos el saldo a la cantidad anterior
-                    actualizaSaldoUsuario($curso['idUsuario'], -$cantidadPorAbonar);
                 }
-            } else {
-                //Ocurrió un error al abonar, no cambiamos la bd
+            } catch (Exception $e) {
+                echo "Exception " . $e;
+                rollBackTransaction();
             }
         }
         echo "Cursos abonados=" . $numUsuariosAbonados . " ;cantidad=" . $cantidadAbonada . " ;";
-    } else {
-        //no hacer nada
     }
 }
 
@@ -128,13 +119,15 @@ function retirarSaldoSubmit() {
     if (validarUsuarioLoggeadoParaSubmits() && !empty($_POST['cantidad'])) {
         $cantidad = str_replace("$", "", $_POST['cantidad']);
         $cantidad = floatval($cantidad);
-        $todoBien = false;
+        $huboError = false;
         $usuario = getUsuarioActual();
         if ($cantidad > 0 && $cantidad <= $usuario->saldo) {
             require_once 'modulos/pagos/modelos/solicitudSaldoModelo.php';
             require_once 'modulos/usuarios/modelos/usuarioModelo.php';
             require_once 'modulos/pagos/modelos/operacionModelo.php';
             require_once 'funcionesPHP/CargarInformacionSession.php';
+            require_once 'bd/conex.php';
+            beginTransaction();
 
             if (actualizaSaldoUsuario($usuario->idUsuario, -$cantidad)) {
                 //Se actualizó correctamente el saldo, entonces generamos una operación
@@ -152,21 +145,20 @@ function retirarSaldoSubmit() {
                     $solicitudSaldo->cantidad = $cantidad;
                     $solicitudSaldo->entregado = 0;
                     if (altaSolicitudSaldo($solicitudSaldo)) {
+                        commitTransaction();
                         setSessionMessage("<h4 class='success'>Tu solicitud de retirar saldo fue enviada correctamente</h4>");
                         cargarUsuarioSession();
                     } else {
-                        //si ocurre un error, damos de baja la operación y regresamos el saldo a como estaba
-                        bajaOperacion($operacion->idOperacion);
-                        actualizaSaldoUsuario($usuario->idUsuario, $cantidad);
-                        setSessionMessage("<h4 class='error'>Ocurrió un error al realizar tu solicitud. Intenta de nuevo más tarde</h4>");
+                        $huboError = true;
                     }
                 } else {
-                    //no se dió de alta la operación, regresamos el saldo
-                    actualizaSaldoUsuario($usuario->idUsuario, $cantidad);
-                    setSessionMessage("<h4 class='error'>Ocurrió un error al realizar tu solicitud. Intenta de nuevo más tarde</h4>");
+                    $huboError = true;
                 }
             } else {
-                //no se actualizó el saldo
+                $huboError = true;
+            }
+            if ($huboError) {
+                rollBackTransaction();
                 setSessionMessage("<h4 class='error'>Ocurrió un error al realizar tu solicitud. Intenta de nuevo más tarde</h4>");
             }
         } else {

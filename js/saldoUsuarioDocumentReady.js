@@ -8,7 +8,7 @@ $(function() {
             success: function(data) {
                 var str = data.toString();
                 $("#tableBodyOperaciones").append(data);
-                if(str.indexOf("notification") != -1){
+                if(str.indexOf("notice") != -1){
                     $("#mostrarMasOperaciones").remove();
                 }else{                    
                     $offset += 6;

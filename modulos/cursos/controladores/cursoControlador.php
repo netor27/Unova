@@ -557,70 +557,81 @@ function inscribirUsuario() {
                     if ($curso->idUsuario != $usuario->idUsuario) {
                         require_once 'modulos/usuarios/modelos/UsuarioCursosModelo.php';
                         if (!esUsuarioUnAlumnoDelCurso($usuario->idUsuario, $idCurso)) {
-                            $suscribirAlumno = true;
-                            $saldoActualizado = false;
-                            if ($curso->precio > 0) {
-                                //Si el curso NO es gratuito, validamos el saldo, 
-                                //y generamos una operación
-                                //validar que el saldo del usuario sea suficiente para inscribirse a este curso
-                                if ($usuario->saldo >= $curso->precio) {
-                                    //El usuario tiene saldo suficiente para suscribirse al curso
-                                    //Actualizamos el saldo del usuario
-                                    require_once 'modulos/usuarios/modelos/usuarioModelo.php';
-                                    if (actualizaSaldoUsuario($usuario->idUsuario, -$curso->precio)) {
-                                        $saldoActualizado = true;
-                                        //Se actualizó correctamente el saldo del usuario, procedemos
-                                        //a guardar la operación
-                                        require_once 'modulos/pagos/modelos/operacionModelo.php';
-                                        $operacion = new Operacion();
-                                        $operacion->cantidad = $curso->precio;
-                                        $operacion->detalle = "Curso: <a href='/curso/" . $curso->uniqueUrl . "'>" . $curso->titulo . '</a>';
-                                        $operacion->idUsuario = $usuario->idUsuario;
-                                        $operacion->completada = 1;
-                                        $operacion->idTipoOperacion = 2;
-                                        altaOperacion($operacion);
+                            //iniciar transacción
+                            //si el curso tiene precio: 
+                            //  -validar que el usuario tenga saldo suficiente
+                            //  -actualizar el saldo
+                            //  -agregamos la operación
+                            //despues, si tiene precio o no
+                            //  -se inscribe el usuario
+                            //  -se envia el mail
+                            //  
+                            //ESTO SE DEBE DE HACER DENTRO DE UNA TRANSACCIÓN PARA QUE TODO SÉA VÁLIDO
+                            try {
+                                require_once 'bd/conex.php';
+                                beginTransaction();
+                                require_once 'funcionesPHP/CargarInformacionSession.php';
+                                cargarUsuarioSession();
+                                $usuario = getUsuarioActual();
+                                $huboError = false;
+                                $suscribirAlumno = true;
+
+                                if ($curso->precio > 0) {
+                                    //validar que el saldo del usuario sea suficiente para inscribirse a este curso
+                                    if ($usuario->saldo >= $curso->precio) {
+                                        //Actualizamos el saldo del usuario
+                                        require_once 'modulos/usuarios/modelos/usuarioModelo.php';
+                                        if (actualizaSaldoUsuario($usuario->idUsuario, -$curso->precio)) {
+                                            //Se actualizó correctamente el saldo del usuario, procedemos
+                                            //a guardar la operación
+                                            require_once 'modulos/pagos/modelos/operacionModelo.php';
+                                            $operacion = new Operacion();
+                                            $operacion->cantidad = $curso->precio;
+                                            $operacion->detalle = "Curso: <a href='/curso/" . $curso->uniqueUrl . "'>" . $curso->titulo . '</a>';
+                                            $operacion->idUsuario = $usuario->idUsuario;
+                                            $operacion->completada = 1;
+                                            $operacion->idTipoOperacion = 2;
+                                            if (altaOperacion($operacion) < 0)
+                                                $huboError = true;
+                                        } else {
+                                            $huboError = true;
+                                        }
                                     } else {
+                                        //No tiene saldo suficiente para suscribirse al curso, lo enviamos a
+                                        //una página donde puede recargar saldo
                                         $suscribirAlumno = false;
-                                        //Ocurrió un error al disminuir el saldo
+                                        setSessionMessage("<h4 class='error'>No tienes el saldo suficiente para suscribirte</h4>");
+                                        redirect("/usuarios/saldo");
+                                    }
+                                }
+
+                                if ($suscribirAlumno) {
+                                    //ahora a inscribir al usuario
+                                    if (inscribirUsuarioCurso($usuario->idUsuario, $idCurso, $curso->precio)) {
+                                        require_once('funcionesPHP/CargarInformacionSession.php');
+                                        cargarCursosSession();
+                                        cargarUsuarioSession();
+                                        setSessionMessage("<h4 class='success'>Haz quedado inscrito a este curso</h4>");
+
+                                        require_once 'modulos/email/modelos/envioEmailModelo.php';
+                                        //enviar email al usuario que se suscribió
+                                        enviarMailSuscripcionCurso($usuario->email, $curso->titulo, $curso->imagen, 'www.unova.mx/curso/' . $curso->uniqueUrl);
+                                    } else {
+                                        $huboError = true;
                                         setSessionMessage("<h4 class='error'>Ocurrió un error al inscribirte al curso</h4>");
-                                        redirect("/curso/" . $curso->uniqueUrl);
                                     }
-                                } else {
-                                    //No tiene saldo suficiente para suscribirse al curso, lo enviamos a
-                                    //una página donde puede recargar saldo
-                                    $suscribirAlumno = false;
-                                    setSessionMessage("<h4 class='error'>No tienes el saldo suficiente para suscribirte</h4>");
-                                    redirect("/usuarios/saldo");
                                 }
+                            } catch (Exception $e) {
+                                $huboError = true;
+                                setSessionMessage("<h4 class='error'>Ocurrió un error al inscribirte al curso. Excepción ".$e->getMessage().".</h4>");
                             }
-
-                            if ($suscribirAlumno) {
-                                //ahora a inscribir al usuario
-                                if (inscribirUsuarioCurso($usuario->idUsuario, $idCurso, $curso->precio)) {
-                                    require_once('funcionesPHP/CargarInformacionSession.php');
-                                    cargarCursosSession();
-                                    cargarUsuarioSession();
-                                    setSessionMessage("<h4 class='success'>Haz quedado inscrito a este curso</h4>");
-
-                                    require_once 'modulos/email/modelos/envioEmailModelo.php';
-                                    //enviar email al usuario que se suscribió
-                                    enviarMailSuscripcionCurso($usuario->email, $curso->titulo, $curso->imagen, 'www.unova.mx/curso/' . $curso->uniqueUrl);
-                                    //enviar email al dueño del curso que alguien se suscribió
-                                    //$duenioCurso = getUsuarioDeCurso($curso->idCurso);
-                                    //enviarMailAlumnoSuscrito($duenioCurso->email, $curso->titulo, 'www.unova.mx/curso/' . $curso->uniqueUrl);
-                                    //Se quitó el envio al profesor al momento de que un alumno se suscribe para evitar enviar muchos
-                                    //mails y que lleguen a spam
-                                    //Ahora, se envía un correeo semanal con el resumen de los nuevos alumnos
-                                } else {
-                                    if ($saldoActualizado) {
-                                        //Ocurrió un error al inscribir al usuario, pero ya se actualizó el saldo,
-                                        //debemos regresar al saldo a la cantidad correcta
-                                        actualizaSaldoUsuario($usuario->idUsuario, $curso->precio);
-                                    }
-                                    setSessionMessage("<h4 class='error'>Ocurrió un error al inscribirte al curso 2</h4>");
-                                }
-                                redirect("/curso/" . $curso->uniqueUrl);
+                            //validamos si hubo algun error
+                            if ($huboError) {
+                                rollBackTransaction();
+                            } else {
+                                commitTransaction();
                             }
+                            redirect("/curso/" . $curso->uniqueUrl);
                         } else {
                             //el usuario ya está inscrito
                             setSessionMessage("<h4 class='error'>Ya estás suscrito a este curso</h4>");
