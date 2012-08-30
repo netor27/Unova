@@ -51,8 +51,9 @@ if ($user) {
     require_once 'modulos/usuarios/modelos/usuarioModelo.php';
     //validamos si este usuario ya tiene su email registrado, sino creamos un usuario nuevo
     $usuario = getUsuarioFromEmail($email);
-    if(!isset($usuario))
+    if(!isset($usuario)){
         $usuario = getUsuarioFromFacebookEmail($email);
+    }
     
     if (isset($usuario)) {
         //el usuario ya existe en la bd, loggearlo!
