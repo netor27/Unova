@@ -52,9 +52,9 @@ function getFormaRecargarSaldo() {
                 $operacion->completada = 0;
                 $operacion->idUsuario = $usuario->idUsuario;
                 $operacion->idTipoOperacion = 1;
-                $operacion->idOperacion = 1;
-                //$operacion->idOperacion = altaOperacion($operacion);
-                $encrypted = encriptarInformacionBotonPago($descripcion, "12", $cantidad, $operacion->idOperacion);
+                //$operacion->idOperacion = 1;
+                $operacion->idOperacion = altaOperacion($operacion);
+                $encrypted = encriptarInformacionBotonPago($descripcion, "", $cantidad, $operacion->idOperacion);
 
                 echo '<div style="text-align:center;">';
                 echo '<h2 >Pagar con tarjeta de crédito   </h2>';

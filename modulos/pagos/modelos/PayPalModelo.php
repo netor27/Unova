@@ -55,8 +55,8 @@ function encriptarInformacionBotonPago($nombreArticulo, $numeroArticulo, $precio
 
     $form = array(
         'cmd' => '_xclick',
-        'business' => "neto.r27@gmail.com",
-        'cert_id' => 'M3DDBR4WZK46W',
+        'business' => "contacto@unova.mx",
+        'cert_id' => 'YGJPYEHVH3KWC',
         'lc' => 'ES_MX',
         'invoice' => '',
         'currency_code' => 'MXN',
