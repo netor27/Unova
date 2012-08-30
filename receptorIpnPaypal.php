@@ -6,8 +6,8 @@ $emailtext = "mensaje recibido";
 $subject = "IPN MSG";
 $from = "contacto@unova.mx";
 
-$url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
-$host = 'Host: www.sandbox.paypal.com';
+$url = 'https://www.paypal.com/cgi-bin/webscr';
+$host = 'Host: www.paypal.com';
 
 $msgExtra = "";
 
