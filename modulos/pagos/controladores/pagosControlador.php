@@ -63,7 +63,7 @@ function getFormaRecargarSaldo() {
                 echo '<br><br>';
                 echo '<h3><strong>No es necesario tener una cuenta de paypal</strong></h3>';
                 echo '<br><br>';
-                echo '<form action="https://www.paypal.com/cgi-bin/webscr" method="post">';
+                echo '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">';
                 echo '<input type="hidden" name="cmd" value="_s-xclick">';
                 echo '<input type="hidden" name="encrypted" value="';
                 echo $encrypted . '">';
