@@ -13,5 +13,6 @@ class Usuario{
     public $uuid;
     public $uniqueUrl;
     public $saldo;
+    public $emailFacebook;
 }
 ?>

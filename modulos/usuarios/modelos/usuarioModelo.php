@@ -6,8 +6,11 @@ function altaUsuario($usuario) {
     require_once 'bd/conex.php';
     global $conex;
     $uuid = md5($usuario->email) . getUniqueCode(4);
-    $stmt = $conex->prepare("INSERT into usuario (email,password,nombreUsuario, uniqueUrl, fechaRegistro, uuid) values(:email,:password,:nombreUsuario,:uniqueUrl, NOW() ,:uuid)");
+    $stmt = $conex->prepare("INSERT into 
+                    usuario (email, password, nombreUsuario, uniqueUrl, fechaRegistro, uuid, emailFacebook) 
+                    values  (:email,:password,:nombreUsuario,:uniqueUrl, NOW() ,:uuid, :emailFacebook)");
     $stmt->bindParam(':email', $usuario->email);
+    $stmt->bindParam(':emailFacebook', $usuario->emailFacebook);
     $stmt->bindParam(':password', $usuario->password);
     $stmt->bindParam(':nombreUsuario', $usuario->nombreUsuario);
     $stmt->bindParam(':uuid', $uuid);
@@ -223,6 +226,33 @@ function getUsuarioFromEmail($email) {
     require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("SELECT * FROM usuario WHERE email = :email");
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+    $usuario = NULL;
+    if ($stmt->rowCount() > 0) {
+        $row = $stmt->fetch();
+        $usuario = new Usuario();
+        $usuario->idUsuario = $row['idUsuario'];
+        $usuario->email = $row['email'];
+        $usuario->password = $row['password'];
+        $usuario->nombreUsuario = $row['nombreUsuario'];
+        $usuario->tipoUsuario = $row['tipoUsuario'];
+        $usuario->avatar = $row['avatar'];
+        $usuario->bio = $row['bio'];
+        $usuario->activado = $row['activado'];
+        $usuario->fechaRegistro = $row['fechaRegistro'];
+        $usuario->tituloPersonal = $row['tituloPersonal'];
+        $usuario->uuid = $row['uuid'];
+        $usuario->uniqueUrl = $row['uniqueUrl'];
+        $usuario->saldo = $row['saldo'];
+    }
+    return $usuario;
+}
+
+function getUsuarioFromFacebookEmail($email) {
+    require_once 'bd/conex.php';
+    global $conex;
+    $stmt = $conex->prepare("SELECT * FROM usuario WHERE emailFacebook = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
     $usuario = NULL;
