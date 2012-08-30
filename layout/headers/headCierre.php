@@ -14,6 +14,7 @@
                 </div>
             </div>            
             <?php
+            require_once 'funcionesPHP/funcionesGenerales.php';
             if (tipoUsuario() == 'visitante') {
                 ?>
                 <a href="/usuarios/registro" class="element right ease3">Registrarse</a>
