@@ -84,6 +84,17 @@ function actualizaEmail($usuario) {
     return $stmt->execute();
 }
 
+function actualizarEmailPaypal($usuario){
+    require_once 'bd/conex.php';
+    global $conex;
+    $stmt = $conex->prepare("UPDATE usuario 
+                            SET emailPaypal = :email
+                            WHERE idUsuario = :id");
+    $stmt->bindParam(':email', $usuario->emailPaypal);
+    $stmt->bindParam(':id', $usuario->idUsuario);
+    return $stmt->execute();
+}
+
 function setActivado($idUsuario, $valor) {
     require_once 'bd/conex.php';
     global $conex;
@@ -116,6 +127,8 @@ function getUsuarios() {
         $usuario->tituloPersonal = $row['tituloPersonal'];
         $usuario->uniqueUrl = $row['uniqueUrl'];
         $usuario->saldo = $row['saldo'];
+        $usuario->emailFacebook = $row['emailFacebook'];
+        $usuario->emailPaypal = $row['emailPaypal'];
         $usuarios[$i] = $usuario;
         $i++;
     }
@@ -145,6 +158,8 @@ function getUsuario($idUsuario) {
         $usuario->uuid = $row['uuid'];
         $usuario->uniqueUrl = $row['uniqueUrl'];
         $usuario->saldo = $row['saldo'];
+        $usuario->emailFacebook = $row['emailFacebook'];
+        $usuario->emailPaypal = $row['emailPaypal'];
     }
     return $usuario;
 }
@@ -204,6 +219,8 @@ function getUsuarioFromUniqueUrl($uniqueUrl) {
         $usuario->uuid = $row['uuid'];
         $usuario->uniqueUrl = $row['uniqueUrl'];
         $usuario->saldo = $row['saldo'];
+        $usuario->emailFacebook = $row['emailFacebook'];
+        $usuario->emailPaypal = $row['emailPaypal'];
     }
     return $usuario;
 }
@@ -245,6 +262,8 @@ function getUsuarioFromEmail($email) {
         $usuario->uuid = $row['uuid'];
         $usuario->uniqueUrl = $row['uniqueUrl'];
         $usuario->saldo = $row['saldo'];
+        $usuario->emailFacebook = $row['emailFacebook'];
+        $usuario->emailPaypal = $row['emailPaypal'];
     }
     return $usuario;
 }
@@ -272,8 +291,24 @@ function getUsuarioFromFacebookEmail($email) {
         $usuario->uuid = $row['uuid'];
         $usuario->uniqueUrl = $row['uniqueUrl'];
         $usuario->saldo = $row['saldo'];
+        $usuario->emailFacebook = $row['emailFacebook'];
+        $usuario->emailPaypal = $row['emailPaypal'];
     }
     return $usuario;
+}
+
+function getEmailPaypal($idUsuario){
+    require_once 'bd/conex.php';
+    global $conex;
+    $stmt = $conex->prepare("SELECT emailPaypal FROM usuario WHERE idUsuario = :id");
+    $stmt->bindParam(':id', $idUsuario);
+    
+    $emailPaypal = NULL;
+    if($stmt->execute()){
+        $row = $stmt->fetch();
+        $emailPaypal = $row['emailPaypal'];
+    }
+    return $emailPaypal;
 }
 
 function validarPassAnterior($idUsuario, $passAnterior) {

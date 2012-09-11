@@ -14,5 +14,6 @@ class Usuario{
     public $uniqueUrl;
     public $saldo;
     public $emailFacebook;
+    public $emailPaypal;
 }
 ?>

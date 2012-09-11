@@ -10,6 +10,7 @@ require_once('layout/headers/headSocialMedia.php');
         <div id="perfil_header_image" class="left">
             <img src="<?php echo $usuarioPerfil->avatar; ?>" ><br>
             <?php
+            
             if ($miPerfil) {
                 echo '<a href="/usuarios/usuario/cambiarImagen">Cambiar imagen</a>';
             }
@@ -59,6 +60,9 @@ require_once('layout/headers/headSocialMedia.php');
                     </a>
                     <a href="/usuarios/usuario/cambiarCorreo" >
                         <div class="blueButton" style="width:250px;">Cambiar mi correo electrónico</div>
+                    </a>
+                    <a href="/usuarios/usuario/cambiarCorreoPaypal" >
+                        <div class="blueButton" style="width:250px;">Cambiar mi correo asociado con Paypal</div>
                     </a>
                     <a href="/usuarios/usuario/cambiarPassword">
                         <div class="blueButton" style="width:250px;">Cambiar mi contraseña</div>

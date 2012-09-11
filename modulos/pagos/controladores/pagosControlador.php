@@ -72,7 +72,7 @@ function getFormaRecargarSaldo() {
                 echo '</div>';
             } else {
                 //No es una cantidad valida
-                echo 'no es una cantidad válida';
+                echo '<div class="center" style="text-align:center"><h3 class="error">No es una cantidad válida</h3><br><h4>La cantidad mínima para recargar es de $50.00</h4></div>';
             }
         } else {
             echo 'no hay usuario loggeado';

@@ -64,7 +64,7 @@ function getSolicitudesSaldoNoEntregado() {
     global $conex;
     $stmt = $conex->query("SELECT s.idSolicitudSaldo, s.cantidad, s.entregado, 
                         s.fechaEntrega, s.fechaSolicitud, s.idUsuario,
-                        u.email, u.nombreUsuario, u.uniqueUrl
+                        u.emailPaypal, u.nombreUsuario, u.uniqueUrl
                         FROM solicitudSaldo s, usuario u
                         WHERE s.idUsuario = u.idUsuario
                         AND entregado = 0");
@@ -79,14 +79,48 @@ function getSolicitudesSaldoNoEntregado() {
         $solicitudSaldo->fechaEntrega = $row['fechaEntrega'];
         $solicitudSaldo->fechaSolicitud = $row['fechaSolicitud'];
         $solicitudSaldo->idUsuario = $row['idUsuario'];
-        $solicitudSaldo->email = $row['email'];
+        $solicitudSaldo->emailPaypal = $row['emailPaypal'];
         $solicitudSaldo->nombreUsuario = $row['nombreUsuario'];
         $solicitudSaldo->uniqueUrl = $row['uniqueUrl'];
         $solicitudSaldos[$i] = $solicitudSaldo;
         $i++;
     }
-    
+
     return $solicitudSaldos;
 }
 
+function getSolicitudesSaldo($arrayIdSolicitudes) {
+    require_once 'bd/conex.php';
+    global $conex;
+    $stmt = $conex->prepare("SELECT s.idSolicitudSaldo, s.cantidad, s.entregado, 
+                        s.fechaEntrega, s.fechaSolicitud, s.idUsuario,
+                        u.emailPaypal, u.nombreUsuario, u.uniqueUrl
+                        FROM solicitudSaldo s, usuario u
+                        WHERE s.idUsuario = u.idUsuario
+                        AND s.idSolicitudSaldo = :idSolicitudSaldo
+                        AND entregado = 0");
+    $solicitudSaldos = array();
+    $i = 0;
+    foreach ($arrayIdSolicitudes as $id) {
+        $stmt->bindParam(':idSolicitudSaldo', $id);
+        $stmt->execute();
+        $solicitudSaldo = NULL;
+        if ($stmt->rowCount() == 1) {
+            $row = $stmt->fetch();
+            $solicitudSaldo = new SolicitudSaldo();
+            $solicitudSaldo->idSolicitudSaldo = $row['idSolicitudSaldo'];
+            $solicitudSaldo->cantidad = $row['cantidad'];
+            $solicitudSaldo->entregado = $row['entregado'];
+            $solicitudSaldo->fechaEntrega = $row['fechaEntrega'];
+            $solicitudSaldo->fechaSolicitud = $row['fechaSolicitud'];
+            $solicitudSaldo->idUsuario = $row['idUsuario'];
+            $solicitudSaldo->emailPaypal = $row['emailPaypal'];
+            $solicitudSaldo->nombreUsuario = $row['nombreUsuario'];
+            $solicitudSaldo->uniqueUrl = $row['uniqueUrl'];
+        }
+        $solicitudSaldos[$i] = $solicitudSaldo;
+        $i++;
+    }
+    return $solicitudSaldos;
+}
 ?>

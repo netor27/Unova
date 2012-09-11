@@ -19,8 +19,8 @@ function analizarIpnMensaje($ipnMensaje) {
             break;
         case 'masspay':
             //Si es este tipo, significa que se ralizó un pago a un usuario
-            //hay que disminuir su saldo
-
+            
+            
             break;
         //cualquier otro tipo de mensajes, no los tomamos en cuenta, esos se
         //verificarán manualmente

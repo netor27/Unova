@@ -46,7 +46,7 @@
     margin-top: 25px;
     width: 100%;
 }  
-#customForm div span{      
+#customForm div span.infoLabel{      
     color:#974e24;
     font-size:13px;
     font-style: italic;  

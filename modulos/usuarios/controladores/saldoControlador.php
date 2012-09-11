@@ -9,7 +9,6 @@ function principal() {
 //        if (isset($operaciones)) {
 //            $operaciones = array_reverse($operaciones);
 //        }
-
         require_once 'modulos/usuarios/vistas/saldoUsuario.php';
     }
 }
@@ -53,11 +52,11 @@ function getOperacionesAnteriores() {
     }
 }
 
-function recargar() {
-    if (validarUsuarioLoggeado()) {
-        require_once 'modulos/pagos/vistas/recargarSaldo.php';
-    }
-}
+//function recargar() {
+//    if (validarUsuarioLoggeado()) {
+//        require_once 'modulos/pagos/vistas/recargarSaldo.php';
+//    }
+//}
 
 function abonarSaldos() {
 
@@ -121,51 +120,56 @@ function retirarSaldoSubmit() {
         $cantidad = floatval($cantidad);
         $huboError = false;
         $usuario = getUsuarioActual();
-        if ($cantidad > 0 && $cantidad <= $usuario->saldo) {
-            require_once 'modulos/pagos/modelos/solicitudSaldoModelo.php';
-            require_once 'modulos/usuarios/modelos/usuarioModelo.php';
-            require_once 'modulos/pagos/modelos/operacionModelo.php';
-            require_once 'funcionesPHP/CargarInformacionSession.php';
-            require_once 'bd/conex.php';
-            beginTransaction();
+        if (isset($usuario->emailPaypal) && strlen($usuario->emailPaypal) > 0) {
+            if ($cantidad >= 50 && $cantidad <= $usuario->saldo) {
+                require_once 'modulos/pagos/modelos/solicitudSaldoModelo.php';
+                require_once 'modulos/usuarios/modelos/usuarioModelo.php';
+                require_once 'modulos/pagos/modelos/operacionModelo.php';
+                require_once 'funcionesPHP/CargarInformacionSession.php';
+                require_once 'bd/conex.php';
+                beginTransaction();
 
-            if (actualizaSaldoUsuario($usuario->idUsuario, -$cantidad)) {
-                //Se actualizó correctamente el saldo, entonces generamos una operación
-                $operacion = new Operacion();
-                $operacion->idUsuario = $usuario->idUsuario;
-                $operacion->cantidad = $cantidad;
-                $operacion->idTipoOperacion = 4;
-                $operacion->completada = 1;
-                $operacion->detalle = "Retiro de saldo";
-                $operacion->idOperacion = altaOperacion($operacion);
-                if ($operacion->idOperacion >= 0) {
-                    //se dio de alta correctamente la operacion, generamos la solicitud
-                    $solicitudSaldo = new SolicitudSaldo();
-                    $solicitudSaldo->idUsuario = $usuario->idUsuario;
-                    $solicitudSaldo->cantidad = $cantidad;
-                    $solicitudSaldo->entregado = 0;
-                    if (altaSolicitudSaldo($solicitudSaldo)) {
-                        commitTransaction();
-                        setSessionMessage("<h4 class='success'>Tu solicitud de retirar saldo fue enviada correctamente</h4>");
-                        cargarUsuarioSession();
+                if (actualizaSaldoUsuario($usuario->idUsuario, -$cantidad)) {
+                    //Se actualizó correctamente el saldo, entonces generamos una operación
+                    $operacion = new Operacion();
+                    $operacion->idUsuario = $usuario->idUsuario;
+                    $operacion->cantidad = $cantidad;
+                    $operacion->idTipoOperacion = 4;
+                    $operacion->completada = 1;
+                    $operacion->detalle = "Retiro de saldo";
+                    $operacion->idOperacion = altaOperacion($operacion);
+                    if ($operacion->idOperacion >= 0) {
+                        //se dio de alta correctamente la operacion, generamos la solicitud
+                        $solicitudSaldo = new SolicitudSaldo();
+                        $solicitudSaldo->idUsuario = $usuario->idUsuario;
+                        $solicitudSaldo->cantidad = $cantidad;
+                        $solicitudSaldo->entregado = 0;
+                        if (altaSolicitudSaldo($solicitudSaldo)) {
+                            commitTransaction();
+                            setSessionMessage("<h4 class='success'>Tu solicitud de retirar saldo fue enviada correctamente</h4>");
+                            cargarUsuarioSession();
+                        } else {
+                            $huboError = true;
+                        }
                     } else {
                         $huboError = true;
                     }
                 } else {
                     $huboError = true;
                 }
+                if ($huboError) {
+                    rollBackTransaction();
+                    setSessionMessage("<h4 class='error'>Ocurrió un error al realizar tu solicitud. Intenta de nuevo más tarde</h4>");
+                }
             } else {
-                $huboError = true;
+                //no es una cantidad válida
+                setSessionMessage("<h4 class='error'>La cantidad que se quiere retirar no es válida</h4>");
             }
-            if ($huboError) {
-                rollBackTransaction();
-                setSessionMessage("<h4 class='error'>Ocurrió un error al realizar tu solicitud. Intenta de nuevo más tarde</h4>");
-            }
-        } else {
-            //no es una cantidad válida
-            setSessionMessage("<h4 class='error'>La cantidad no es válida</h4>");
+            redirect("/usuarios/saldo");
+        } else {            
+            setSessionMessage("<h4 class='error'>Debes establecer tu correo electrónico asociado a Paypal para poder retirar tu saldo</h4>");
+            redirect("/usuarios/usuario/cambiarCorreoPaypal");
         }
-        redirect("/usuarios/saldo");
     } else {
         goToIndex();
     }

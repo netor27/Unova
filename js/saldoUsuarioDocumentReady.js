@@ -21,7 +21,7 @@ $(function() {
     $("#botonRecargar").click(function () {
         var cantidad = $("#cantidadRecargar").val();
         cantidad = parseFloat(cantidad);
-        if(!isNaN(cantidad)){
+        if(!isNaN(cantidad) && cantidad >= 50){
             var url = '/pagos.php?a=getFormaRecargarSaldo&cnt=' + cantidad + '&des=Recarga+de+saldo';
             $.ajax({
                 type: 'get',
@@ -37,8 +37,13 @@ $(function() {
                 }
             }); 
         }else{
-            //valor de cantidad no númerico
-            alert("el valor a recargar no es un numero");
+            $( "#modalDialog" ).attr("title", "Recargar saldo");
+            $("#modalDialog").html("<div class='center' style='text-align:center;'><h3 class='error'>No es una cantidad válida</h3><h4>La cantidad mínima para recargar es de $50.00</h4></div>");
+            $("#modalDialog").dialog({
+                height: 450,
+                width: 800,
+                modal: true
+            });
         }
     });  
     
@@ -55,8 +60,8 @@ $(function() {
     
     $( "#slider-range-min" ).slider({
         range: "min",
-        value: 10,
-        min: 10,
+        value: 50,
+        min: 50,
         max: $maxSaldo,
         slide: function( event, ui ) {
             $( "#cantidad" ).val( "$" + ui.value );

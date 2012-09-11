@@ -6,7 +6,8 @@ $(document).ready(function() {
     })
     .tablesorterPager({
         container: $("#pagerOne"), 
-        positionFixed: false
+        positionFixed: false,
+        size: 20
     })
     .tablesorterFilter({
         filterContainer: $("#filterBoxOne"),
@@ -19,3 +20,21 @@ $(document).ready(function() {
         $("#tableOne tfoot .first").click();
     });                
 });   
+
+function validarTotal(){
+    var total = 0;
+    $(".solicitud_checkbox:checked").each(function(){
+        var $id = $(this).attr("id");
+        var $aux = $("#cantidad_"+$id).text();
+        $aux = $aux.replace("$","");
+        total = total + parseFloat($aux);
+    });
+    
+    if(total <= 0){
+        alert("Selecciona alguna solicitud de pago");
+        return false;
+    }else{
+        var $msg = "Vas a generar un archivo de pago, \ncon un total de $"+total+"\n¿Estas seguro?";
+        return confirm($msg);
+    }
+}

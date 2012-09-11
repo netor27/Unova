@@ -46,8 +46,10 @@ if (strcmp($res, "VERIFIED") == 0) {
     require_once('modulos/pagos/modelos/ipnModelo.php');
 
     $ipnMensaje = new IpnMensaje();
-    $ipnMensaje->complete_post = $req;
+    $ipnMensaje->complete_post = $req;    
     //Guardamos los datos que recibimos de paypal en un objeto
+    
+    //variables para pago en linea
     if (isset($_POST['txn_type']))
         $ipnMensaje->txn_type = $_POST['txn_type'];
     if (isset($_POST['txn_id']))
@@ -81,6 +83,21 @@ if (strcmp($res, "VERIFIED") == 0) {
     if (isset($_POST['custom']))
         $ipnMensaje->custom = $_POST['custom'];
 
+    //variables para masspayment
+    $n = 1;
+    $aux = array();
+    while(isset($_POST['masspay_txn_id_'.$n])){
+        $aux['masspay_txn_id'] = $_POST['masspay_txn_id_'.$n];
+        $aux['mc_currency'] = $_POST['mc_currency_'.$n];
+        $aux['mc_fee'] = $_POST['mc_fee_'.$n];
+        $aux['mc_gross'] = $_POST['mc_gross_'.$n];
+        $aux['receiver_email'] = $_POST['receiver_email_'.$n];
+        $aux['status'] = $_POST['status_'.$n];
+        $aux['unique_id'] = $_POST['unique_id_'.$n];        
+        $iphMensaje->$masspayArray[$n] = $aux;
+        $n++;
+    }
+    
     $mensaje = "";
     //validamos que no hayamos recibido antes este mensaje, ya que paypal puede enviarlos dobles
     if (txnRecibido($ipnMensaje->txn_id)) {
@@ -101,7 +118,7 @@ if (strcmp($res, "VERIFIED") == 0) {
             }
         }
     }
-    $subject = "IPN Paypal Valido";
+    $subject = "IPN Paypal " . $ipnMensaje->txn_type;
     $emailtext = $mensaje . "<br><br><br>" . $ipnMensaje->toString();
 } else if (strcmp($res, "INVALID") == 0) {
     // El mensaje que llego no es válido, INVESTIGAR

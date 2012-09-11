@@ -11,7 +11,7 @@ class SolicitudSaldo{
     //no son parte de la bd
     public $nombreUsuario;
     public $uniqueUrl;
-    public $email;
+    public $emailPaypal;
     
 }
 ?>

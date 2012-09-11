@@ -7,7 +7,7 @@ require_once('layout/headers/headCierre.php');
 <div class="contenido">
 
     <div class="left centerText" style="width: 100%;">
-        <h1 >Cambiar correo electrónico</h1>
+        <h1 >Correo electrónico asociado a tu cuenta Paypal</h1>
         
         <?php
         if (isset($error) && $error != "") {
@@ -19,10 +19,10 @@ require_once('layout/headers/headCierre.php');
             ?>
             <div id="formDiv" style="width: 550px; margin: 0 auto;">                
 
-                <form method="post" id="customForm" action="/usuarios/usuario/cambiarCorreoSubmit">  
+                <form method="post" id="customForm" action="/usuarios/usuario/cambiarCorreoPaypalSubmit">  
                    <div class="divInput">  
-                        <label for="email">Correo electrónico</label>  
-                        <input id="email" name="email" type="text" />  
+                        <label for="email">Correo electrónico asociado con Paypal</label>  
+                        <input id="email" name="email" type="text" value="<?php echo $correoPaypal; ?>"/>  
                         <span id="emailInfo" class="infoLabel">Introduce tu correo</span>  
                     </div>  
                     

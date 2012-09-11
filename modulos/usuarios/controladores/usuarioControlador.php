@@ -241,7 +241,7 @@ function cambiarCorreo() {
 
 function cambiarCorreoSubmit() {
     if (validarUsuarioLoggeadoParaSubmits()) {
-        if (isset($_POST['email'])) {
+        if (isset($_POST['email']) && comprobar_email($_POST['email'])) {
             $usuario = getUsuarioActual();
             require_once 'modulos/usuarios/modelos/usuarioModelo.php';
             $usuario->email = $_POST['email'];
@@ -288,5 +288,37 @@ function enviarCorreoConfirmacion() {
         goToIndex();
     }
 }
+
+function cambiarCorreoPaypal(){
+    if (validarUsuarioLoggeado()) {
+        require_once 'modulos/usuarios/modelos/usuarioModelo.php';
+        $usuario = getUsuarioActual();
+        $correoPaypal = getEmailPaypal($usuario->idUsuario);
+        require_once 'modulos/usuarios/vistas/cambiarCorreoPaypal.php';
+    } 
+}
+
+function cambiarCorreoPaypalSubmit() {
+    if (validarUsuarioLoggeadoParaSubmits()) {
+        if (isset($_POST['email'])  && comprobar_email($_POST['email'])) {
+            $usuario = getUsuarioActual();
+            require_once 'modulos/usuarios/modelos/usuarioModelo.php';
+            $usuario->emailPaypal = $_POST['email'];
+            if (actualizarEmailPaypal($usuario)) {
+                setSessionMessage("<h4 class='success'>¡Actualizaste tu correo asociado con Paypal!</h4>");
+                redirect("/usuario/" . $usuario->uniqueUrl);
+            } else {
+                setSessionMessage("<h4 class='error'>Ocurrió un error al actualizar. Intenta de nuevo más tarde</h4>");
+                redirect("/usuario/" . $usuario->uniqueUrl);
+            }
+        } else {
+            $error = "Los datos no son válidos";
+            require_once 'modulos/usuarios/vistas/cambiarPassword.php';
+        }
+    } else {
+        goToIndex();
+    }
+}
+
 
 ?>
