@@ -90,23 +90,23 @@ require_once('layout/headers/headCierre.php');
                                 switch ($clase->idTipoClase) {
                                     case 0:
                                         echo '<li class="single-class type-video">';
-                                        echo '<a href="#" class="thumb">';
+                                        echo '<a class="thumb">';
                                         echo '<img src="/layout/imagenes/video.png">';
                                         echo '<div class="thumbText">' . $clase->duracion . '</div>';
                                         break;
                                     case 1:
                                         echo '<li class="single-class type-document">';
-                                        echo '<a href="#" class="thumb">';
+                                        echo '<a class="thumb">';
                                         echo '<img src="/layout/imagenes/document.png">';
                                         break;
                                     case 2:
                                         echo '<li class="single-class type-presentation">';
-                                        echo '<a href="#" class="thumb">';
+                                        echo '<a class="thumb">';
                                         echo '<img src="/layout/imagenes/presentation.png">';
                                         break;
                                     default:
                                         echo '<li class="single-class type-document">';
-                                        echo '<a href="#" class="thumb">';
+                                        echo '<a  class="thumb">';
                                         echo '<img src="/layout/imagenes/document.png">';
                                         break;
                                 }
@@ -116,9 +116,9 @@ require_once('layout/headers/headCierre.php');
                                 echo '<div class="details">';
                                 echo '<h4>Clase ' . $j . ':</h4>';
                                 if (strlen($clase->titulo) > 27)
-                                    echo '<a href="#">' . substr($clase->titulo, 0, 27) . '...</a>';
+                                    echo '<a >' . substr($clase->titulo, 0, 27) . '...</a>';
                                 else
-                                    echo '<a href="#">' . $clase->titulo . '</a>';
+                                    echo '<a >' . $clase->titulo . '</a>';
 
                                 echo '</div>';
                                 echo '</li>';

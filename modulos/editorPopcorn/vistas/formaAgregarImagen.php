@@ -1,13 +1,13 @@
 <div id="dialog-form-imagen" title="Agregar una imagen">
     <div id="imagenAccordion">
-        <h3><a href="#">Inserta la URL de la imagen</a></h3>
+        <h3><a >Inserta la URL de la imagen</a></h3>
         <div>
             <label>Link:</label>
             <input type="text" name="url" id="urlImagen" class="text ui-widget-content ui-corner-all" style="width:92%;"/>
 
         </div>
 
-        <h3><a href="#">Tiempo</a></h3>
+        <h3><a >Tiempo</a></h3>
         <div>
             <table>
                 <tr>
@@ -21,7 +21,7 @@
             </table>
             <div id="tiempoRangeSliderImagen"></div>
         </div>
-        <h3><a href="#">Color de fondo</a></h3>
+        <h3><a >Color de fondo</a></h3>
         <div>
             <div id="colorSelectorImagen" ></div>
             <input type="hidden" name="colorHidden" id="colorHiddenImagen"/>

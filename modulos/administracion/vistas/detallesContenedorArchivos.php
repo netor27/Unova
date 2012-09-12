@@ -24,11 +24,11 @@ require_once('layout/headers/headCierre.php');
                     </td>
                 </tr> 	
                 <tr>
-                    <th><a href='#' title="Click Header to Sort">Nombre</a></th>
-                    <th><a href='#' title="Click Header to Sort">Total de espacio</a></th>
-                    <th><a href='#' title="Click Header to Sort">Costo aprox<br> en dólares</a></th>
-                    <th><a href='#' title="Click Header to Sort">Fecha de modificación</a></th>
-                    <th><a href='#' title="Click Header to Sort">Tipo de contenido</a></th>
+                    <th><a  title="Click Header to Sort">Nombre</a></th>
+                    <th><a  title="Click Header to Sort">Total de espacio</a></th>
+                    <th><a  title="Click Header to Sort">Costo aprox<br> en dólares</a></th>
+                    <th><a  title="Click Header to Sort">Fecha de modificación</a></th>
+                    <th><a  title="Click Header to Sort">Tipo de contenido</a></th>
                 </tr>
             </thead>
             <tbody>

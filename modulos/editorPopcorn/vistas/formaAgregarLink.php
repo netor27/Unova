@@ -1,6 +1,6 @@
 <div id="dialog-form-link" title="Agregar un link">
     <div id="linkAccordion">
-        <h3><a href="#">Link</a></h3>
+        <h3><a >Link</a></h3>
         <div>
             <label>Texto: </label><br>
             <input type="text" name="url" id="textoLink" class="text ui-widget-content ui-corner-all"  style="width:97%;"/>
@@ -9,7 +9,7 @@
             <input type="text" name="url" id="urlLink" class="text ui-widget-content ui-corner-all"  style="width:97%;"/>
         </div>
 
-        <h3><a href="#">Tiempo</a></h3>
+        <h3><a >Tiempo</a></h3>
         <div>
             <table>
                 <tr>
@@ -23,7 +23,7 @@
             </table>
             <div id="tiempoRangeSliderLink"></div>
         </div>
-        <h3><a href="#">Color de fondo</a></h3>
+        <h3><a >Color de fondo</a></h3>
         <div>
             <div id="colorSelectorLink" ></div>
             <input type="hidden" name="colorHidden" id="colorHiddenLink"/>

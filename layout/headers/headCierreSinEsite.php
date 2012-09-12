@@ -25,8 +25,8 @@
             } else {
                 $usuarioHead = getUsuarioActual();
                 ?>
-                <a href="#" class="element right ease3" id="menuPerfilLink"><?php echo substr($usuarioHead->nombreUsuario, 0, 14); ?><img src="/layout/imagenes/down.png"></a>                
-                <a href="#" class="element right ease3" id="menuCursosLink">Mis cursos  <img src="/layout/imagenes/down.png"></a>                
+                <a  class="element right ease3" id="menuPerfilLink"><?php echo substr($usuarioHead->nombreUsuario, 0, 14); ?><img src="/layout/imagenes/down.png"></a>                
+                <a  class="element right ease3" id="menuCursosLink">Mis cursos  <img src="/layout/imagenes/down.png"></a>                
             <?php } ?>
             <a href="/cursos/curso/crearCurso" class="element right ease3">Crear un curso</a>
         </div>
@@ -44,7 +44,7 @@
                 </a>
                 <div id="perfil_links">
                     <a href="/usuario/<?php echo $usuarioHead->uniqueUrl; ?>"><span>Mi Perfil</span></a><br>
-                    <a href="#"><span>Cuenta</span></a><br>
+                    <a ><span>Cuenta</span></a><br>
                     <a href="/login/login/logout"><span>Cerrar Sesión</span></a><br>
                 </div>
 

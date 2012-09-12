@@ -1,13 +1,13 @@
 <div id="dialog-form-video" title="Agregar un video">
     <div id="videoAccordion">
-        <h3><a href="#">Inserta la URL del videon</a></h3>
+        <h3><a >Inserta la URL del videon</a></h3>
         <div>
             <label>Link:</label>
             <input type="text" name="url" id="urlVideo" class="text ui-widget-content ui-corner-all"  style="width:92%;"/>
 
         </div>
 
-        <h3><a href="#">Tiempo</a></h3>
+        <h3><a >Tiempo</a></h3>
         <div>
             <table>
                 <tr>
@@ -21,7 +21,7 @@
             </table>
             <div id="tiempoRangeSliderVideo"></div>
         </div>
-        <h3><a href="#">Color de fondo</a></h3>
+        <h3><a >Color de fondo</a></h3>
         <div>
             <div id="colorSelectorVideo" ></div>
             <input type="hidden" name="colorHidden" id="colorHiddenVideo"/>

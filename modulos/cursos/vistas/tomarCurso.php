@@ -248,9 +248,9 @@ require_once('layout/headers/headCierre.php');
                         <?php
                         for ($i = 1; $i <= 5; $i++) {
                             if ($ratingUsuario == $i)
-                                echo '<input value="' . $i . '" title="' . $i . '" type="radio" class="calificar" iu="' . $usuario->idUsuario . '" ic="' . $curso->idCurso . '" checked="checked"/>';
+                                echo '<input value="' . $i . '" title="' . $i . '" type="radio" class="calificar" checked="checked"/>';
                             else
-                                echo '<input value="' . $i . '" title="' . $i . '" type="radio" class="calificar" iu="' . $usuario->idUsuario . '" ic="' . $curso->idCurso . '" />';
+                                echo '<input value="' . $i . '" title="' . $i . '" type="radio" class="calificar" />';
                         }
                         ?>
                     </div>
@@ -289,8 +289,8 @@ require_once('layout/headers/headCierre.php');
                     ?>
                 </div>
             </div>
-
-
+            <input type="hidden" id="iu" name="iu" value="<?php echo $usuario->idUsuario; ?>">
+            <input type="hidden" id="ic" name="ic" value="<?php echo $curso->idCurso;?>">
         </div>
     </div>
 

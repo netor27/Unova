@@ -18,13 +18,13 @@ require_once('layout/headers/headCierre.php');
                     </td>
                 </tr> 	
                 <tr>
-                    <th><a href='#' title="Click Header to Sort">Título</a></th>
-                    <th><a href='#' title="Click Header to Sort">Fecha Creación</a></th>
-                    <th><a href='#' title="Click Header to Sort">Fecha Publicación</a></th>
-                    <th><a href='#' title="Click Header to Sort">Precio</a></th>
-                    <th><a href='#' title="Click Header to Sort">Rating</a></th>
-                    <th><a href='#' title="Click Header to Sort">Total Views</a></th>
-                    <th><a href='#' title="Click Header to Sort">Total Reportes</a></th>
+                    <th><a  title="Click Header to Sort">Título</a></th>
+                    <th><a  title="Click Header to Sort">Fecha Creación</a></th>
+                    <th><a  title="Click Header to Sort">Fecha Publicación</a></th>
+                    <th><a  title="Click Header to Sort">Precio</a></th>
+                    <th><a  title="Click Header to Sort">Rating</a></th>
+                    <th><a  title="Click Header to Sort">Total Views</a></th>
+                    <th><a  title="Click Header to Sort">Total Reportes</a></th>
                 </tr>
             </thead>
             <tbody>

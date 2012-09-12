@@ -7,8 +7,9 @@ $(function(){
     });
     
     $("#menuClasesLink").click(function(e){       
-        e.preventDefault();
-        $("#clases_menu").show();       
+        
+        $("#flechitaClases").toggle("swing");       
+        $("#clases_menu").toggle("swing");    
     });
     
     //Evento para evitar que se cierre al dar click dentro del menu
@@ -16,9 +17,10 @@ $(function(){
         return false;
     });
     //Evento en todo el body que cierra el menu si no 
-    $(document).mouseup(function(e){       
-        if($(e.target).parent("a.menuClasesLink").length == 0){
-            $("#clases_menu").hide();
+    $(document).mouseup(function(e){     
+        if($(e.target).attr("id") != "menuClasesLink"){
+            $("#flechitaClases").hide("swing");
+            $("#clases_menu").hide("swing");
         }        
     });
 });

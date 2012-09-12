@@ -97,7 +97,7 @@ require_once('layout/headers/headCierre.php');
                     echo '<h4 class="success" style="text-align: center;">Curso publicado</h4>';
                 } else {
                     ?>
-                    <a style="text-align:center;" href="#" onclick="publicarCurso('<?php echo $cursoParaModificar->idCurso ?>')"id="publicarCurso">
+                    <a style="text-align:center;"  onclick="publicarCurso('<?php echo $cursoParaModificar->idCurso ?>')"id="publicarCurso">
                         <div class="blueButton" >Publicar curso</div>
                     </a>
                     <?php

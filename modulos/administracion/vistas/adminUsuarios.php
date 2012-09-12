@@ -18,11 +18,11 @@ require_once('layout/headers/headCierre.php');
                     </td>
                 </tr> 	
                 <tr>
-                    <th><a href='#' title="Click Header to Sort">Nombre Usuario</a></th>
-                    <th><a href='#' title="Click Header to Sort">Email</a></th>
-                    <th><a href='#' title="Click Header to Sort">Fecha Registro</a></th>
-                    <th><a href='#' title="Click Header to Sort">Cursos de este usuario</a></th>
-                    <th><a href='#' title="Click Header to Sort">Cursos que toma</a></th>
+                    <th><a  title="Click Header to Sort">Nombre Usuario</a></th>
+                    <th><a  title="Click Header to Sort">Email</a></th>
+                    <th><a  title="Click Header to Sort">Fecha Registro</a></th>
+                    <th><a  title="Click Header to Sort">Cursos de este usuario</a></th>
+                    <th><a  title="Click Header to Sort">Cursos que toma</a></th>
                 </tr>
             </thead>
             <tbody>

@@ -19,10 +19,10 @@ require_once('layout/headers/headCierre.php');
                         </td>
                     </tr> 	
                     <tr>
-                        <th><a href='#' title="Click Header to Sort">Usuario</a></th>
-                        <th><a href='#' title="Click Header to Sort">Fecha de solicitud</a></th>
-                        <th><a href='#' title="Click Header to Sort">Email Paypal</a></th>
-                        <th><a href='#' title="Click Header to Sort">Cantidad por entregar</a></th>
+                        <th><a  title="Click Header to Sort">Usuario</a></th>
+                        <th><a  title="Click Header to Sort">Fecha de solicitud</a></th>
+                        <th><a  title="Click Header to Sort">Email Paypal</a></th>
+                        <th><a  title="Click Header to Sort">Cantidad por entregar</a></th>
                         <th></th>
                     </tr>
                 </thead>

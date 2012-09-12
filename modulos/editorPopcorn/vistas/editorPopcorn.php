@@ -88,9 +88,9 @@ if (isset($links))
         </div>
         <div id="e-bar" class="ui-corner-left">
             <div id="top-bar">
-                <a href="#" class="logo left" id="logo"> <img src="/layout/imagenes/Unova_Logo_135x47.png"></a>
+                <a  class="logo left" id="logo"> <img src="/layout/imagenes/Unova_Logo_135x47.png"></a>
                 <a href="/curso/<?php echo $curso->uniqueUrl; ?>" class="element right ease3">Salir</a>
-                <a href="#" onclick="guardar(<?php echo $usuario->idUsuario . ",'" . $usuario->uuid . "'," . $idCurso . "," . $idClase; ?>)" class="element right ease3">Guardar</a>
+                <a  onclick="guardar(<?php echo $usuario->idUsuario . ",'" . $usuario->uuid . "'," . $idCurso . "," . $idClase; ?>)" class="element right ease3">Guardar</a>
 
             </div>
         </div>
@@ -119,16 +119,16 @@ if (isset($links))
                     <img class="showHideToolboxButton" src="/layout/imagenes/AgregarMenos.png" style="display:none;">
                 </div>
                 <div id="toolbox" class="ui-state-highlight ui-corner-all" style="display:none;">                
-                    <a href="#" onClick="mostrarDialogoInsertarTexto()" title="Agregar texto" class="ui-corner-all">
+                    <a  onClick="mostrarDialogoInsertarTexto()" title="Agregar texto" class="ui-corner-all">
                         <img src="/layout/imagenes/agregarTexto.png">
                     </a><br>
-                    <a href="#"  onClick="mostrarDialogoInsertarImagen()" title="Agregar imagen" class="ui-corner-all">
+                    <a   onClick="mostrarDialogoInsertarImagen()" title="Agregar imagen" class="ui-corner-all">
                         <img src="/layout/imagenes/agregarImagen.png">
                     </a><br>
-                    <a href="#" onClick="mostrarDialogoInsertarVideo()" title="Agregar video" class="ui-corner-all">
+                    <a  onClick="mostrarDialogoInsertarVideo()" title="Agregar video" class="ui-corner-all">
                         <img src="/layout/imagenes/agregarVideo.png">
                     </a><br>
-                    <a href="#" onClick="mostrarDialogoInsertarLink()" title="Agregar página web" class="ui-corner-all">
+                    <a  onClick="mostrarDialogoInsertarLink()" title="Agregar página web" class="ui-corner-all">
                         <img src="/layout/imagenes/agregarPagina.png">
                     </a>
                 </div>
@@ -136,7 +136,7 @@ if (isset($links))
 
             <div id="footer">
                 <div id="ShowHideControles">
-                    <a  href="#" onclick="showHideControles()">
+                    <a   onclick="showHideControles()">
                         <div title="Mostrar controles" class="ui-state-default ui-corner-all littleBox toggleControles" style="display:none;">
                             >>
                         </div>
@@ -149,14 +149,14 @@ if (isset($links))
                 <div id="controlesContainer" class="ui-widget-header ui-corner-all">	
 
                     <div id="controles">
-                        <a href="#" onclick="playVideo()" title="Play"  >
+                        <a  onclick="playVideo()" title="Play"  >
                             <div class="ui-state-default ui-corner-all littleBox" >
                                 <span class="ui-icon ui-icon-play" style="float:left;margin: 0 4px;">
                                     Play
                                 </span>
                             </div>
                         </a>
-                        <a href="#" onclick="pauseVideo()" title="Pause">
+                        <a  onclick="pauseVideo()" title="Pause">
                             <div class="ui-state-default ui-corner-all littleBox">
                                 <span class="ui-icon ui-icon-pause" style="float:left;margin: 0 4px;">
                                     Pause

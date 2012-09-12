@@ -2,21 +2,35 @@
     padding-right: 40px;
 }
 
+#flechitaClases{
+    display: none; 
+    background-image: url(../imagenes/flechita.png);
+    background-repeat: no-repeat;
+    background-size: auto;
+    height: 11px;
+    position: relative;
+    top: 4px;
+    width: 20px;
+    left:90px;
+    z-index: 101;
+}
+
 #clases_menu {  
     display: none; 
+    max-height: 500px;
     text-align: left; 
-    position: absolute; 
-    left:120px; 
+    position: relative; 
+    right:55px;  
+    top:1px;
     background-color:white; 
-    color: black;
-    min-width:270px; 
+    color: black; 
+    min-width:300px; 
     z-index: 100; 
-    border-right-style: solid;
-    border-bottom-style: solid;
-    border-left-style: solid;
-    border-right-color: #333;
-    border-bottom-color: #333;
-    border-left-color: #333;
+    border: solid #333; 
+    -webkit-border-radius: 7px;
+    /* Sombra   */
+    -webkit-box-shadow:rgba(31, 31, 31, 0.816406) 0px 0px 15px 3px;
+    -moz-box-shadow:rgba(31, 31, 31, 0.816406) 0px;
     max-height: 600px;
     overflow-style: move;
     overflow-y:  auto;
@@ -35,6 +49,7 @@
     background-color: white;
     overflow: hidden;
     padding: 5px 5px 5px 5px;    
+    -webkit-border-radius: 7px;
 }
 .clasesMenuElementActual{
     background-color: rgb(190,199,97);   

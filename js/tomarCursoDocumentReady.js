@@ -15,11 +15,11 @@ $(function(){
     });
     
     $('.calificar').rating({
-        callback: function(value, link){
-            
-            var ic = $(this).attr('ic');
-            var iu = $(this).attr('iu');
-            ;
+        callback: function(value, link){        
+            if(value == undefined)
+                value = 0;
+            var ic = $("#ic").val();
+            var iu = $("#iu").val();
             var url = '/cursos.php?a=calificarCurso&ic=' + ic + '&iu=' + iu + '&rating=' + value;            
             $.ajax({
                 type: 'get',

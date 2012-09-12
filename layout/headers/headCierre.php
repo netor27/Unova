@@ -29,7 +29,7 @@
                 if (isset($usuarioHead)) {
                     ?>
                     <div class="element right ease3">
-                        <a  class="link" href="#"  id="menuPerfilLink">
+                        <a  class="link"   id="menuPerfilLink">
                             <?php echo substr($usuarioHead->nombreUsuario, 0, 14); ?>
                             <img src="/layout/imagenes/down.png">
                         </a>
@@ -45,7 +45,7 @@
                             </a>
                             <div id="perfil_links">
                                 <!--<a href="/usuarios/saldo">-->
-                                <a href="#">
+                                <a >
                                     <span>Cuenta</span>
                                     <br>
                                     <?php
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <div class="element right ease3">
-                        <a  class="link" href="#"  id="menuCursosLink">
+                        <a  class="link"   id="menuCursosLink">
                             Mis cursos  
                             <img src="/layout/imagenes/down.png">
                         </a>         
