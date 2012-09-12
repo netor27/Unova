@@ -59,36 +59,41 @@ h6{ margin:0;   padding:0px 0px  0px 0px;;  color:#30377a;  font-weight:100;    
 .ease3 {    -webkit-transition: all .3s ease;   -moz-transition: all .3s ease;  -o-transition: all .3s ease;    -ms-transition: all .3s ease;   transition: all .3s ease;   }
 
 /* Barra de navegación */
-#e_bar{ color: white;   
-        background: #333 url('images/headerbg.png') 50% 50% repeat-x;    
-        position: relative; 
-        width: 100%;
-        z-index: 10; 
-        overflow:hidden; 
-        /* Sombra   */
-        -webkit-box-shadow:rgba(31, 31, 31, 0.816406) 0px 0px 15px 3px;
-        -moz-box-shadow:rgba(31, 31, 31, 0.816406) 0px  
-
+#e_bar{ 
+    color: white;   
+    background: #333 url('images/headerbg.png') 50% 50% repeat-x;    
+    position: fixed; 
+    top:0px;
+    left:0px;
+    width: 100%;
+    z-index: 10; 
+    height: 50px;
+    /* Sombra   */
+    -webkit-box-shadow:rgba(31, 31, 31, 0.816406) 0px 0px 15px 3px;
+    -moz-box-shadow:rgba(31, 31, 31, 0.816406) 0px;
 }
 #top-bar{   margin: auto;   width: 960px;    color: #333;    }
 #top-bar .logo{ 
     width: 135px;   
 }
-#top-bar .element{  
+#top-bar .element{
+    width: 150px;
+}
+#top-bar .element .link{  
     line-height: 47px; 
     padding: 0 20px;    
     color: white;  
     font-size: 14px;   
     font-weight: normal;    
 }
-#top-bar .element:hover{   
+#top-bar .element .link:hover{   
     text-decoration: underline;
 }
 /* Top bar search box*/
 #top-bar #e_search-box-wrapper{ 
     float:left; 
     height: 37px;   
-    padding: 10px 0px 0px 125px; 
+    padding: 10px 0px 0px 80px; 
 
 }
 #e_search-box [type=text]{ 
@@ -123,17 +128,33 @@ h6{ margin:0;   padding:0px 0px  0px 0px;;  color:#30377a;  font-weight:100;    
     border:0px none;   
 }
 /* Drop down menu*/
-.dropdownContainer{ position:relative;  width:960px; margin: 0 auto; }
+.dropdownContainer{ position:relative;  width:960px; margin: 0 auto; overflow:hidden;}
+
+#flechitaPerfil{
+    background-image: url(../imagenes/flechita.png);
+    background-repeat: no-repeat;
+    background-size: auto;
+    height: 11px;
+    position: absolute;
+    top: -11px;
+    width: 20px;
+    left:100px;
+}
 #perfil_menu {  
     display: none; 
     text-align: left; 
-    position: absolute; 
-    right:0px;  
+    position: relative; 
+    right:55px;  
+    top:12px;
     background-color:white; 
     color: black; 
     min-width:200px; 
     z-index: 100; 
     border: solid #333; 
+    -webkit-border-radius: 7px;
+    /* Sombra   */
+    -webkit-box-shadow:rgba(31, 31, 31, 0.816406) 0px 0px 15px 3px;
+    -moz-box-shadow:rgba(31, 31, 31, 0.816406) 0px;
 }
 #perfil_menu a:hover{   text-decoration: underline;}
 
@@ -204,25 +225,32 @@ h6{ margin:0;   padding:0px 0px  0px 0px;;  color:#30377a;  font-weight:100;    
     padding-left: 10px;    
 }
 
-
+#flechitaCursos{
+    background-image: url(../imagenes/flechita.png);
+    background-repeat: no-repeat;
+    background-size: auto;
+    height: 11px;
+    position: absolute;
+    top: -11px;
+    width: 20px;
+    left: 120px;
+}
 #cursos_menu {  
+
     display: none; 
     text-align: left; 
-    position: absolute; 
+    position: relative; 
     right:70px; 
+    top:12px;
     background-color:white; 
     color: black;
     min-width:270px; 
     z-index: 100; 
-    border-right-style: solid;
-    border-bottom-style: solid;
-    border-left-style: solid;
-    border-right-color: #333;
-    border-bottom-color: #333;
-    border-left-color: #333;
-    border-right-width: initial;
-    border-bottom-width: initial;
-    border-left-width: initial;
+    border: solid #333; 
+    -webkit-border-radius: 7px;
+    /* Sombra   */
+    -webkit-box-shadow:rgba(31, 31, 31, 0.816406) 0px 0px 15px 3px;
+    -moz-box-shadow:rgba(31, 31, 31, 0.816406) 0px;
 }
 #cursos_menu a:hover{text-decoration: none;}
 
@@ -258,7 +286,7 @@ h6{ margin:0;   padding:0px 0px  0px 0px;;  color:#30377a;  font-weight:100;    
 }
 
 /* Body */
-#e_site{    position: relative; width: 960px;   margin: 0px auto 20px auto;   background: #E6E6DA;  z-index: 1; min-height: 500px; }
+#e_site{    position: relative; top:50px; width: 960px;   margin: 0 auto;   background: #E6E6DA;  z-index: 1; min-height: 500px; }
 .contenido{ 
     overflow: hidden;
     margin: 0px auto 20px;

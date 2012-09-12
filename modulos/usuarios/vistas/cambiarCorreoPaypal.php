@@ -8,7 +8,7 @@ require_once('layout/headers/headCierre.php');
 
     <div class="left centerText" style="width: 100%;">
         <h1 >Correo electrónico asociado a tu cuenta Paypal</h1>
-        
+        <h3>Para retirar tu saldo es necesario que nos proporciones tu correo electrónico</h3>
         <?php
         if (isset($error) && $error != "") {
             echo '<h5 class="error centerText">' . $error . '</h5>';

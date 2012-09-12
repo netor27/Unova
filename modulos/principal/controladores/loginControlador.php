@@ -2,10 +2,10 @@
 
 function principal() {
     require_once 'lib/php/facebook/loginFacebook.php';
-    
-    if ($user) {
+
+    if ($user || isset($_SESSION['usuario'])) {
         goToIndex();
-    }else{
+    } else {
         $pagina = "/";
         require_once 'modulos/principal/vistas/login.php';
     }
