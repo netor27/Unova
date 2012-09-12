@@ -52,12 +52,6 @@ function getOperacionesAnteriores() {
     }
 }
 
-//function recargar() {
-//    if (validarUsuarioLoggeado()) {
-//        require_once 'modulos/pagos/vistas/recargarSaldo.php';
-//    }
-//}
-
 function abonarSaldos() {
 
     $numUsuariosAbonados = 0;
@@ -143,7 +137,7 @@ function retirarSaldoSubmit() {
                         $solicitudSaldo = new SolicitudSaldo();
                         $solicitudSaldo->idUsuario = $usuario->idUsuario;
                         $solicitudSaldo->cantidad = $cantidad;
-                        $solicitudSaldo->entregado = 0;
+                        $solicitudSaldo->entregado = 0;//0=no entregado
                         if (altaSolicitudSaldo($solicitudSaldo)) {
                             commitTransaction();
                             setSessionMessage("<h4 class='success'>Tu solicitud de retirar saldo fue enviada correctamente</h4>");

@@ -1,4 +1,5 @@
 <?php
+
 //Url que se debe configurar en paypal
 // http://unova.co/receptorIpnPaypal.php
 
@@ -29,7 +30,7 @@ foreach ($_POST as $key => $value) {
 
 //Se hace un post a paypal y se le la respuesta
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url );
+curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -46,9 +47,8 @@ if (strcmp($res, "VERIFIED") == 0) {
     require_once('modulos/pagos/modelos/ipnModelo.php');
 
     $ipnMensaje = new IpnMensaje();
-    $ipnMensaje->complete_post = $req;    
+    $ipnMensaje->complete_post = $req;
     //Guardamos los datos que recibimos de paypal en un objeto
-    
     //variables para pago en linea
     if (isset($_POST['txn_type']))
         $ipnMensaje->txn_type = $_POST['txn_type'];
@@ -86,18 +86,18 @@ if (strcmp($res, "VERIFIED") == 0) {
     //variables para masspayment
     $n = 1;
     $aux = array();
-    while(isset($_POST['masspay_txn_id_'.$n])){
-        $aux['masspay_txn_id'] = $_POST['masspay_txn_id_'.$n];
-        $aux['mc_currency'] = $_POST['mc_currency_'.$n];
-        $aux['mc_fee'] = $_POST['mc_fee_'.$n];
-        $aux['mc_gross'] = $_POST['mc_gross_'.$n];
-        $aux['receiver_email'] = $_POST['receiver_email_'.$n];
-        $aux['status'] = $_POST['status_'.$n];
-        $aux['unique_id'] = $_POST['unique_id_'.$n];        
-        $iphMensaje->$masspayArray[$n] = $aux;
+    while (isset($_POST['masspay_txn_id_' . $n])) {
+        $aux['masspay_txn_id'] = $_POST['masspay_txn_id_' . $n];
+        $aux['mc_currency'] = $_POST['mc_currency_' . $n];
+        $aux['mc_fee'] = $_POST['mc_fee_' . $n];
+        $aux['mc_gross'] = $_POST['mc_gross_' . $n];
+        $aux['receiver_email'] = $_POST['receiver_email_' . $n];
+        $aux['status'] = $_POST['status_' . $n];
+        $aux['unique_id'] = $_POST['unique_id_' . $n];
+        $ipnMensaje->masspayArray[$n] = $aux;
         $n++;
     }
-    
+
     $mensaje = "";
     //validamos que no hayamos recibido antes este mensaje, ya que paypal puede enviarlos dobles
     if (txnRecibido($ipnMensaje->txn_id)) {
@@ -135,5 +135,5 @@ if (strcmp($res, "VERIFIED") == 0) {
 $emailtext = $emailtext . '<br><br>' . $msgExtra;
 
 require_once 'modulos/email/modelos/EmailModelo.php';
-sendMail($emailtext,$emailtext,$subject,$from,$email);
+sendMail($emailtext, $emailtext, $subject, $from, $email);
 ?>

@@ -19,7 +19,12 @@ function analizarIpnMensaje($ipnMensaje) {
             break;
         case 'masspay':
             //Si es este tipo, significa que se ralizó un pago a un usuario
-            
+            if($ipnMensaje->payment_status == "Completed" || $ipnMensaje->payment_status == "Processed"){
+                require_once 'modulos/pagos/controladores/pagosControlador.php';
+                return manejarMensajeMassPayment($ipnMensaje);
+            }else{
+                return "<br>La solicitud de mass payment no se realizo correctamente<br>For Mass Payments, this means that your funds were not sent and the Mass Payment was not initiated. This may have been caused by lack of funds<br>";
+            }
             
             break;
         //cualquier otro tipo de mensajes, no los tomamos en cuenta, esos se

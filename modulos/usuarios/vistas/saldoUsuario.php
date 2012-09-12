@@ -43,6 +43,23 @@ require_once('layout/headers/headCierre.php');
             </div>
         </div>
     </div>
+    <div id="modalDialogRecargarSaldo" title="Recargar saldo">
+        <div>
+            <h1 style="text-align:center;">Escoge tu tipo de pago</h1>
+            <h3>-Tarjeta de crédito, débito o cuenta de Paypal</h3>
+            <input class="rdbTipo" name="tipo" type="radio" value="paypal" checked="true">
+            <img src="/layout/imagenes/tipoPagos/tipoPagosPaypal.png"/>
+            <br><br>
+            <h3>-Pago en Oxxo, transferencia bancaria o depósito bancario</h3>
+            <input class="rdbTipo" name="tipo" type="radio" value="mercadopago">
+            <img src="/layout/imagenes/tipoPagos/medios_oxxo_mex.gif"/>
+            <img src="/layout/imagenes/tipoPagos/medios_off_mex_2.gif"/>
+            <br><br><br><br>
+            <div style="text-align: center">
+                <button id="btnAceptarTipoPago">Aceptar</button>
+            </div>
+        </div>
+    </div>
     <div id="modalDialogRetirarSaldo" title="Retirar saldo">
         <div>
             <form method="post" action="/usuarios/saldo/retirarSaldoSubmit">
@@ -103,10 +120,10 @@ require_once('layout/headers/headCierre.php');
                         $i++;
                     }
                     ?>
-                    
+
                 </tbody>
             </table>
-        <a style="padding-left: 5px;" id="mostrarMasOperaciones">Ver operaciones anteriores</a>
+            <a style="padding-left: 5px;" id="mostrarMasOperaciones">Ver operaciones anteriores</a>
             <?php
         } else {
             ?>

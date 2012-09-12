@@ -29,13 +29,15 @@ function bajaSolicitudSaldo($idSolicitud) {
     return $stmt->execute();
 }
 
-function setSolicitudSaldoEntregado($idSolicitud) {
+function actualizarSolicitudSaldo($solicitud){
     require_once 'bd/conex.php';
     global $conex;
     $stmt = $conex->prepare("UPDATE solicitudSaldo 
-                            SET fechaEntrega = NOW(), entregado = 1
+                            SET fechaEntrega = :fecha, entregado = :entregado, txn_id = :txn_id
                             WHERE idSolicitudSaldo = :idSolicitudSaldo");
-    $stmt->bindParam(':idSolicitudSaldo', $idSolicitud);
+    $stmt->bindParam(':idSolicitudSaldo', $solicitud->idSolicitud);
+    $stmt->bindParam(':entregado', $solicitud->entregado);
+    $stmt->bindParam(':txn_id', $solicitud->txn_id);
     return $stmt->execute();
 }
 

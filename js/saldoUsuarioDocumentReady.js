@@ -22,20 +22,7 @@ $(function() {
         var cantidad = $("#cantidadRecargar").val();
         cantidad = parseFloat(cantidad);
         if(!isNaN(cantidad) && cantidad >= 50){
-            var url = '/pagos.php?a=getFormaRecargarSaldo&cnt=' + cantidad + '&des=Recarga+de+saldo';
-            $.ajax({
-                type: 'get',
-                url: url, 
-                success: function(data) {
-                    $( "#modalDialog" ).attr("title", "Recargar saldo");
-                    $("#modalDialog").html(data);
-                    $("#modalDialog").dialog({
-                        height: 450,
-                        width: 800,
-                        modal: true
-                    });
-                }
-            }); 
+            $( "#modalDialogRecargarSaldo" ).dialog("open");
         }else{
             $( "#modalDialog" ).attr("title", "Recargar saldo");
             $("#modalDialog").html("<div class='center' style='text-align:center;'><h3 class='error'>No es una cantidad válida</h3><h4>La cantidad mínima para recargar es de $50.00</h4></div>");
@@ -46,6 +33,38 @@ $(function() {
             });
         }
     });  
+    
+    $("#btnAceptarTipoPago").click(function(){
+        var cantidad = $("#cantidadRecargar").val();
+        cantidad = parseFloat(cantidad);
+        var tipo = $('input[name=tipo]:checked').val();
+        if(!isNaN(cantidad) && cantidad >= 50){
+            var url = '/pagos.php?a=getFormaRecargarSaldo&cnt=' + cantidad + '&des=Recarga+de+saldo&tipo='+ tipo;
+            $.ajax({
+                type: 'get',
+                url: url, 
+                success: function(data) {
+                    $("#modalDialogRecargarSaldo").dialog("close");
+                    $( "#modalDialog" ).attr("title", "Recargar saldo");
+                    $("#modalDialog").html(data);
+                    $("#modalDialog").dialog({
+                        height: 450,
+                        width: 600,
+                        modal: true
+                    });
+                }
+            }); 
+        }else{
+            $("#modalDialogRecargarSaldo").html("<div class='center' style='text-align:center;'><h3 class='error'>No es una cantidad válida</h3><h4>La cantidad mínima para recargar es de $50.00</h4></div>");
+        }
+    });
+    
+    $( "#modalDialogRecargarSaldo" ).dialog({
+        height: 450,
+        width: 600,
+        modal: true,
+        autoOpen: false
+    });
     
     $( "#modalDialogRetirarSaldo" ).dialog({
         height: 450,

@@ -37,19 +37,20 @@ function generarArchivoCsv() {
     }
 }
 
-function solicitudPagada() {
-    if (validarUsuarioAdministrador()) {
-        $idSolicitud = $_GET['i'];
-        require_once 'modulos/pagos/modelos/solicitudSaldoModelo.php';
-        if (setSolicitudSaldoEntregado($idSolicitud)) {
-            setSessionMessage("<h4 class='success'>Se estableció como pagado correctamente</h4>");
-        } else {
-            setSessionMessage("<h4 class='error'>Ocurrió un error</h4>");
-        }
-        redirect("/administracion/saldos");
-    } else {
-        goToIndex();
-    }
-}
+//Se dejo de utilizar esta función ya que ahora se hace desde mensajes IPN de paypal
+//function solicitudPagada() {
+//    if (validarUsuarioAdministrador()) {
+//        $idSolicitud = $_GET['i'];
+//        require_once 'modulos/pagos/modelos/solicitudSaldoModelo.php';
+//        if (setSolicitudSaldoEntregado($idSolicitud)) {
+//            setSessionMessage("<h4 class='success'>Se estableció como pagado correctamente</h4>");
+//        } else {
+//            setSessionMessage("<h4 class='error'>Ocurrió un error</h4>");
+//        }
+//        redirect("/administracion/saldos");
+//    } else {
+//        goToIndex();
+//    }
+//}
 
 ?>
