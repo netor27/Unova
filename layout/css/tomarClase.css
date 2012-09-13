@@ -36,6 +36,9 @@
     overflow-y:  auto;
 
 }
+#clases_menu a{
+    z-index: 200;
+}
 #clases_menu a:hover{text-decoration: none;}
 
 .clasesMenuHeader{

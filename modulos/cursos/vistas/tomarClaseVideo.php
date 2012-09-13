@@ -45,6 +45,12 @@ if (isset($var['links'])) {
 }
 if (isset($var['videoData'])) {
     $videoData = $var['videoData'];
+}else{
+    $videoData = array();
+    $videoData['top'] = 0;
+    $videoData['left'] = 0;
+    $videoData['width'] = 100;
+    $videoData['height'] = 100;
 }
 ?>
     }

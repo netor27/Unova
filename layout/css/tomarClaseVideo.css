@@ -8,6 +8,10 @@
     float: left;
 }
 
+.videoClass{
+    z-index: 1;
+}
+
 #videoPrincipal{
     display:block;
     width: 100%;

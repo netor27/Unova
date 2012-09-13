@@ -211,4 +211,18 @@ function transformaMMSStoMinutes($tiempo) {
     return $minutes;
 }
 
+function guardarTipoLayout() {
+    //checamos si es tablet, movil o desktop
+    if (!isset($_SESSION['layout'])) {
+        require_once 'lib/php/Mobile_Detect/Mobile_Detect.php';
+        $detect = new Mobile_Detect();
+        $layout = ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'mobile') : 'desktop');
+        $_SESSION['layout'] = $layout;
+    }
+}
+
+function getTipoLayout(){
+    return $_SESSION['layout'];
+}
+
 ?>

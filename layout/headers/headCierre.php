@@ -1,7 +1,9 @@
 </head>
 
 <body>
-
+    <script>
+        var layout = "<?php echo getTipoLayout(); ?>";
+    </script>
     <div id="e_bar">
         <div id="top-bar">
             <a href="/" class="logo left" id="logo"> <img src="/layout/imagenes/Unova_Logo_135x47.png"></a>

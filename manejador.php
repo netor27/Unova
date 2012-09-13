@@ -7,6 +7,7 @@ require_once 'funcionesPHP/LogFile.php';
 
 session_start();
 
+guardarTipoLayout();
 //actualizamos la cantidad de saldo cada 3 requests
 if (isset($_SESSION['contador'])) {
     $n = $_SESSION['contador'];

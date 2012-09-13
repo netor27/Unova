@@ -2,27 +2,60 @@ var $popPrincipal;
 var $indice = 0;
 
 $(function(){
-    $(".videoClass").bind("contextmenu", function(e) {
-        e.preventDefault();
-    });
-    
-    $("#menuClasesLink").click(function(e){       
+    if(layout == "desktop"){
+        $(".videoClass").bind("contextmenu", function(e) {
+            e.preventDefault();
+        });
+        $("#menuClasesLink").click(function(e){   
+            $("#flechitaClases").toggle("swing");       
+            $("#clases_menu").toggle("swing");  
+        });
+        //Evento para evitar que se cierre al dar click dentro del menu
+        $("#clases_menu").mouseup(function(){
+            return false;
+        });
+        //Evento en todo el body que cierra el menu si no 
+        $(document).mouseup(function(e){     
+            if($(e.target).attr("id") != "menuClasesLink"){
+                $("#flechitaClases").hide("swing");
+                $("#clases_menu").hide("swing");            
+            }
+            return true;
+        });
+    }else {
+        //bind para dispositivos con pantalla tactil
+        $("#menuClasesLink").bind('touchstart', function(e) {
+            $("#flechitaClases").toggle("swing");       
+            $("#clases_menu").toggle("swing");  
+            $(".videoClass").toggle("swing");
+        });
+        //Evento para evitar que se cierre al dar click dentro del menu
+        $("#clases_menu").bind("touchend",function(){
+            return false;
+        });
         
-        $("#flechitaClases").toggle("swing");       
-        $("#clases_menu").toggle("swing");    
-    });
-    
-    //Evento para evitar que se cierre al dar click dentro del menu
-    $("#clases_menu").mouseup(function(){
-        return false;
-    });
-    //Evento en todo el body que cierra el menu si no 
-    $(document).mouseup(function(e){     
-        if($(e.target).attr("id") != "menuClasesLink"){
-            $("#flechitaClases").hide("swing");
-            $("#clases_menu").hide("swing");
-        }        
-    });
+        //Evento en todo el body que cierra el menu si no 
+        $(document).bind("touchend",function(e){     
+            if($(e.target).attr("id") != "menuPerfilLink" &&
+                $(e.target).attr("id") != "menuClasesLink" &&
+                $(e.target).attr("id") != "menuCursosLink" ){                
+                $(".videoClass").show("swing");
+            }
+            if($(e.target).attr("id") != "menuPerfilLink"){
+                $("#flechitaClases").hide("swing");
+                $("#clases_menu").hide("swing");    
+            }
+            return true;
+        });
+        
+        //cerramos el video cuando se da click al menu cursos y menu perfil
+        $("#menuPerfilLink").bind("touchstart",function(e){       
+            $(".videoClass").toggle("swing");
+        });   
+        $("#menuCursosLink").bind("touchstart",function(e){       
+            $(".videoClass").toggle("swing");
+        });
+    }
 });
 
 Popcorn( function() {
