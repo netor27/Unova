@@ -73,6 +73,9 @@ function salir() {
     if (isset($_SESSION['usuario'])) {
         $_SESSION['usuario'] = null;
         session_destroy();
+        //Si cerró sesión, matamos las cookies
+        setcookie("usrcookie", "logout", 1, '/');
+        setcookie("clvcookie", "logout", 1, '/');
         $log = true;
     }
     return $log;

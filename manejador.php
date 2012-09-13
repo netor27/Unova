@@ -7,6 +7,9 @@ require_once 'funcionesPHP/LogFile.php';
 
 session_start();
 
+//validamos que una sesión no este siendo usada por varias computadoras al mismo tiempo
+validarUniqueSession();
+
 guardarTipoLayout();
 //actualizamos la cantidad de saldo cada 3 requests
 if (isset($_SESSION['contador'])) {

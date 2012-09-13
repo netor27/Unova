@@ -38,7 +38,7 @@ function tipoUsuario() {
     }
 }
 
-function getUsuarioActual() {
+function validarUniqueSession() {
     if (isset($_SESSION['usuario'])) {
         require_once 'modulos/principal/modelos/loginModelo.php';
         $sessionId = session_id();
@@ -48,8 +48,28 @@ function getUsuarioActual() {
         } else {
             return NULL;
         }
+    }
+}
+
+function getUsuarioActual() {
+    if (isset($_SESSION['usuario'])) {
+        //hay un usuario en la sesioń, regresamos eso.
+        return $_SESSION['usuario'];
     } else {
-        return NULL;
+        //no hay usuario en session, verificamos si hay cookies guardadas
+        if (isset($_COOKIE['usrcookie']) && isset($_COOKIE['clvcookie'])) {
+            //hay cookies, tratamos de hacer login
+            require_once 'modulos/principal/modelos/loginModelo.php';
+            if (loginUsuario($_COOKIE['usrcookie'], $_COOKIE['clvcookie']) == 1) {
+                //hay buen login
+                return $_SESSION['usuario'];
+            } else {
+                //los datos guardados en las cookies no son correctos. Se borran
+                return NULL;
+            }
+        } else {
+            return NULL;
+        }
     }
 }
 
@@ -221,7 +241,7 @@ function guardarTipoLayout() {
     }
 }
 
-function getTipoLayout(){
+function getTipoLayout() {
     return $_SESSION['layout'];
 }
 

@@ -20,12 +20,19 @@ require_once('layout/headers/headCierre.php');
                     <p>
                         <label for="email">Correo electrónico</label>
                         <br>
-                        <input type="text" class="title" name="email">                            
+                        <input type="email" class="title" name="email">                            
                     </p>
                     <p>
                         <label for="password">Contraseña</label>
                         <br>
                         <input type="password" class="title" name="password">
+                    </p>
+                    <p>
+                        <label for="recuerdame">
+                            <input type="checkbox" name="recuerdame" value="1">
+                            Recordar mis datos en esta computadora
+                        </label>
+                        
                     </p>
                     <p >
                     <div style="margin: 0 auto; width: 61px">

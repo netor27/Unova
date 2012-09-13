@@ -2,7 +2,6 @@
 
 function cargarCursosSession() {
     $usuario = getUsuarioActual();
-
     require_once 'modulos/usuarios/modelos/UsuarioCursosModelo.php';
     //obtener los ultimos 5 cursos a los que se ha 
     //inscrito y guardarlos en la sesión para mostrarlos en el menú        

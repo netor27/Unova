@@ -27,6 +27,12 @@ function loginSubmit() {
             require_once 'lib/php/facebook/loginFacebook.php';
             require_once 'modulos/principal/vistas/login.php';
         } else {
+            if (isset($_POST['recuerdame']) && $_POST['recuerdame'] == 1) { //Guardamos la cookie para recordar
+                //tiempo que va a durar la cookie, alrededor de 30 días
+                $tiempo = 2592000;                
+                setcookie("usrcookie", $usuario, time() + $tiempo,'/');
+                setcookie("clvcookie", md5($password), time() + $tiempo,'/');                
+            }
             setSessionMessage("<h4 class='success'>¡Bienvenido " . getUsuarioActual()->nombreUsuario . "!</h4>");
             redirect($pagina);
         }
