@@ -51,6 +51,7 @@ if ($user) {
     require_once 'modulos/usuarios/modelos/usuarioModelo.php';
     //validamos si este usuario ya tiene su email registrado, sino creamos un usuario nuevo
     $usuario = getUsuarioFromEmail($email);
+    //si no es su mail principal, validamos si lo tiene guardado como mailFacebook
     if(!isset($usuario)){
         $usuario = getUsuarioFromFacebookEmail($email);
     }

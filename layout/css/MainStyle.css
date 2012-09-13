@@ -297,9 +297,11 @@ h6{ margin:0;   padding:0px 0px  0px 0px;;  color:#30377a;  font-weight:100;    
 
 
 /* Footer */
-#site-footer {  background: #F8F8F8;    color: #333;    margin: 0px;    margin-top: 20px;   min-height: 200px;
-                background: -webkit-gradient(linear,left top,left bottom,color-stop(0, #E6E6E6),color-stop(0.25, #F8F8F8));
-                background: -moz-linear-gradient(center top,#E6E6E6 0%,#F8F8F8 25%);
+#site-footer {  
+    background: #F8F8F8;    color: #333;    margin: 0px;    margin-top: 20px;   min-height: 200px;
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0, #E6E6E6),color-stop(0.25, #F8F8F8));
+    background: -moz-linear-gradient(center top,#E6E6E6 0%,#F8F8F8 25%);
+    margin: 70px 0px 0px 0px;
 }
 
 #site-footer .centerer{ width: 960px;   margin: auto;   }

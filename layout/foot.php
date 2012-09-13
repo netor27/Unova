@@ -1,5 +1,5 @@
 </div>
-<footer id="site-footer" style="margin: 0px">
+<footer id="site-footer" >
     <div class="centerer">
         <div>
             <ul>

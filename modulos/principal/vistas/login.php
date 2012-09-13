@@ -30,9 +30,20 @@ require_once('layout/headers/headCierre.php');
                     <p>
                         <label for="recuerdame">
                             <input type="checkbox" name="recuerdame" value="1">
-                            Recordar mis datos en esta computadora
+                            <?php
+                            switch (getTipoLayout()) {
+                                case 'desktop':
+                                    echo 'Recordar mis datos en esta computadora';
+                                    break;
+                                case 'tablet':
+                                case 'mobile':
+                                    echo 'Recordar mis datos en este dispositivo';
+                                    break;
+                            }
+                            
+                            ?>
                         </label>
-                        
+
                     </p>
                     <p >
                     <div style="margin: 0 auto; width: 61px">
