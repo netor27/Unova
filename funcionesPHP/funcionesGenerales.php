@@ -44,10 +44,21 @@ function validarUniqueSession() {
         $sessionId = session_id();
         $idUsuario = $_SESSION['usuario']->idUsuario;
         if (validateSessionIdUsuario($idUsuario, $sessionId)) {
-            return $_SESSION['usuario'];
+            return true;
         } else {
-            return NULL;
+            //No es una sesión válida, destruimos la sesión actual y las cookies
+            //el sessionId ya no es válido para este usuario, destruimos la session            
+            $_SESSION['usuario'] = null;
+            session_destroy();
+            setcookie("usrcookie", "logout", 1, '/');
+            setcookie("clvcookie", "logout", 1, '/');
+            global $msg;
+            $msg = "<h4 class='error'>Alguien utilizó tus datos para iniciar sesión. Te recomendamos iniciar sesión y cambiar tu contraseña </h4>";
+            return false;
         }
+    }else{
+        //no hay ningún usuario loggeado, entonces es una sesión válida
+        return true;
     }
 }
 

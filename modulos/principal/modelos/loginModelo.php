@@ -61,9 +61,6 @@ function validateSessionIdUsuario($idUsuario, $sessionId) {
         //el usuario y el sessionId son válidos regresar true
         return true;
     }else{
-        //el sessionId ya no es válido para este usuario, destruimos la session
-        setSessionMessage("<h4 class='error'>Alguien utilizó tus datos para iniciar sesión. Si esto es un error <a href='/usuarios/usuario/recuperarPassword'>recupera tu contraseña aquí</a></h4>");
-        $_SESSION['usuario'] = null;
         return false;
     }
 }

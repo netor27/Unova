@@ -8,38 +8,44 @@ require_once 'funcionesPHP/LogFile.php';
 session_start();
 
 //validamos que una sesión no este siendo usada por varias computadoras al mismo tiempo
-validarUniqueSession();
-
-guardarTipoLayout();
+if (validarUniqueSession()) {
+    guardarTipoLayout();
 //actualizamos la cantidad de saldo cada 3 requests
-if (isset($_SESSION['contador'])) {
-    $n = $_SESSION['contador'];
-    if ($n >= 3) {
-        require_once 'funcionesPHP/CargarInformacionSession.php';
-        cargarUsuarioSession();
-        $n = 0;
+    if (isset($_SESSION['contador'])) {
+        $n = $_SESSION['contador'];
+        if ($n >= 3) {
+            require_once 'funcionesPHP/CargarInformacionSession.php';
+            cargarUsuarioSession();
+            $n = 0;
+        }
+        $n++;
+        $_SESSION['contador'] = $n;
     }
-    $n++;
-    $_SESSION['contador'] = $n;
+
+
+    if (!empty($_GET['c']))
+        $controlador = $_GET['c'];
+    else
+        $controlador = $controladorPredefinido;
+
+    if (!empty($_GET['a']))
+        $accion = $_GET['a'];
+    else
+        $accion = $accionPredefinida;
+
+    if (!empty($_GET['m']))
+        $modulo = $_GET['m'];
+    else
+        $modulo = $moduloPredefinido;
+} else {
+    global $msg;
+    session_start();
+    setSessionMessage($msg);
+    //si no es una sesión válida mandarlo a index en cualquier caso
+    $modulo = "principal";
+    $controlador = "principal";
+    $accion = "principal";
 }
-
-global $msg;
-$msg = '';
-if (!empty($_GET['c']))
-    $controlador = $_GET['c'];
-else
-    $controlador = $controladorPredefinido;
-
-if (!empty($_GET['a']))
-    $accion = $_GET['a'];
-else
-    $accion = $accionPredefinida;
-
-if (!empty($_GET['m']))
-    $modulo = $_GET['m'];
-else
-    $modulo = $moduloPredefinido;
-
 
 
 //Ya tenemos el modulo, el controlador y la accion
