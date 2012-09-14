@@ -21,7 +21,7 @@ and (max-width : 1149px) {
 
     .SocialMediaContainer .facebook{
         float:left;
-        padding: 5px;        
+        padding: 5px;  
         height: 100%;
         border-left: 1px dotted #CCC;
         border-right: 1px dotted #CCC;      
@@ -30,21 +30,22 @@ and (max-width : 1149px) {
 
     .SocialMediaContainer .gplus{
         float:left;        
-        padding: 5px;      
+        padding: 5px;    
         height: 80px;
     }
 
     .SocialMediaContainer .linkedin{
         float:left;
         border-left: 1px dotted #CCC;
-        padding: 5px;      
+        padding: 5px; 
         height: 80px;
     }
 
     .SocialMediaContainer .stumbleupon{
         float:left;
         border-left: 1px dotted #CCC;
-        padding: 5px;      
+        padding: 5px;     
+        
         height: 80px;
     }
 }

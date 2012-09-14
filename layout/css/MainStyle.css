@@ -127,6 +127,23 @@ h6{ margin:0;   padding:0px 0px  0px 0px;;  color:#30377a;  font-weight:100;    
     padding:0px;   
     border:0px none;   
 }
+
+.flechaArriba{
+    display:block;
+    width: 13px;
+    height: 13px;
+    background: url('../imagenes/up.png') no-repeat;
+    margin-left: 6px;
+    margin-top: 17px;
+}
+.flechaAbajo{
+    display:block;
+    width: 13px;
+    height: 13px;
+    background: url('../imagenes/down.png') no-repeat; 
+    margin-left: 6px;
+    margin-top: 16px;
+}
 /* Drop down menu*/
 .dropdownContainer{ position:relative;  width:960px; margin: 0 auto; overflow:hidden;}
 

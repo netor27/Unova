@@ -1,5 +1,6 @@
 var $popPrincipal;
 var $indice = 0;
+var $videoVisible = true;
 
 $(function(){
     if(layout == "desktop"){
@@ -7,6 +8,14 @@ $(function(){
             e.preventDefault();
         });
         $("#menuClasesLink").click(function(e){   
+            //cambiamos la flecha
+            if($("#flechaClases").hasClass('flechaAbajo')){
+                $("#flechaClases").removeClass('flechaAbajo');
+                $("#flechaClases").addClass('flechaArriba');  
+            }else{
+                $("#flechaClases").removeClass('flechaArriba');
+                $("#flechaClases").addClass('flechaAbajo');
+            }
             $("#flechitaClases").toggle("swing");       
             $("#clases_menu").toggle("swing");  
         });
@@ -15,48 +24,28 @@ $(function(){
             return false;
         });
         //Evento en todo el body que cierra el menu si no 
-        $(document).mouseup(function(e){     
-            if($(e.target).attr("id") != "menuClasesLink"){
-                $("#flechitaClases").hide("swing");
-                $("#clases_menu").hide("swing");            
+        $(document).mouseup(function(e){    
+            var id = $(e.target).parents("div").attr("id");
+            if(id != "menuClasesLink"){
+                cerrarClasesMenu();     
             }
             return true;
         });
     }else {
         //bind para dispositivos con pantalla tactil
-        $("#menuClasesLink").bind('touchstart', function(e) {
-            $("#flechitaClases").toggle("swing");       
-            $("#clases_menu").toggle("swing");  
-            $(".videoClass").toggle("swing");
-        });
-        //Evento para evitar que se cierre al dar click dentro del menu
-        $("#clases_menu").bind("touchend",function(){
-            return false;
-        });
-        
-        //Evento en todo el body que cierra el menu si no 
-        $(document).bind("touchend",function(e){     
-            if($(e.target).attr("id") != "menuPerfilLink" &&
-                $(e.target).attr("id") != "menuClasesLink" &&
-                $(e.target).attr("id") != "menuCursosLink" ){                
-                $(".videoClass").show("swing");
-            }
-            if($(e.target).attr("id") != "menuPerfilLink"){
-                $("#flechitaClases").hide("swing");
-                $("#clases_menu").hide("swing");    
-            }
-            return true;
-        });
-        
-        //cerramos el video cuando se da click al menu cursos y menu perfil
-        $("#menuPerfilLink").bind("touchstart",function(e){       
-            $(".videoClass").toggle("swing");
-        });   
-        $("#menuCursosLink").bind("touchstart",function(e){       
-            $(".videoClass").toggle("swing");
-        });
+        //NO SIRVE NINGÚN LINK SI HAY UN VIDEO ABAJO
+        //SI EL VIDEO SE ESCONDE Y LUEGO SE MUESTRA YA NO
+        //FUNCIONA. POR ESO SE QUITO ESTA FUNCIONALIDAD
+        //
     }
 });
+
+function cerrarClasesMenu(){
+    $("#clases_menu").hide("swing");
+    $("#flechitaClases").hide("swing");       
+    $("#flechaClases").removeClass("flechaArriba");
+    $("#flechaClases").addClass("flechaAbajo");
+}
 
 Popcorn( function() {
     $popPrincipal = Popcorn('#videoPrincipal');

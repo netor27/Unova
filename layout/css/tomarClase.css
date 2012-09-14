@@ -9,7 +9,7 @@
     background-size: auto;
     height: 11px;
     position: relative;
-    top: 4px;
+    top: -16px;
     width: 20px;
     left:90px;
     z-index: 101;
@@ -21,7 +21,7 @@
     text-align: left; 
     position: relative; 
     right:55px;  
-    top:1px;
+    top:-18px;
     background-color:white; 
     color: black; 
     min-width:300px; 

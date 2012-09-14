@@ -52,7 +52,7 @@ require_once('layout/headers/headSocialMedia.php');
         <?php
         if ($miPerfil) {
             ?>
-            <div class="right">
+            <div class="right" style="text-align: right">
                 <div id="perfil_header_links" style="width:270px;">
                     <br><br>
                     <a  href="/usuarios/usuario/editarInformacion/<?php echo $usuarioPerfil->idUsuario; ?>">
@@ -74,9 +74,8 @@ require_once('layout/headers/headSocialMedia.php');
                     <?php } ?>
 
                 </div>
-            </div>
+            
         <?php } ?>
-        <div class="right">
             <?php
             require_once('layout/SocialMediaContainer.php');
             ?>

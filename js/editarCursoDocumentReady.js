@@ -143,19 +143,19 @@ $(function(){
     });
     
     
-    
-    $(".claseSortableContainer").children(".showOnHover").hide();
-       
-    $(".claseSortableContainer").hover(
-        function () {
-            $(this).css('cursor','move');
-            $(this).children(".showOnHover").show();
-        }, 
-        function () {
-            $(this).css('cursor','auto');
-            $(this).children(".showOnHover").hide();
-        }
-        );
+//    if(layout == "desktop"){
+//        $(".claseSortableContainer").children(".showOnHover").hide();
+//       
+//        $(".claseSortableContainer").hover(
+//            function () {
+//                $(this).css('cursor','move');
+//                $(this).children(".showOnHover").show();
+//            }, 
+//            function () {
+//                $(this).css('cursor','auto');
+//                $(this).children(".showOnHover").hide();
+//            });
+//    }
             
     function validate(formData, jqForm, options) { 
         for (var i=0; i < formData.length; i++) { 

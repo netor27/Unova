@@ -31,9 +31,13 @@
                 if (isset($usuarioHead)) {
                     ?>
                     <div class="element right ease3">
-                        <a  class="link"   id="menuPerfilLink">
-                            <?php echo substr($usuarioHead->nombreUsuario, 0, 14); ?>
-                            <img src="/layout/imagenes/down.png">
+                        <a  class="link" >
+                            <div id="menuPerfilLink">
+                                <span class="left">
+                                    <?php echo substr($usuarioHead->nombreUsuario, 0, 14); ?>
+                                </span>
+                                <div id="flechaPerfil" class="flechaAbajo left"></div>
+                            </div>
                         </a>
                         <div id="perfil_menu"> 
                             <div id="flechitaPerfil"></div>
@@ -65,9 +69,11 @@
                         </div>
                     </div>
                     <div class="element right ease3">
-                        <a  class="link"   id="menuCursosLink">
-                            Mis cursos  
-                            <img src="/layout/imagenes/down.png">
+                        <a  class="link" >
+                            <div id="menuCursosLink">
+                                <span class="left">Mis cursos</span>  
+                                <div id="flechaCursos" class="flechaAbajo left"></div>
+                            </div>
                         </a>         
                         <div id="cursos_menu">
                             <div id="flechitaCursos"></div>
