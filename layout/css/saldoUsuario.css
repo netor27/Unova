@@ -18,6 +18,7 @@
 }
 th{
     background:#fafafa;
+    background:linear-gradient(#fafafa,#e0e0e0);
     background:-moz-linear-gradient(#fafafa,#e0e0e0);
     background:-webkit-linear-gradient(#fafafa,#e0e0e0);
 }

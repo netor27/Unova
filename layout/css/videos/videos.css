@@ -42,7 +42,6 @@ header {
     top:5%;
     z-index: 250;
     background: white;
-    -moz-border-radius:4px;
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -93,7 +92,6 @@ header {
     /* 
     Esto le da los bordes redondeados
     */
-    -moz-border-radius:4px;
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;

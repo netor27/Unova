@@ -23,6 +23,7 @@ a.special-btn {
     text-align: center;
     text-shadow: 0 -1px rgba(0, 0, 0, .2);
     padding: 11px 0 14px;
+    transition: background-color .2s linear 0;
     -moz-transition: background-color .2s linear 0;
     -webkit-transition: background-color .2s linear 0;
 }

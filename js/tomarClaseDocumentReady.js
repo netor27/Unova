@@ -16,7 +16,7 @@ $(function(){
                 $("#flechaClases").removeClass('flechaArriba');
                 $("#flechaClases").addClass('flechaAbajo');
             }
-            $("#flechitaClases").toggle("swing");       
+            $("#flechitaClases").toggle();       
             $("#clases_menu").toggle("swing");  
         });
         //Evento para evitar que se cierre al dar click dentro del menu

@@ -34,6 +34,7 @@ div{
     right:0%;
     z-index: 10;
     overflow: hidden;
+    box-shadow: rgba(31, 31, 31, 0.816406) 0px 0px 15px 3px;
     -webkit-box-shadow: rgba(31, 31, 31, 0.816406) 0px 0px 15px 3px;
     -moz-box-shadow: rgba(31, 31, 31, 0.816406) 0px;
 }
