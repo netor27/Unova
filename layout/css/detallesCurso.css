@@ -41,7 +41,6 @@
     font-weight: 400;
     font-stretch: normal;
     line-height: 1;
-    font-family: sans-serif;
     color: rgba(27,78,102,1);
     text-shadow:rgb(143, 143, 143) 0px 2px 3px;
 }
@@ -208,7 +207,6 @@
     background: url("images/noise.png"), -ms-linear-gradient(white, rgba(255, 255, 255, 0)), #D9E4E8;
     background: url("images/noise.png"), linear-gradient(white, rgba(255, 255, 255, 0)), #D9E4E8;
     font-weight: normal;
-    font-family: 'Istok Web',sans-serif;
     color: #555;
     font-size: 16px;
     height: 40px;

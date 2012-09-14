@@ -2,7 +2,7 @@
 li{list-style:none;}
 html{ height: 100%;}
 body{   
-    font-family: sans-serif, arial, verdana;    
+    font-family: "Trebuchet MS", Helvetica, sans-serif !important;
     font-size: 12px;  
     background-color: #E6E6DA; 
     margin:0px; 
@@ -274,7 +274,6 @@ h6{ margin:0;   padding:0px 0px  0px 0px;;  color:#30377a;  font-weight:100;    
 .cursosMenuHeader{
     background: #233E6A url('images/headerbg.png') repeat-x; 
     padding: 10px 5px 10px 5px;    
-    font-family: Arial,Helvetica,sans-serif;
     font-size: 12px;
     color: #ffffff;
 }

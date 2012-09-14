@@ -10,7 +10,7 @@ define("HEADER", '<html>
         <table cellpadding="0" cellspacing="0" width="98%">
         <tbody><tr>
             <td width="100%" align="center">
-                <table width="700" cellpadding="0" cellspacing="0" bgcolor="#f1f1ee" style="font-family:arial;font-size:14px;line-height:150%">
+                <table width="700" cellpadding="0" cellspacing="0" bgcolor="#f1f1ee" style="font-family: \'Trebuchet MS\', Helvetica, sans-serif !important;font-size:14px;line-height:150%">
                     <colgroup>
                         <col width="30">
                         <col width="640">
