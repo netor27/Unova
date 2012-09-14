@@ -50,6 +50,8 @@ function validarUniqueSession() {
             //el sessionId ya no es válido para este usuario, destruimos la session            
             $_SESSION['usuario'] = null;
             session_destroy();
+            unset($_COOKIE['usrcookie']);
+            unset($_COOKIE['clvcookie']);            
             setcookie("usrcookie", "logout", 1, '/');
             setcookie("clvcookie", "logout", 1, '/');
             global $msg;

@@ -60,7 +60,7 @@ function validateSessionIdUsuario($idUsuario, $sessionId) {
     if ($stmt->rowCount() == 1) {
         //el usuario y el sessionId son válidos regresar true
         return true;
-    }else{
+    } else {
         return false;
     }
 }
@@ -71,6 +71,8 @@ function salir() {
         $_SESSION['usuario'] = null;
         session_destroy();
         //Si cerró sesión, matamos las cookies
+        unset($_COOKIE['usrcookie']);
+        unset($_COOKIE['clvcookie']);
         setcookie("usrcookie", "logout", 1, '/');
         setcookie("clvcookie", "logout", 1, '/');
         $log = true;
