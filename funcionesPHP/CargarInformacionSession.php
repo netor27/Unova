@@ -34,6 +34,7 @@ function cargarUsuarioSession() {
             $usuario->tipoUsuario = $usuarioSess->tipoUsuario;
             $usuario->uuid = $usuarioSess->uuid;
             $usuario->uniqueUrl = $usuarioSess->uniqueUrl;
+            $usuario->saldo = $usuarioSess->saldo;
 
             $_SESSION['usuario'] = $usuarioSess;
         }
