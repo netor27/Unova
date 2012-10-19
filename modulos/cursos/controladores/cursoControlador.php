@@ -623,7 +623,7 @@ function inscribirUsuario() {
                                 }
                             } catch (Exception $e) {
                                 $huboError = true;
-                                setSessionMessage("<h4 class='error'>Ocurrió un error al inscribirte al curso. Excepción ".$e->getMessage().".</h4>");
+                                setSessionMessage("<h4 class='error'>Ocurrió un error al inscribirte al curso. Excepción " . $e->getMessage() . ".</h4>");
                             }
                             //validamos si hubo algun error
                             if ($huboError) {
@@ -671,37 +671,44 @@ function agregarContenido() {
 
             require_once 'modulos/cursos/modelos/CursoModelo.php';
             $curso = getCurso($idCurso);
-            if ($usuarioActual->idUsuario == getIdUsuarioDeCurso($idCurso)) {
-                if (isset($_GET['j'])) {
-                    $idTema = $_GET['j'];
-                } else {
-                    //no hay get['idTema'],
-                    //buscamos un tema y si no hay
-                    //creamos un tema con el mismo nombre que el curso
 
-                    require_once 'modulos/cursos/modelos/TemaModelo.php';
-                    require_once 'modulos/cursos/clases/Tema.php';
-                    $temas = getTemas($idCurso);
-                    if (isset($temas)) {
-                        $idTema = $temas[0]->idTema;
+            if (false) {
+                if ($usuarioActual->idUsuario == getIdUsuarioDeCurso($idCurso)) {
+                    if (isset($_GET['j'])) {
+                        $idTema = $_GET['j'];
                     } else {
-                        $tema = new Tema();
-                        $tema->nombre = $curso->titulo;
-                        $tema->idCurso = $curso->idCurso;
-                        $idTema = altaTema($tema);
+                        //no hay get['idTema'],
+                        //buscamos un tema y si no hay
+                        //creamos un tema con el mismo nombre que el curso
+
+                        require_once 'modulos/cursos/modelos/TemaModelo.php';
+                        require_once 'modulos/cursos/clases/Tema.php';
+                        $temas = getTemas($idCurso);
+                        if (isset($temas)) {
+                            $idTema = $temas[0]->idTema;
+                        } else {
+                            $tema = new Tema();
+                            $tema->nombre = $curso->titulo;
+                            $tema->idCurso = $curso->idCurso;
+                            $idTema = altaTema($tema);
+                        }
                     }
-                }
-                if ($idTema >= 0) {
-                    //Tenemos un idTema correcto
-                    require_once 'modulos/cursos/vistas/agregarContenido.php';
+                    if ($idTema >= 0) {
+                        //Tenemos un idTema correcto
+                        require_once 'modulos/cursos/vistas/agregarContenido.php';
+                    } else {
+                        //Ocurrió un error al dar de alta el tema
+                        setSessionMessage("<h3 class='error'>Ocurrió un error al dar de alta el tema</h4>");
+                        redirect("/curso/" . $curso->uniqueUrl);
+                    }
                 } else {
-                    //Ocurrió un error al dar de alta el tema
-                    setSessionMessage("<h3 class='error'>Ocurrió un error al dar de alta el tema</h4>");
-                    redirect("/curso/" . $curso->uniqueUrl);
+                    //Error, el usuario no es dueño de este curso, no puede modificar
+                    goToIndex();
                 }
             } else {
-                //Error, el usuario no es dueño de este curso, no puede modificar
-                goToIndex();
+                //Hay que arreglar el algoritmo de upload para que esto funcione
+                setSessionMessage("<h4 class='error'>Por el momento no se permite subir contenido.</h4>");
+                redirect("/curso/" . $curso->uniqueUrl);
             }
         } else {
             //Error, no hay get['i']
